@@ -20,7 +20,7 @@ ApproveJs is also easily extendible with custom tests.
 
    Via download:
 
-   [Download ZIP](http://vuejs.org/guide/events.html)
+   [Download ZIP](https://github.com/CharlGottschalk/approvejs/archive/v0.0.2.zip)
 2. Add the library before the end of your `</body>` tag
 
    ```html
@@ -32,4 +32,6 @@ ApproveJs is also easily extendible with custom tests.
    approve.value('hello world', {required: true});
    ```
 
-View the documentation for more info on rules and extending ApproveJs with your own tests.
+---
+
+View the [wiki](https://github.com/CharlGottschalk/approvejs/wiki) for more info and documentation on rules and extending ApproveJs with your own tests.
