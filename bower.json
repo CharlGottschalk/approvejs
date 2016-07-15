@@ -1,7 +1,7 @@
 {
   "name": "approvejs",
   "description": "A simple validation library that doesn't interfere.",
-  "main": "dist/approve.min.js",
+  "main": "dist/approve.js",
   "authors": [
     "Charl Gottschalk (http://charlg.co.za)"
   ],
