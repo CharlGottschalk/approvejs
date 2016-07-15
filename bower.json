@@ -1,6 +1,6 @@
 {
-  "name": "approve.js",
-  "description": "A simple validation library.",
+  "name": "approvejs",
+  "description": "A simple validation library that doesn't interfere.",
   "main": "dist/approve.min.js",
   "authors": [
     "Charl Gottschalk (http://charlg.co.za)"
@@ -12,7 +12,7 @@
     "validation",
     "validate"
   ],
-  "homepage": "https://github.com/CharlGottschalk/approvejs",
+  "homepage": "https://charlgottschalk.github.io/approvejs/",
   "moduleType": [
     "globals",
     "amd",
