@@ -1,0 +1,28 @@
+{
+  "name": "approve.js",
+  "description": "A simple validation library.",
+  "main": "dist/approve.min.js",
+  "authors": [
+    "Charl Gottschalk (http://charlg.co.za)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "js",
+    "validation",
+    "validate"
+  ],
+  "homepage": "https://github.com/CharlGottschalk/approvejs",
+  "moduleType": [
+    "globals",
+    "amd",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
