@@ -15,7 +15,7 @@ ApproveJs is also easily extendible with custom tests.
    Via Bower:
 
    ```
-   $bower install approve-js
+   $bower install approvejs
    ```
 
    Via download:
