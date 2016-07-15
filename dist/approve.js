@@ -144,7 +144,7 @@ String.prototype.format = function(col) {
             message: '{title} must be a maximum of {max} characters',
             expects: ['max']
         },
-        between: {
+        range: {
             validate: function(value, pars) {
                 return typeof value === 'string' && value.length >= pars.min && value.length <= pars.max;
             },
