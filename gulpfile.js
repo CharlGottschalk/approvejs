@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
+    gzip = require('gulp-gzip'),
     util = require('gulp-util');
 
 /*
@@ -15,7 +16,8 @@ gulp.task('default', function(notify) {
         .pipe(gulp.dest('dist'))
         .pipe(sourcemaps.init())
             .pipe(uglify().on('error', util.log))
-            .pipe(rename('aprove.min.js'))
+            .pipe(gzip())
+            .pipe(rename('approve.min.js'))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('dist'));
 });

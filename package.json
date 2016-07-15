@@ -11,7 +11,8 @@
   "author": "Charl Gottschalk",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-gzip": "^1.4.0"
   },
   "dependencies": {
     "gulp-rename": "^1.2.2",
