@@ -20,7 +20,7 @@ ApproveJs is also easily extendible with custom tests.
 
    Via download:
 
-   [Download ZIP](https://github.com/CharlGottschalk/approvejs/archive/v0.0.2.zip)
+   [Download](https://github.com/CharlGottschalk/approvejs/releases)
 2. Add the library before the end of your `</body>` tag
 
    ```html
