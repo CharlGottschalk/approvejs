@@ -11,17 +11,18 @@ ApproveJs is also easily extendible with custom tests.
 ### Getting Started
 
 1. Get the library
-    Via Bower:
-    `$bower install approve-js`
-    Via download:
-    [Download](http://vuejs.org/guide/events.html)
+...Via Bower:
+...`$bower install approve-js`
+
+...Via download:
+...[Download](http://vuejs.org/guide/events.html)
 2. Add the library before the end of your `</body` tag
-    ```html
-    <script src="approve.min.js"></script>
-    ```
+...```html
+<script src="approve.min.js"></script>
+```
 3. Now you can approve / validate values
-    ```javascript
-    approve.value('hello world', {required: true});
-    ```
+...```javascript
+approve.value('hello world', {required: true});
+```
 
 View the documentation for more info on rules and extending ApproveJs with your own tests.
