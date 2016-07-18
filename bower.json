@@ -7,12 +7,10 @@
   ],
   "license": "MIT",
   "keywords": [
-    "javascript",
-    "js",
     "validation",
     "validate"
   ],
-  "homepage": "https://charlgottschalk.github.io/approvejs/",
+  "homepage": "https://github.com/CharlGottschalk/approvejs",
   "moduleType": [
     "globals",
     "amd",
@@ -24,5 +22,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CharlGottschalk/approvejs.git"
+  }
 }

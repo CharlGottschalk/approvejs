@@ -136,10 +136,30 @@ describe("ApproveJs", function() {
 	    });
 	    // strength
 	    it("should be able to approve the strength of a password", function() {
-	        var is = approve.value('th!sIsaStr0ngPas$w0rd', {strength: true}).approved,
+	        var result = approve.value('th!sIsaStr0ngPas$w0rd', {strength: true}),
+	        	is = result.approved,
+	        	has = result.hasOwnProperty('score'),
 	            not = approve.value('Pfft!', {strength: true}).approved;
 	        expect(is).toBe(true);
+	        expect(has).toBe(true);
 	        expect(not).toBe(false);
+	    });
+	    // errors
+	    it("should be able to correctly format an error message", function() {
+	        var fromPar = approve.value('not an email', {email: true}, 'Email'),
+	        	fromProp = approve.value('not an email', {email: true, title: 'Email'}),
+	        	noTitle = approve.value('not an email', {email: true}),
+	        	isFromPar = fromPar.errors[0] === 'Email must be a valid email address',
+	        	isFromProp = fromProp.errors[0] === 'Email must be a valid email address',
+	        	isNoTitle = noTitle.errors[0] === 'must be a valid email address';
+	        expect(isFromPar).toBe(true);
+	        expect(isFromProp).toBe(true);
+	        expect(isNoTitle).toBe(true);
+	    });
+	    // config
+	    it("should be configurable", function() {
+	        var is = approve.tests.required.message === '{title} is a required value';
+	        expect(is).toBe(true);
 	    });
 
 	});	

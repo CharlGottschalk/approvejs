@@ -1,0 +1,18 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "opts": {
+        "template": "node_modules/docdash",
+        "encoding": "utf8",
+        "destination": "docs"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "path": "node_modules/docdash"
+    }
+}
