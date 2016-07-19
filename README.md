@@ -10,7 +10,7 @@ Using ApproveJs, you can automate validation however you please.
 
 Personally, I use [Vue.js](http://vuejs.org/guide/events.html) and use bindings to handle when validation occurs and display any errors.
 
-If you like to be in control, or have a little OCD like me, ApproveJs is for you.
+If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
 You can also easily [extend](https://github.com/CharlGottschalk/approvejs/wiki/Adding-Your-Own-Tests) ApproveJs with your own tests.
 
