@@ -1,6 +1,6 @@
 /*
- * approve.js 0.0.3
- * A simple validation library.
+ * approve.js 0.0.4
+ * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
  */
@@ -34,16 +34,16 @@
     /** 
      * ApproveJs version
      * @memberOf approve
+     * @ignore
      */
-    approve.VERSION = '0.0.3';
+    approve.VERSION = '0.0.4';
 
     /**
-     * Default tests.
-     * 
-     * Each test has at least three members
-     * 
-     * A 'validate' method wich is called when testing a value, a 'message' property that holds the default error message and an 'expects' property that is either false if the test expects no parameters, or an array of strings representing the names of the expected parameters.
-     * 
+     * Default tests.<br>
+     * Each test has at least three members.<br>
+     * <code>validate()</code> - the method which is called when testing a value.<br>
+     * <code>message</code> - the property that holds the default error message.<br>
+     * <code>expects</code> - the property that is either false if the test expects no parameters, or an array of strings representing the names of the expected parameters.<br>
      * Each test either returns a boolean or an object.
      * @memberOf approve
      * @namespace approve.tests
@@ -213,7 +213,7 @@
         },
         /**
          * Checks if a value is a minimum of n characters.
-         * @param {integer} min - The minimum allowed length.
+         * @param {Integer} min - The minimum allowed length.
          * @example
          * approve.value('some value', {min: 5});
          * @function min
@@ -229,7 +229,7 @@
         },
         /**
          * Checks if a value is a maximum of n characters.
-         * @param {integer} max - The maximum allowed length.
+         * @param {Integer} max - The maximum allowed length.
          * @example
          * approve.value('some value', {max: 20});
          * @function max
@@ -245,8 +245,8 @@
         },
         /**
          * Checks if a value's length is between a minimum and maximum.
-         * @param {integer} min - The minimum allowed length.
-         * @param {integer} max - The maximum allowed length.
+         * @param {Integer} min - The minimum allowed length.
+         * @param {Integer} max - The maximum allowed length.
          * @example
          * var rule = {
          *     range: {
@@ -269,7 +269,7 @@
         /**
          * Checks if a value is the same as the value of another.
          * This test gets the value from a DOM &lt;input/&gt; element.
-         * @param {string} field - The id of the DOM &lt;input/&gt; element to test against.
+         * @param {String} field - The id of the DOM &lt;input/&gt; element to test against.
          * @example
          * var rule = {
          *     equal: 'password'
@@ -289,7 +289,7 @@
         },
         /**
          * Checks if a value passes a given regular expression.
-         * @param {regexp} regex - The regular expression to test against.
+         * @param {RegExp} regex - The regular expression to test against. <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp" target="_blank">MDN</a>
          * @example
          * var rule = {
          *     format: /^[A-Za-z0-9]+$/i
@@ -319,6 +319,7 @@
      * @example
      * this._format('i can speak {0} since i was {1}', 'javascript',10});
      * @memberOf approve
+     * @ignore
      */
     approve._format = function(text, col) {
         col = typeof col === 'object' ? col : arrFn.slice.call(arguments, 1);
@@ -333,10 +334,11 @@
      * Returns an array of formatted error messages returned by tests that return objects instead of booleans.
      * @example
      * this._formatErrors(['array', 'of', 'errors'], title);
-     * @param {array} errors - The array of unformatted errors returned by the test's result.
-     * @param {string} title - The title to replace the {title} placeholder with.
-     * @return {array} The formatted errors
+     * @param {Array} errors - The array of unformatted errors returned by the test's result.
+     * @param {String} title - The title to replace the {title} placeholder with.
+     * @return {Array} The formatted errors
      * @memberOf approve
+     * @ignore
      */
     approve._formatErrors = function(errors, title) {
         var format = {title: title};
@@ -350,11 +352,12 @@
      * Returns the correctly formatted message representing the current test's failure.
      * @example
      * this._message(rule, rules, title);
-     * @param {string} rule - The current rule being processed.
-     * @param {object} rules - The rules object for the value being tested.
-     * @param {string} title - The title to replace the {title} placeholder with.
-     * @return {string} The correctly formatted error message
+     * @param {String} rule - The current rule being processed.
+     * @param {Object} rules - The rules object for the value being tested.
+     * @param {String} title - The title to replace the {title} placeholder with.
+     * @return {String} The correctly formatted error message
      * @memberOf approve
+     * @ignore
      */
     approve._message = function(rule, rules, title) {
         // Does the provided rule have a custom message?
@@ -401,13 +404,24 @@
     };
 
     /**
-     * Executes the tests based on given rules to validate a given value.
+     * Executes the tests based on given rules to validate a given value.<br><br>
+     * Returns an object with at least two properties:<br>
+     * <code>approved</code> : Boolean - <code>true</code> if test succeeded, otherwise <code>false</code>.<br>
+     * <code>errors</code> : Array of String - holds a list of formatted errors.
      * @example
-     * approve.value('some value', {test: constraints});
-     * @param {string|integer} value - The value to test against the rules.
-     * @param {object} rules - The constraints for the value being tested.
-     * @param {string} title - The title to replace the {title} placeholder with.
-     * @return {object} The object containing the result of the tests performed.
+     * var result = approve.value('some value', {test: constraints});
+     * if (result.approved) {
+     *    // Value is approved - do something
+     * } else {
+     *    // Do something with the errors
+     *    result.each(function(error) {
+     *       console.log(error);
+     *    });
+     * }
+     * @param {String|Integer} value - The value to test against the rules.
+     * @param {Object} rules - The constraints for the value being tested.
+     * @param {String} [title] - The title to replace the {title} placeholder in error messages with.
+     * @return {Object} The object containing the result of the tests performed.
      * @memberOf approve
      */
     approve.value = function(value, rules, title) {
@@ -456,6 +470,11 @@
                             }
                         }
                     }
+                    // Does the rule have config?
+                    if (rules[rule].hasOwnProperty('config')) {
+                        // Add the config to the pars object.
+                        pars.config = rules[rule].config;
+                    }
                     // Test the value.
                     var ret = this.tests[rule].validate(value, pars);
                     // Check if the returned value is an object.
@@ -498,18 +517,18 @@
     };
 
     /**
-     * Used to extend the default tests with custom tests.
+     * Used to add custom tests.
      * @example
      * var test = {
-     *      expects: false,
-     *      message: '{title} did not pass the test.',
-     *      validate: function(value) {
-     *          return this.strength(value);
-     *      },
-     *   };
-     *   approve.addTest(test, 'test_name');
-     * @param {obj} obj - The test object to add.
-     * @param {string} name - The name of the test.
+     *    expects: false,
+     *    message: '{title} did not pass the test.',
+     *    validate: function(value) {
+     *        return this.strength(value);
+     *    },
+     * };
+     * approve.addTest(test, 'test_name');
+     * @param {Object} obj - The test object to add.
+     * @param {String} name - The name of the test.
      * @return void
      * @memberOf approve
      */
@@ -526,44 +545,6 @@
             }
         } catch (e) {
             console.error('approve.addTest(): ' + e.message);
-        }
-    };
-
-    /**
-     * Used to configure default values, such as default error messages.
-     * @example
-     * approve.configure({
-     *     test: {
-     *         message: 'New error message'
-     *     },
-     * });
-     * @param {obj} obj - The configuration to update.
-     * @return void
-     * @memberOf approve
-     */
-    approve.configure = function(obj) {
-        // If obj is not a valid object, we cannot continue.
-        if (typeof obj !== 'object') {
-            console.error('approve.configure(obj): obj is not a valid object.');
-        }
-        try {
-            // Loop all properties in the config object.
-            for (var name in obj) {
-                if (obj.hasOwnProperty(name)) {
-                    // Does the tests have the object being configured?
-                    if (this.tests.hasOwnProperty(name)) {
-                        // The test exists. Configure it.
-                        for (var prop in obj[name]) {
-                            if (obj[name].hasOwnProperty(prop)) {
-                                // Set the property of the test, to that of the configuration.
-                                this.tests[name][prop] = obj[name][prop];
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (e) {
-            console.error('approve.configure(): ' + e.message);
         }
     };
 
@@ -596,8 +577,14 @@
 /** 
  * Checks if a value is a strong password string.
  * @example
- * approve.value('some value', {srength: true});
- * @return {object} An object with various properties relating to the value's score.
+ * var rule = {
+ *     strength: {
+ *         min: 8,
+ *         bonus: 10
+ *     }
+ * };
+ * approve.value('some value', rule);
+ * @return {Object} An object with various properties relating to the value's score.
  * @function strength
  * @memberOf approve.tests
  * @inner
@@ -628,13 +615,24 @@ var strength = {
      */
     message: '{title} did not pass the strength test.',
     /**
-     * Expects no parameters.
+     * Expects the 'min' and 'bonus' parameters.
      */
-    expects: false,
+    expects: ['min', 'bonus'],
+    /**
+     * Default error messages
+     * @type {Object}
+     */
+    errors: {
+        isMinimum: '{title} must be at least {min} characters',
+        hasLower: '{title} must have at least 1 lower case character',
+        hasUpper: '{title} must have at least 1 upper case character',
+        hasNumber: '{title} must have at least 1 number',
+        hasSpecial: '{title} must have at least 1 special character'
+    },
     /**
      * Returns an object containing the score of a value.
-     * @param {string} text - The text to score.
-     * @return {object} The score of the text.
+     * @param {String} text - The text to score.
+     * @return {Object} The score of the text.
      */
     score: function(text) {
         // Create the object that represents the score of the text
@@ -696,52 +694,51 @@ var strength = {
     },
     /**
      * Returns an object containing the score and validation of a value.
-     * @param {string} text - The text to score.
-     * @return {object} The score and validation of the text.
+     * @param {String} text - The text to score.
+     * @return {Object} The score and validation of the text.
      */
     strength: function (text) {
-        var min = this.minimum,
-            bonus = this.minimumBonus,
-            message = this.messages[0],
-            result = {     
-                message: message,
-                minimum: min,
-                minimumBonus: bonus,
+        var result = {
+                message: this.messages[0],
+                minimum: this.minimum,
+                minimumBonus: this.minimumBonus,
                 score: {},
                 valid: false,
-                getErrors: function() {
-                    var errors = [];
-                    if (!this.score.isMinimum) {
-                        errors.push('{title} must be at least ' + min + ' characters');
-                    }
-                    if (!this.score.hasLower) {
-                        errors.push('{title} must have at least 1 lower case character');
-                    }
-                    if (!this.score.hasUpper) {
-                        errors.push('{title} must have at least 1 upper case character');
-                    }
-                    if (!this.score.hasSpecial) {
-                        errors.push('{title} must have at least 1 special character');
-                    }
-                    if (!this.score.hasNumber) {
-                        errors.push('{title} must have at least 1 number');
-                    }
-                    return errors;
-                }
+                errors: []
             };
         result.score = this.score(text);
         result.message = this.messages[result.score.value];
+        if (!this.score.isMinimum) {
+            this.errors.push(this.errors.isMinimum);
+        }
+        if (!this.score.hasLower) {
+            this.errors.push(this.errors.hasLower);
+        }
+        if (!this.score.hasUpper) {
+            this.errors.push(this.errors.hasUpper);
+        }
+        if (!this.score.hasSpecial) {
+            this.errors.push(this.errors.hasSpecial);
+        }
+        if (!this.score.hasNumber) {
+            this.errors.push(this.errors.hasNumber);
+        }
         if (result.score.value > 4) {
           result.valid = true;
-        }
+        } 
         return result;
     },
     /**
      * The method that is called by ApproveJs to perform the test.
-     * @param {string|integer} value - The value to test.
-     * @return {object} The result object of the test.
+     * @param {String} value - The value to test.
+     * @return {Object} The result object of the test.
      */
-    validate: function(value) {
+    validate: function(value, pars) {
+        this.minimum = pars.min || this.minimum;
+        this.minimumBonus = pars.bonus || this.minimumBonus;
+        if (pars.hasOwnProperty('config') && pars.config.hasOwnProperty(messages)) {
+            this.errors = pars.config.messages;
+        }
         return this.strength(value);
     },
 };

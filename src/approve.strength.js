@@ -8,8 +8,14 @@
 /** 
  * Checks if a value is a strong password string.
  * @example
- * approve.value('some value', {srength: true});
- * @return {object} An object with various properties relating to the value's score.
+ * var rule = {
+ *     strength: {
+ *         min: 8,
+ *         bonus: 10
+ *     }
+ * };
+ * approve.value('some value', rule);
+ * @return {Object} An object with various properties relating to the value's score.
  * @function strength
  * @memberOf approve.tests
  * @inner
@@ -40,13 +46,24 @@ var strength = {
      */
     message: '{title} did not pass the strength test.',
     /**
-     * Expects no parameters.
+     * Expects the 'min' and 'bonus' parameters.
      */
-    expects: false,
+    expects: ['min', 'bonus'],
+    /**
+     * Default error messages
+     * @type {Object}
+     */
+    errors: {
+        isMinimum: '{title} must be at least {min} characters',
+        hasLower: '{title} must have at least 1 lower case character',
+        hasUpper: '{title} must have at least 1 upper case character',
+        hasNumber: '{title} must have at least 1 number',
+        hasSpecial: '{title} must have at least 1 special character'
+    },
     /**
      * Returns an object containing the score of a value.
-     * @param {string} text - The text to score.
-     * @return {object} The score of the text.
+     * @param {String} text - The text to score.
+     * @return {Object} The score of the text.
      */
     score: function(text) {
         // Create the object that represents the score of the text
@@ -108,52 +125,51 @@ var strength = {
     },
     /**
      * Returns an object containing the score and validation of a value.
-     * @param {string} text - The text to score.
-     * @return {object} The score and validation of the text.
+     * @param {String} text - The text to score.
+     * @return {Object} The score and validation of the text.
      */
     strength: function (text) {
-        var min = this.minimum,
-            bonus = this.minimumBonus,
-            message = this.messages[0],
-            result = {     
-                message: message,
-                minimum: min,
-                minimumBonus: bonus,
+        var result = {
+                message: this.messages[0],
+                minimum: this.minimum,
+                minimumBonus: this.minimumBonus,
                 score: {},
                 valid: false,
-                getErrors: function() {
-                    var errors = [];
-                    if (!this.score.isMinimum) {
-                        errors.push('{title} must be at least ' + min + ' characters');
-                    }
-                    if (!this.score.hasLower) {
-                        errors.push('{title} must have at least 1 lower case character');
-                    }
-                    if (!this.score.hasUpper) {
-                        errors.push('{title} must have at least 1 upper case character');
-                    }
-                    if (!this.score.hasSpecial) {
-                        errors.push('{title} must have at least 1 special character');
-                    }
-                    if (!this.score.hasNumber) {
-                        errors.push('{title} must have at least 1 number');
-                    }
-                    return errors;
-                }
+                errors: []
             };
         result.score = this.score(text);
         result.message = this.messages[result.score.value];
+        if (!this.score.isMinimum) {
+            this.errors.push(this.errors.isMinimum);
+        }
+        if (!this.score.hasLower) {
+            this.errors.push(this.errors.hasLower);
+        }
+        if (!this.score.hasUpper) {
+            this.errors.push(this.errors.hasUpper);
+        }
+        if (!this.score.hasSpecial) {
+            this.errors.push(this.errors.hasSpecial);
+        }
+        if (!this.score.hasNumber) {
+            this.errors.push(this.errors.hasNumber);
+        }
         if (result.score.value > 4) {
           result.valid = true;
-        }
+        } 
         return result;
     },
     /**
      * The method that is called by ApproveJs to perform the test.
-     * @param {string|integer} value - The value to test.
-     * @return {object} The result object of the test.
+     * @param {String} value - The value to test.
+     * @return {Object} The result object of the test.
      */
-    validate: function(value) {
+    validate: function(value, pars) {
+        this.minimum = pars.min || this.minimum;
+        this.minimumBonus = pars.bonus || this.minimumBonus;
+        if (pars.hasOwnProperty('config') && pars.config.hasOwnProperty(messages)) {
+            this.errors = pars.config.messages;
+        }
         return this.strength(value);
     },
 };

@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="approve.html">approve</a><ul class='methods'><li data-type='method'><a href="approve.html#._format">_format</a></li><li data-type='method'><a href="approve.html#._formatErrors">_formatErrors</a></li><li data-type='method'><a href="approve.html#._message">_message</a></li><li data-type='method'><a href="approve.html#.addTest">addTest</a></li><li data-type='method'><a href="approve.html#.configure">configure</a></li><li data-type='method'><a href="approve.html#.noconflict">noconflict</a></li><li data-type='method'><a href="approve.html#.value">value</a></li></ul></li><li><a href="approve.tests.html">tests</a><ul class='methods'><li data-type='method'><a href="approve.tests.html#~alpha">alpha</a></li><li data-type='method'><a href="approve.tests.html#~alphaNumeric">alphaNumeric</a></li><li data-type='method'><a href="approve.tests.html#~cc">cc</a></li><li data-type='method'><a href="approve.tests.html#~currency">currency</a></li><li data-type='method'><a href="approve.tests.html#~decimal">decimal</a></li><li data-type='method'><a href="approve.tests.html#~email">email</a></li><li data-type='method'><a href="approve.tests.html#~equal">equal</a></li><li data-type='method'><a href="approve.tests.html#~format">format</a></li><li data-type='method'><a href="approve.tests.html#~ip">ip</a></li><li data-type='method'><a href="approve.tests.html#~max">max</a></li><li data-type='method'><a href="approve.tests.html#~min">min</a></li><li data-type='method'><a href="approve.tests.html#~numeric">numeric</a></li><li data-type='method'><a href="approve.tests.html#~range">range</a></li><li data-type='method'><a href="approve.tests.html#~required">required</a></li><li data-type='method'><a href="approve.tests.html#~strength">strength</a></li><li data-type='method'><a href="approve.tests.html#~url">url</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="approve.html">approve</a><ul class='methods'><li data-type='method'><a href="approve.html#.addTest">addTest</a></li><li data-type='method'><a href="approve.html#.noconflict">noconflict</a></li><li data-type='method'><a href="approve.html#.value">value</a></li></ul></li><li><a href="approve.tests.html">tests</a><ul class='methods'><li data-type='method'><a href="approve.tests.html#~alpha">alpha</a></li><li data-type='method'><a href="approve.tests.html#~alphaNumeric">alphaNumeric</a></li><li data-type='method'><a href="approve.tests.html#~cc">cc</a></li><li data-type='method'><a href="approve.tests.html#~currency">currency</a></li><li data-type='method'><a href="approve.tests.html#~decimal">decimal</a></li><li data-type='method'><a href="approve.tests.html#~email">email</a></li><li data-type='method'><a href="approve.tests.html#~equal">equal</a></li><li data-type='method'><a href="approve.tests.html#~format">format</a></li><li data-type='method'><a href="approve.tests.html#~ip">ip</a></li><li data-type='method'><a href="approve.tests.html#~max">max</a></li><li data-type='method'><a href="approve.tests.html#~min">min</a></li><li data-type='method'><a href="approve.tests.html#~numeric">numeric</a></li><li data-type='method'><a href="approve.tests.html#~range">range</a></li><li data-type='method'><a href="approve.tests.html#~required">required</a></li><li data-type='method'><a href="approve.tests.html#~strength">strength</a></li><li data-type='method'><a href="approve.tests.html#~url">url</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -45,6 +45,39 @@
     
 
 
+    <section class="readme">
+        <article><h1>ApproveJs</h1><h4>A simple validation library that doesn't interfere</h4><p><img src="https://img.shields.io/badge/version-0.0.4-green.svg" alt="version 0.0.4"></p>
+<p>When I say, doesn't interfere, I mean it doesn't attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors.</p>
+<p>ApproveJs exposes a single method, <code>value()</code> and leaves you to decide when a value is validated and how errors are displayed.</p>
+<p>Using ApproveJs, you can automate validation however you please.</p>
+<p>Personally, I use <a href="http://vuejs.org/guide/events.html">Vue.js</a> and use bindings to handle when validation occurs and display any errors.</p>
+<p>If you like to be in control, or have a little OCD like me, ApproveJs is for you.</p>
+<p>You can also easily <a href="https://github.com/CharlGottschalk/approvejs/wiki/Adding-Your-Own-Tests">extend</a> ApproveJs with your own tests.</p>
+<h3>Getting Started</h3><ol>
+<li><p>Get the library</p>
+<p>Via Bower:</p>
+<pre class="prettyprint source"><code>$ bower install approvejs</code></pre><p>or:</p>
+<p><a href="https://github.com/CharlGottschalk/approvejs/releases"
+   style="color: #fff; background-color: #6496c8; margin: 0 10px 0 0; padding: 15px 45px; font-size: 32px; line-height: 1.8; box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);"> Download Latest Release </a></p>
+</li>
+<li><p>Add the library before the end of your closing <code>&lt;body&gt;</code> tag</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;approve.min.js&quot;>&lt;/script></code></pre></li>
+<li><p>Approve some values</p>
+<pre class="prettyprint source lang-javascript"><code>var result = approve.value('hello world', {required: true});
+
+if (result.approved) {
+   // Value is approved - do something
+} else {
+   // Do something with the errors
+   result.each(function(error) {
+      console.log(error);
+   });
+}</code></pre></li>
+</ol>
+<hr>
+<p>View the <a href="https://github.com/CharlGottschalk/approvejs/wiki">wiki</a> for more info and documentation on rules and extending ApproveJs with your own tests.</p></article>
+    </section>
+
 
 
 
@@ -55,7 +88,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jul 18 2016 18:41:02 GMT+0200 (South Africa Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 19 2016 11:21:20 GMT+0200 (South Africa Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

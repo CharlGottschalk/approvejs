@@ -1,6 +1,6 @@
 {
-  "name": "approve.js",
-  "version": "0.0.3",
+  "name": "approvejs",
+  "version": "0.0.4",
   "description": "A simple validation library that doesn't interfere.",
   "keywords": [
     "validation",
@@ -20,6 +20,6 @@
     "gulp-util": "^3.0.7"
   },
   "scripts": {
-    "generate-docs": "node_modules/.bin/jsdoc dist/approve.js -t node_modules/docdash -d docs/"
+    "generate-docs": "node_modules/.bin/jsdoc dist/approve.js -r README.md -t node_modules/docdash -d docs/"
   }
 }
