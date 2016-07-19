@@ -43,7 +43,7 @@ Add a `script` tag to the library before the end of your closing `<body>` tag
 ##### Node
 
 ```
-$ NPM install approvejs
+$ npm install approvejs
 ```
 
 Require `approvejs`.
