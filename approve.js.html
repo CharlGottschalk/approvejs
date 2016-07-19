@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="approve.html">approve</a><ul class='methods'><li data-type='method'><a href="approve.html#.addTest">addTest</a></li><li data-type='method'><a href="approve.html#.noconflict">noconflict</a></li><li data-type='method'><a href="approve.html#.value">value</a></li></ul></li><li><a href="approve.tests.html">tests</a><ul class='methods'><li data-type='method'><a href="approve.tests.html#~alpha">alpha</a></li><li data-type='method'><a href="approve.tests.html#~alphaNumeric">alphaNumeric</a></li><li data-type='method'><a href="approve.tests.html#~cc">cc</a></li><li data-type='method'><a href="approve.tests.html#~currency">currency</a></li><li data-type='method'><a href="approve.tests.html#~decimal">decimal</a></li><li data-type='method'><a href="approve.tests.html#~email">email</a></li><li data-type='method'><a href="approve.tests.html#~equal">equal</a></li><li data-type='method'><a href="approve.tests.html#~format">format</a></li><li data-type='method'><a href="approve.tests.html#~ip">ip</a></li><li data-type='method'><a href="approve.tests.html#~max">max</a></li><li data-type='method'><a href="approve.tests.html#~min">min</a></li><li data-type='method'><a href="approve.tests.html#~numeric">numeric</a></li><li data-type='method'><a href="approve.tests.html#~range">range</a></li><li data-type='method'><a href="approve.tests.html#~required">required</a></li><li data-type='method'><a href="approve.tests.html#~strength">strength</a></li><li data-type='method'><a href="approve.tests.html#~url">url</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="approve.html">approve</a><ul class='methods'><li data-type='method'><a href="approve.html#.addTest">addTest</a></li><li data-type='method'><a href="approve.html#.value">value</a></li></ul></li><li><a href="approve.tests.html">tests</a><ul class='methods'><li data-type='method'><a href="approve.tests.html#~alpha">alpha</a></li><li data-type='method'><a href="approve.tests.html#~alphaNumeric">alphaNumeric</a></li><li data-type='method'><a href="approve.tests.html#~cc">cc</a></li><li data-type='method'><a href="approve.tests.html#~currency">currency</a></li><li data-type='method'><a href="approve.tests.html#~decimal">decimal</a></li><li data-type='method'><a href="approve.tests.html#~email">email</a></li><li data-type='method'><a href="approve.tests.html#~equal">equal</a></li><li data-type='method'><a href="approve.tests.html#~format">format</a></li><li data-type='method'><a href="approve.tests.html#~ip">ip</a></li><li data-type='method'><a href="approve.tests.html#~max">max</a></li><li data-type='method'><a href="approve.tests.html#~min">min</a></li><li data-type='method'><a href="approve.tests.html#~numeric">numeric</a></li><li data-type='method'><a href="approve.tests.html#~range">range</a></li><li data-type='method'><a href="approve.tests.html#~required">required</a></li><li data-type='method'><a href="approve.tests.html#~strength">strength</a></li><li data-type='method'><a href="approve.tests.html#~url">url</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -38,7 +38,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * approve.js 0.0.4
+ * approve.js 0.0.5
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
@@ -46,25 +46,22 @@
 
 /** @namespace approve */
 ;(function(root, factory) {    // eslint-disable-line no-extra-semi
-    // Save the previous value of 'approve'
-    root._approve = root.approve;
-
     if (typeof define === 'function' &amp;&amp; define.amd) {
         // AMD. Register as an anonymous module.
         define(function() {
             // Also create a global in case some scripts
             // that are loaded still are looking for
             // a global even when an AMD loader is in use.
-            return (root.approve = factory(root));
+            return (root.approve = factory());
         });
     } else if (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
         // like Node.
-        module.exports = factory(root);
+        module.exports = factory();
     } else {
         // Browser globals (root is self)
-        root.approve = factory(root);
+        root.approve = factory();
     }
 }(this, function(root) {
     /** @constructor */
@@ -75,7 +72,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '0.0.4';
+    approve.VERSION = '0.0.5';
 
     /**
      * Default tests.&lt;br>
@@ -320,11 +317,10 @@
          */
         equal: {
             validate: function(value, pars) {
-                var other = document.getElementById(pars.field);
-                return '' + value === '' + other.value;
+                return '' + value === '' + pars.value;
             },
             message: '{title} must be equal to {field}',
-            expects: ['field']
+            expects: ['value', 'field']
         },
         /**
          * Checks if a value passes a given regular expression.
@@ -602,198 +598,185 @@
         }
     };
 
-    /**
-     * Returns the root approve variable back to the previous object
+    /** 
+     * Checks if a value is a strong password string.
      * @example
-     * var approveObj = approve.noconflict();
-     * opproveObj.value(...);
-     * @return this
-     * @memberOf approve
+     * var rule = {
+     *     strength: {
+     *         min: 8,
+     *         bonus: 10
+     *     }
+     * };
+     * approve.value('some value', rule);
+     * @return {Object} An object with various properties relating to the value's score.
+     * @function strength
+     * @memberOf approve.tests
+     * @inner
      */
-    approve.noconflict = function() {
-        root.approve = root._approve;
-        return this;
+    var strength = {
+        /**
+         * The minimum length a password must be.
+         */
+        minimum: 8,
+        /**
+         * The minimum length a password must be for a bonus point.
+         */
+        minimumBonus: 10,
+        /**
+         * The text representing the strength of a password.
+         */
+        messages: {
+            0: 'Very Weak',
+            1: 'Weak',
+            2: 'Better',
+            3: 'Almost',
+            4: 'Acceptable',
+            5: 'Strong',
+            6: 'Very Strong'
+        },
+        /**
+         * The default error message.
+         */
+        message: '{title} did not pass the strength test.',
+        /**
+         * Expects the 'min' and 'bonus' parameters.
+         */
+        expects: ['min', 'bonus'],
+        /**
+         * Default error messages
+         * @type {Object}
+         */
+        errors: {
+            isMinimum: '{title} must be at least {min} characters',
+            hasLower: '{title} must have at least 1 lower case character',
+            hasUpper: '{title} must have at least 1 upper case character',
+            hasNumber: '{title} must have at least 1 number',
+            hasSpecial: '{title} must have at least 1 special character'
+        },
+        /**
+         * Returns an object containing the score of a value.
+         * @param {String} text - The text to score.
+         * @return {Object} The score of the text.
+         */
+        score: function(text) {
+            // Create the object that represents the score of the text
+            var score = {
+                value: 0,
+                isMinimum: false,
+                hasLower: false,
+                hasUpper: false,
+                hasNumber: false,
+                hasSpecial: false,
+                isBonus: false,
+                strength: 0
+            };
+            // If text is longer than minimum give 1 point.
+            if (text.length > this.minimum){
+                score.value++;
+                score.isMinimum = true;
+            } else {
+                score.value = 1;
+                score.isMinimum = false;
+            }
+            // If text has lowercase characters give 1 point.
+            if ( text.match(/[a-z]/) ) {
+                if(score.isMinimum) {
+                    score.value++;
+                }
+                score.hasLower = true;
+            }
+            // If text has uppercase characters give 1 point.
+            if ( text.match(/[A-Z]/) ) {
+                if(score.isMinimum) {
+                    score.value++;
+                }
+                score.hasUpper = true;
+            }
+            // If text has at least one number give 1 point.
+            if (text.match(/\d+/)) {
+                if(score.isMinimum) {
+                    score.value++;
+                }
+                score.hasNumber = true;
+            }
+            // If text has at least one special caracther give 1 point.
+            if ( text.match(/.[!,@,#,$,%,^,&amp;,*,?,_,~,-,(,)]/) ) {
+                if(score.isMinimum) {
+                    score.value++;
+                }
+                score.hasSpecial = true;
+            }
+            // If text is longer than minimumBonus give another 1 point.
+            if (text.length > this.minimumBonus) {
+                score.value++;
+                score.isBonus = true;
+            }
+            // Set the percentage value.
+            score.strength = Math.ceil((score.value / 6) * 100);
+            // Return the score object.
+            return score;
+        },
+        /**
+         * Returns an object containing the score and validation of a value.
+         * @param {String} text - The text to score.
+         * @return {Object} The score and validation of the text.
+         */
+        strength: function (text) {
+            var result = {
+                    message: this.messages[0],
+                    minimum: this.minimum,
+                    minimumBonus: this.minimumBonus,
+                    score: {},
+                    valid: false,
+                    errors: []
+                };
+            result.score = this.score(text);
+            result.message = this.messages[result.score.value];
+            if (!result.score.isMinimum) {
+                result.errors.push(this.errors.isMinimum);
+            }
+            if (!result.score.hasLower) {
+                result.errors.push(this.errors.hasLower);
+            }
+            if (!result.score.hasUpper) {
+                result.errors.push(this.errors.hasUpper);
+            }
+            if (!result.score.hasSpecial) {
+                result.errors.push(this.errors.hasSpecial);
+            }
+            if (!result.score.hasNumber) {
+                result.errors.push(this.errors.hasNumber);
+            }
+            if (result.score.value > 4) {
+              result.valid = true;
+            } 
+            return result;
+        },
+        /**
+         * The method that is called by ApproveJs to perform the test.
+         * @param {String} value - The value to test.
+         * @return {Object} The result object of the test.
+         */
+        validate: function(value, pars) {
+            this.minimum = pars.min || this.minimum;
+            this.minimumBonus = pars.bonus || this.minimumBonus;
+            if (pars.hasOwnProperty('config') &amp;&amp; pars.config.hasOwnProperty('messages')) {
+                for (var message in pars.config.messages) {
+                    if (pars.config.messages.hasOwnProperty(message)) {
+                        this.errors[message] = pars.config.messages[message];
+                    }
+                }
+            }
+            return this.strength(value);
+        },
     };
-    
+    approve.tests.strength = strength;
+
     /*
      * Return the main ApproveJs object.
      */
     return approve;
-}));
-
-/** 
- * Checks if a value is a strong password string.
- * @example
- * var rule = {
- *     strength: {
- *         min: 8,
- *         bonus: 10
- *     }
- * };
- * approve.value('some value', rule);
- * @return {Object} An object with various properties relating to the value's score.
- * @function strength
- * @memberOf approve.tests
- * @inner
- */
-var strength = {
-    /**
-     * The minimum length a password must be.
-     */
-    minimum: 8,
-    /**
-     * The minimum length a password must be for a bonus point.
-     */
-    minimumBonus: 10,
-    /**
-     * The text representing the strength of a password.
-     */
-    messages: {
-        0: 'Very Weak',
-        1: 'Weak',
-        2: 'Better',
-        3: 'Almost',
-        4: 'Acceptable',
-        5: 'Strong',
-        6: 'Very Strong'
-    },
-    /**
-     * The default error message.
-     */
-    message: '{title} did not pass the strength test.',
-    /**
-     * Expects the 'min' and 'bonus' parameters.
-     */
-    expects: ['min', 'bonus'],
-    /**
-     * Default error messages
-     * @type {Object}
-     */
-    errors: {
-        isMinimum: '{title} must be at least {min} characters',
-        hasLower: '{title} must have at least 1 lower case character',
-        hasUpper: '{title} must have at least 1 upper case character',
-        hasNumber: '{title} must have at least 1 number',
-        hasSpecial: '{title} must have at least 1 special character'
-    },
-    /**
-     * Returns an object containing the score of a value.
-     * @param {String} text - The text to score.
-     * @return {Object} The score of the text.
-     */
-    score: function(text) {
-        // Create the object that represents the score of the text
-        var score = {
-            value: 0,
-            isMinimum: false,
-            hasLower: false,
-            hasUpper: false,
-            hasNumber: false,
-            hasSpecial: false,
-            isBonus: false,
-            strength: 0
-        };
-        // If text is longer than minimum give 1 point.
-        if (text.length > this.minimum){
-            score.value++;
-            score.isMinimum = true;
-        } else {
-            score.value = 1;
-            score.isMinimum = false;
-        }
-        // If text has lowercase characters give 1 point.
-        if ( text.match(/[a-z]/) ) {
-            if(score.isMinimum) {
-                score.value++;
-            }
-            score.hasLower = true;
-        }
-        // If text has uppercase characters give 1 point.
-        if ( text.match(/[A-Z]/) ) {
-            if(score.isMinimum) {
-                score.value++;
-            }
-            score.hasUpper = true;
-        }
-        // If text has at least one number give 1 point.
-        if (text.match(/\d+/)) {
-            if(score.isMinimum) {
-                score.value++;
-            }
-            score.hasNumber = true;
-        }
-        // If text has at least one special caracther give 1 point.
-        if ( text.match(/.[!,@,#,$,%,^,&amp;,*,?,_,~,-,(,)]/) ) {
-            if(score.isMinimum) {
-                score.value++;
-            }
-            score.hasSpecial = true;
-        }
-        // If text is longer than minimumBonus give another 1 point.
-        if (text.length > this.minimumBonus) {
-            score.value++;
-            score.isBonus = true;
-        }
-        // Set the percentage value.
-        score.strength = Math.ceil((score.value / 6) * 100);
-        // Return the score object.
-        return score;
-    },
-    /**
-     * Returns an object containing the score and validation of a value.
-     * @param {String} text - The text to score.
-     * @return {Object} The score and validation of the text.
-     */
-    strength: function (text) {
-        var result = {
-                message: this.messages[0],
-                minimum: this.minimum,
-                minimumBonus: this.minimumBonus,
-                score: {},
-                valid: false,
-                errors: []
-            };
-        result.score = this.score(text);
-        result.message = this.messages[result.score.value];
-        if (!result.score.isMinimum) {
-            result.errors.push(this.errors.isMinimum);
-        }
-        if (!result.score.hasLower) {
-            result.errors.push(this.errors.hasLower);
-        }
-        if (!result.score.hasUpper) {
-            result.errors.push(this.errors.hasUpper);
-        }
-        if (!result.score.hasSpecial) {
-            result.errors.push(this.errors.hasSpecial);
-        }
-        if (!result.score.hasNumber) {
-            result.errors.push(this.errors.hasNumber);
-        }
-        if (result.score.value > 4) {
-          result.valid = true;
-        } 
-        return result;
-    },
-    /**
-     * The method that is called by ApproveJs to perform the test.
-     * @param {String} value - The value to test.
-     * @return {Object} The result object of the test.
-     */
-    validate: function(value, pars) {
-        this.minimum = pars.min || this.minimum;
-        this.minimumBonus = pars.bonus || this.minimumBonus;
-        if (pars.hasOwnProperty('config') &amp;&amp; pars.config.hasOwnProperty('messages')) {
-            for (var message in pars.config.messages) {
-                if (pars.config.messages.hasOwnProperty(message)) {
-                    this.errors[message] = pars.config.messages[message];
-                }
-            }
-        }
-        return this.strength(value);
-    },
-};
-approve.addTest(strength, 'strength');</code></pre>
+}));</code></pre>
         </article>
     </section>
 
@@ -805,7 +788,7 @@ approve.addTest(strength, 'strength');</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 19 2016 13:03:47 GMT+0200 (South Africa Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 19 2016 15:37:23 GMT+0200 (South Africa Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
