@@ -2,24 +2,31 @@
   "name": "approvejs",
   "version": "0.0.4",
   "description": "A simple validation library that doesn't interfere.",
+  "main": "dist/approve.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CharlGottschalk/approvejs.git"
+  },
   "keywords": [
     "validation",
-    "validate"
+    "validate",
+    "approve"
   ],
-  "author": "Charl Gottschalk",
+  "author": "Charl Gottschalk (http://charlg.co.za)",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-gzip": "^1.4.0"
-  },
-  "dependencies": {
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.4",
+    "gulp-gzip": "^1.4.0",
     "gulp-util": "^3.0.7"
   },
   "scripts": {
     "generate-docs": "node_modules/.bin/jsdoc dist/approve.js -r README.md -t node_modules/docdash -d docs/"
+  },
+  "bugs": {
+    "url": "https://github.com/CharlGottschalk/approvejs/issues"
   }
 }
