@@ -52,3 +52,11 @@ You can also easily [extend](https://github.com/CharlGottschalk/approvejs/wiki/A
 ---
 
 View the [wiki](https://github.com/CharlGottschalk/approvejs/wiki) for more info and documentation on rules and extending ApproveJs with your own tests.
+
+---
+
+#### To Do:
+
+- Improve performance
+- Improve cyclomatic complexity
+- Leaner functions

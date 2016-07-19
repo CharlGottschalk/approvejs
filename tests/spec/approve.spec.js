@@ -1,7 +1,7 @@
 describe("ApproveJs", function() {
 
     it("should be accessible from 'approve' variable", function() {
-        var is = approve.NAME === 'ApproveJs' ? true : false;
+        var is = approve ? true : false;
         expect(is).toBe(true);
     });
 
@@ -136,10 +136,16 @@ describe("ApproveJs", function() {
 	    });
 	    // strength
 	    it("should be able to approve the strength of a password", function() {
-	        var result = approve.value('th!sIsaStr0ngPas$w0rd', {strength: true}),
+	    	var rule = {
+	    		strength: {
+	    			min: 6,
+	    			bonus: 7
+	    		}
+	    	};
+	        var result = approve.value('th!sIsaStr0ngPas$w0rd', rule),
 	        	is = result.approved,
 	        	has = result.hasOwnProperty('score'),
-	            not = approve.value('Pfft!', {strength: true}).approved;
+	            not = approve.value('Pfft!', rule).approved;
 	        expect(is).toBe(true);
 	        expect(has).toBe(true);
 	        expect(not).toBe(false);
@@ -152,13 +158,30 @@ describe("ApproveJs", function() {
 	        	isFromPar = fromPar.errors[0] === 'Email must be a valid email address',
 	        	isFromProp = fromProp.errors[0] === 'Email must be a valid email address',
 	        	isNoTitle = noTitle.errors[0] === 'must be a valid email address';
+	        console.log(fromPar);
+	        console.log(fromProp);
+	        console.log(noTitle);
 	        expect(isFromPar).toBe(true);
 	        expect(isFromProp).toBe(true);
 	        expect(isNoTitle).toBe(true);
 	    });
 	    // config
 	    it("should be configurable", function() {
-	        var is = approve.tests.required.message === '{title} is a required value';
+	    	var rule = {
+	    		title: 'password',
+	    		strength: {
+	    			min: 6,
+	    			bonus: 7,
+	    			config: {
+	    				messages: {
+	    					hasLower: 'At least one lower case letter expected from {title}'
+	    				}
+	    			}
+	    		}
+	    	};
+	        var result = approve.value('@THISI$ASTR0NGPASSW0RD', rule),
+	        	is = result.errors[0] === 'At least one lower case letter expected from password';
+	        console.log(result);
 	        expect(is).toBe(true);
 	    });
 

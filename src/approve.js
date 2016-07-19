@@ -1,4 +1,4 @@
-/*
+/**
  * approve.js 0.0.4
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
@@ -322,7 +322,7 @@
      * @ignore
      */
     approve._format = function(text, col) {
-        col = typeof col === 'object' ? col : arrFn.slice.call(arguments, 1);
+        col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
         return text.replace(/\{\{|\}\}|\{(\w+)\}/g, function (m, n) {
             if (m == "{{") { return "{"; }
             if (m == "}}") { return "}"; }
@@ -333,19 +333,63 @@
     /**
      * Returns an array of formatted error messages returned by tests that return objects instead of booleans.
      * @example
-     * this._formatErrors(['array', 'of', 'errors'], title);
+     * this._formatMessages(['array', 'of', 'errors'], title);
      * @param {Array} errors - The array of unformatted errors returned by the test's result.
      * @param {String} title - The title to replace the {title} placeholder with.
      * @return {Array} The formatted errors
      * @memberOf approve
      * @ignore
      */
-    approve._formatErrors = function(errors, title) {
-        var format = {title: title};
+    approve._formatMessages = function(errors, rule, rules, title) {
+        var format = this._getFormat(rule, rules, title);
         for (var i = errors.length - 1; i >= 0; i--) {
-            errors[i] = this.format(errors[i], format);
+            errors[i] = this._format(errors[i], format).trim();
         }
         return errors;  
+    };
+
+    /**
+     * Returns format object to correctly format an error message with the correct test values.
+     * @example
+     * this._getFormat(rule, rules, title);
+     * @param {String} rule - The current rule being processed.
+     * @param {Object} rules - The rules object for the value being tested.
+     * @param {String} title - The title to replace the {title} placeholder with.
+     * @return {Object} The object used to format an error message
+     * @memberOf approve
+     * @ignore
+     */
+    approve._getFormat = function(rule, rules, title) {
+        var format = {};
+        // Does the test for the rule expect parameters?
+        if (Array.isArray(this.tests[rule].expects)) {
+            // The test for the rule expects paramaters.
+            // Loop through expected paramaters for the rule's test.
+            var expects = '';
+            for (var i = this.tests[rule].expects.length - 1; i >= 0; i--) {
+                expects = this.tests[rule].expects[i];
+                // Check if the rule object has the required parameter.
+                if (rules[rule].hasOwnProperty(expects)) {
+                    // Add the expected parameter's format to the parameter value.
+                    format[expects] = rules[rule][expects];
+                }
+                // Expected parameter not present, is the constraint formattable?
+                if (/^[A-Za-z0-9]+$/i.test(rules[rule])) {
+                    format[expects] = rules[rule];
+                }
+            }
+        }
+        // Check if the rule has a name property?
+        // This is used to format the message with the field name.
+        if (rules.hasOwnProperty('title')) {
+            // Format the message to include the field name.
+            format.title = rules.title;
+        } else {
+            // Format the message to include the provided title paramater as the field name.
+            format.title = title;
+        }
+        // Return the formatted message.
+        return format;
     };
 
     /**
@@ -369,37 +413,8 @@
             // The rule does not have a custom message.
             // Get the default message from the tests.
             var message = this.tests[rule].message,
-                format = {};
-            // Does the test for the rule expect parameters?
-            if (Array.isArray(this.tests[rule].expects)) {
-                // The test for the rule expects paramaters.
-                // Loop through expected paramaters for the rule's test.
-                var expects = '';
-                for (var i = this.tests[rule].expects.length - 1; i >= 0; i--) {
-                    expects = this.tests[rule].expects[i];
-                    // Check if the rule object has the required parameter.
-                    if (rules[rule].hasOwnProperty(expects)) {
-                        // Add the expected parameter's format to the parameter value.
-                        format[expects] = rules[rule][expects];
-                    }
-                    // Expected parameter not present, is the constraint formattable?
-                    if (/^[A-Za-z0-9]+$/i.test(rules[rule])) {
-                        format[expects] = rules[rule];
-                    }
-                }
-            }
-            // Check if the rule has a name property?
-            // This is used to format the message with the field name.
-            if (rules.hasOwnProperty('title')) {
-                // Format the message to include the field name.
-                format.title = rules.title;
-            } else {
-                // Format the message to include the provided title paramater as the field name.
-                format.title = title;
-            }
-            message = this.format(message, format);
-            // Return the formatted message.
-            return message.trim();
+                format = this._getFormat(rule, rules, title);
+            return this._format(message, format).trim();
         }        
     };
 
@@ -488,7 +503,7 @@
                             result.errors.push(this._message(rule, rules, title));
                         }
                         // Add the error messages returned by the resluting object.
-                        result.errors = result.errors.concat(this._formatErrors(ret.getErrors(), title));
+                        result.errors = result.errors.concat(this._formatMessages(ret.errors, rule, rules, title));
                         // Merge any properties from the resulting object with the main result to be returned.
                         for (var prop in ret) {
                             if (ret.hasOwnProperty(prop)) {

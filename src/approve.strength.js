@@ -1,10 +1,3 @@
-/*
- * approve.strength.js 0.0.3
- * Tests whether a value is a strong password like string.
- * Author: Charl Gottschalk
- * @license: MIT
- */
-
 /** 
  * Checks if a value is a strong password string.
  * @example
@@ -139,20 +132,20 @@ var strength = {
             };
         result.score = this.score(text);
         result.message = this.messages[result.score.value];
-        if (!this.score.isMinimum) {
-            this.errors.push(this.errors.isMinimum);
+        if (!result.score.isMinimum) {
+            result.errors.push(this.errors.isMinimum);
         }
-        if (!this.score.hasLower) {
-            this.errors.push(this.errors.hasLower);
+        if (!result.score.hasLower) {
+            result.errors.push(this.errors.hasLower);
         }
-        if (!this.score.hasUpper) {
-            this.errors.push(this.errors.hasUpper);
+        if (!result.score.hasUpper) {
+            result.errors.push(this.errors.hasUpper);
         }
-        if (!this.score.hasSpecial) {
-            this.errors.push(this.errors.hasSpecial);
+        if (!result.score.hasSpecial) {
+            result.errors.push(this.errors.hasSpecial);
         }
-        if (!this.score.hasNumber) {
-            this.errors.push(this.errors.hasNumber);
+        if (!result.score.hasNumber) {
+            result.errors.push(this.errors.hasNumber);
         }
         if (result.score.value > 4) {
           result.valid = true;
@@ -167,8 +160,12 @@ var strength = {
     validate: function(value, pars) {
         this.minimum = pars.min || this.minimum;
         this.minimumBonus = pars.bonus || this.minimumBonus;
-        if (pars.hasOwnProperty('config') && pars.config.hasOwnProperty(messages)) {
-            this.errors = pars.config.messages;
+        if (pars.hasOwnProperty('config') && pars.config.hasOwnProperty('messages')) {
+            for (var message in pars.config.messages) {
+                if (pars.config.messages.hasOwnProperty(message)) {
+                    this.errors[message] = pars.config.messages[message];
+                }
+            }
         }
         return this.strength(value);
     },

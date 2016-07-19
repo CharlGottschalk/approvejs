@@ -19,21 +19,30 @@ gulp.task('default', function(cb) {
             'src/approve.strength.js'
         ])
         .pipe(concat('approve.js').on('error', util.log))
-        .pipe(gulp.dest('dist'))
-        .pipe(sourcemaps.init())
-            .pipe(uglify().on('error', util.log))
-            .pipe(gzip())
-            .pipe(rename('approve.min.js'))
-        .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest('dist'));
-
-    gulp.src('src/approve.config.js')
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function() {
     gulp.watch('src/approve.js', ['default']);
     gulp.watch('src/approve.strength.js', ['default']);
+});
+
+gulp.task('min', function(cb) {
+    gulp.src('dist/approve.js')
+        .pipe(sourcemaps.init())
+            .pipe(uglify({preserveComments: 'license'}).on('error', util.log))
+            .pipe(rename('approve.min.js'))
+        .pipe(sourcemaps.write('/'))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('gzip', function(cb) {
+    gulp.src('dist/approve.min.js')
+        .pipe(sourcemaps.init())
+            .pipe(gzip())
+            .pipe(rename('approve.min.gzip.js'))
+        .pipe(sourcemaps.write('/'))
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('docs', function(cb) {
