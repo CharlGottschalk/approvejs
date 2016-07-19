@@ -14,17 +14,9 @@ var gulp = require('gulp'),
  */
 
 gulp.task('default', function(cb) {
-    gulp.src([
-            'src/approve.js',
-            'src/approve.strength.js'
-        ])
+    gulp.src('src/_*.js')
         .pipe(concat('approve.js').on('error', util.log))
         .pipe(gulp.dest('dist'));
-});
-
-gulp.task('watch', function() {
-    gulp.watch('src/approve.js', ['default']);
-    gulp.watch('src/approve.strength.js', ['default']);
 });
 
 gulp.task('min', function(cb) {
