@@ -7,28 +7,24 @@
 
 /** @namespace approve */
 ;(function(root, factory) {    // eslint-disable-line no-extra-semi
-    // Save the previous value of 'approve'
-    root._approve = root.approve;
-
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(function() {
             // Also create a global in case some scripts
             // that are loaded still are looking for
             // a global even when an AMD loader is in use.
-            return (root.approve = factory(root));
+            return (root.approve = factory());
         });
     } else if (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
         // like Node.
-        module.exports = factory(root);
+        module.exports = factory();
     } else {
         // Browser globals (root is self)
-        root.approve = factory(root);
+        root.approve = factory();
     }
 }(this, function(root) {
-
     /** @constructor */
     var approve = {};
 
@@ -562,19 +558,6 @@
         } catch (e) {
             console.error('approve.addTest(): ' + e.message);
         }
-    };
-
-    /**
-     * Returns the root approve variable back to the previous object
-     * @example
-     * var approveObj = approve.noconflict();
-     * opproveObj.value(...);
-     * @return this
-     * @memberOf approve
-     */
-    approve.noconflict = function() {
-        root.approve = root._approve;
-        return this;
     };
 
     /** 

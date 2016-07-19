@@ -1,4 +1,3 @@
-
     /** @constructor */
     var approve = {};
 
@@ -532,17 +531,4 @@
         } catch (e) {
             console.error('approve.addTest(): ' + e.message);
         }
-    };
-
-    /**
-     * Returns the root approve variable back to the previous object
-     * @example
-     * var approveObj = approve.noconflict();
-     * opproveObj.value(...);
-     * @return this
-     * @memberOf approve
-     */
-    approve.noconflict = function() {
-        root.approve = root._approve;
-        return this;
     };
