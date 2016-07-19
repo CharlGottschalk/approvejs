@@ -6,7 +6,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '0.0.4';
+    approve.VERSION = '0.0.5';
 
     /**
      * Default tests.<br>
@@ -251,11 +251,10 @@
          */
         equal: {
             validate: function(value, pars) {
-                var other = document.getElementById(pars.field);
-                return '' + value === '' + other.value;
+                return '' + value === '' + pars.value;
             },
             message: '{title} must be equal to {field}',
-            expects: ['field']
+            expects: ['value', 'field']
         },
         /**
          * Checks if a value passes a given regular expression.
