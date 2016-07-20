@@ -1,6 +1,6 @@
 {
   "name": "approvejs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A simple validation library that doesn't interfere.",
   "main": "dist/approve.min.js",
   "repository": {
@@ -20,10 +20,13 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-gzip": "^1.4.0",
+    "gulp-jshint": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.4",
     "gulp-util": "^3.0.7",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
     "mocha": "^2.5.3"
   },
   "scripts": {
@@ -32,5 +35,38 @@
   },
   "bugs": {
     "url": "https://github.com/CharlGottschalk/approvejs/issues"
+  },
+  "jshintConf": {
+    "globals": {
+      "approve": true
+    },
+    "maxparams": 5,
+    "maxdepth": 5,
+    "maxstatements": 25,
+    "maxcomplexity": 10,
+    "es5": true,
+    "browser": true,
+    "boss": false,
+    "curly": false,
+    "debug": false,
+    "devel": false,
+    "eqeqeq": true,
+    "evil": true,
+    "forin": false,
+    "immed": true,
+    "laxbreak": false,
+    "newcap": true,
+    "noarg": true,
+    "noempty": false,
+    "nonew": false,
+    "nomen": false,
+    "onevar": true,
+    "plusplus": false,
+    "regexp": false,
+    "undef": true,
+    "sub": true,
+    "strict": false,
+    "white": true,
+    "unused": true
   }
 }

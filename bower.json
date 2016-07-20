@@ -22,7 +22,8 @@
     "bower_components",
     "test",
     "tests",
-    "docs"
+    "docs",
+    "src"
   ],
   "repository": {
     "type": "git",

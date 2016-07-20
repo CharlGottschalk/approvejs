@@ -1,6 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![version 0.0.5](https://img.shields.io/badge/version-0.0.5-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
+![version 0.0.6](https://img.shields.io/badge/version-0.0.6-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
 
 When I say, doesn't interfere, I mean it doesn't attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors.
 
@@ -29,6 +29,8 @@ Add a `script` tag to the library before the end of your closing `<body>` tag
 
 ##### Bower
 
+In your terminal run:
+
 ```
 $ bower install approvejs
 ```
@@ -41,6 +43,8 @@ Add a `script` tag to the library before the end of your closing `<body>` tag
 
 
 ##### Node
+
+In your terminal run:
 
 ```
 $ npm install approvejs
@@ -60,6 +64,4 @@ View the [wiki](https://github.com/CharlGottschalk/approvejs/wiki) for more info
 
 #### To Do:
 
-- Improve performance
-- Improve cyclomatic complexity
-- Leaner functions
+- Add AJAX test
