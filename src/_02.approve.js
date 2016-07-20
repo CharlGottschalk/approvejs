@@ -332,7 +332,7 @@
     approve._start = function(value, rules) {
         // Loop through given rules.
         for (var rule in rules) {
-            if (rules.hasOwnProperty(rule)) {
+            if (rules.hasOwnProperty(rule) && rule !== 'title') {
                 // This is used to format the message with the value title.
                 var title = '',
                     // Set a pointer to the current rule's constraint.
@@ -420,7 +420,7 @@
             // This test expects paramaters.
             // Loop through the test's expected parameters and call the given function.
             while (i--) {
-                fn(params.expects[i], expectsLength);
+                fn(params.test.expects[i], expectsLength);
             }
         }
     };

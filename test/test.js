@@ -155,16 +155,10 @@ describe("ApproveJs", function() {
 	    });
 	    // errors
 	    it("should be able to correctly format an error message", function() {
-	        var fromPar = approve.value('not an email', {email: true}, 'Email'),
-	        	fromProp = approve.value('not an email', {email: true, title: 'Email'}),
+	        var fromProp = approve.value('not an email', {email: true, title: 'Email'}),
 	        	noTitle = approve.value('not an email', {email: true}),
-	        	isFromPar = fromPar.errors[0] === 'Email must be a valid email address',
 	        	isFromProp = fromProp.errors[0] === 'Email must be a valid email address',
 	        	isNoTitle = noTitle.errors[0] === 'must be a valid email address';
-	        console.log(fromPar);
-	        console.log(fromProp);
-	        console.log(noTitle);
-	        expect(isFromPar).to.equal(true);
 	        expect(isFromProp).to.equal(true);
 	        expect(isNoTitle).to.equal(true);
 	    });
