@@ -38,7 +38,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * approve.js 0.0.5
+ * approve.js 0.0.6
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
@@ -64,6 +64,26 @@
         root.approve = factory();
     }
 }(this, function(root) {
+    /**
+     * The result object returned by the &lt;code>approve.value()&lt;/code> method.
+     * @memberOf approve
+     * @ignore
+     */
+    function Result() {
+        this.approved = true;
+        this.errors = [];
+        // Provides easy access to the loop for the errors.
+        this.each = function(fn) {
+            var isFunc = fn &amp;&amp; fn.constructor &amp;&amp; fn.call &amp;&amp; fn.apply,
+                i = this.errors.length;
+            while (i--) {
+                if (isFunc) {
+                    fn(this.errors[i]);
+                }
+            }
+        };
+    }
+
     /** @constructor */
     var approve = {};
 
@@ -72,7 +92,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '0.0.5';
+    approve.VERSION = '0.0.6';
 
     /**
      * Default tests.&lt;br>
@@ -339,8 +359,7 @@
                 if (Object.prototype.toString.call(pars.regex) === '[object RegExp]') {
                     return pars.regex.test(value);
                 }
-                console.error('approve.tests.format(value, regex): regex is not a valid regular expression.');
-                return false;
+                throw 'approve.value(): [format] - regex is not a valid regular expression.';
             },
             message: '{title} did not pass the [{regex}] test',
             expects: ['regex']
@@ -353,103 +372,227 @@
      * this._format('i can speak {language} since i was {age}', {language:'javascript',age:10});
      * @example
      * this._format('i can speak {0} since i was {1}', 'javascript',10});
+     * @return {String} The formatted string.
      * @memberOf approve
      * @ignore
      */
     approve._format = function(text, col) {
         col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
         return text.replace(/\{\{|\}\}|\{(\w+)\}/g, function (m, n) {
-            if (m == "{{") { return "{"; }
-            if (m == "}}") { return "}"; }
+            if (m === "{{") { return "{"; }
+            if (m === "}}") { return "}"; }
             return col[n];
+        }).trim();
+    };
+
+    /** 
+     * The start of the validation process:
+     * @example
+     * var result = this._start(value, rules);
+     * @param {Object} value - The value to test.
+     * @param {Object} rules - The object containing the test constraints.
+     * @return {Object} The result of the test.
+     * @memberOf approve
+     * @ignore
+     */
+    approve._start = function(value, rules) {
+        // Loop through given rules.
+        for (var rule in rules) {
+            if (rules.hasOwnProperty(rule)) {
+                // This is used to format the message with the value title.
+                var title = '',
+                    // Set a pointer to the current rule's constraint.
+                    constraint = rules[rule];
+                // Check if the rule has a title property?
+                if (rules.hasOwnProperty('title')) {
+                    title = rules.title;
+                }                
+                // Check if rule exists in tests.
+                if (this.tests.hasOwnProperty(rule)) {
+                    // Set a pointer to the current test.
+                    var params = {
+                        constraint: constraint,
+                        rule: rule,
+                        title: title,
+                        test: this.tests[rule],
+                        value: value
+                    };
+                    return this._test(params);
+                } else {
+                    throw 'approve.value(): ' + rule + ' test not defined.';
+                }
+            }
+        }
+    };
+
+    /** 
+     * Performs the actual testing of the value and returns the result including any errors.
+     * @example
+     * var result = this._test(params);
+     * @param {Object} params - The parameters required for testing.
+     * @return {Object} The result of the test.
+     * @memberOf approve
+     * @ignore
+     */
+    approve._test = function(params) {
+        // Instantiate a new result object.
+        var result = new Result(),
+            // Create an args object for required parameters.
+            args = this._getArgs(params),
+            // Test the value.
+            ret = params.test.validate(params.value, args);
+        // Check if the returned value is an object.
+        if(typeof ret === 'object')
+        {
+            // An object was returned.
+            // Check if the test was successful.
+            result.approved = !ret.valid ? false : result.approved;
+            // Add the error messages returned by the resluting object.
+            result.errors = result.errors.concat(this._formatMessages(ret.errors, params));
+            // Merge any properties from the resulting object with the main result to be returned.
+            for (var prop in ret) {
+                if (ret.hasOwnProperty(prop)) {
+                    result[prop] = ret[prop];
+                }
+            }
+        } else if (typeof ret !== 'boolean') {
+            // We don't process if it's not a boolean or object.
+            throw 'approve.value(): ' + params.rule + ' returned an invalid value';
+        } else {
+            result.approved = !ret ? false : result.approved;
+        }
+        if (!result.approved) {
+            result.errors.push(this._formatMessage(params));
+        }
+        return result;
+    };
+
+    /** 
+     * Helper method to loop over expected test parameters.
+     * @example
+     * this._eachExpected(params, function(expected) {
+     *     // Do something with expected.
+     * });
+     * @param {Object} params - The parameters required for testing.
+     * @param {Function} fn - The callback function called during loop.
+     * @return {Void}
+     * @memberOf approve
+     * @ignore
+     */
+    approve._eachExpected = function(params, fn) {
+        if (Array.isArray(params.test.expects)) {
+            var expectsLength = params.test.expects.length,
+                i = expectsLength;
+            // This test expects paramaters.
+            // Loop through the test's expected parameters and call the given function.
+            while (i--) {
+                fn(params.expects[i], expectsLength);
+            }
+        }
+    };
+
+    /** 
+     * Returns an object containing the arguments for a test's expected parameters.
+     * @example
+     * var pars = this._getArgs(params);
+     * @param {Object} params - The parameters required for testing.
+     * @return {Object} The object containing the arguments.
+     * @memberOf approve
+     * @ignore
+     */
+    approve._getArgs = function(params) {
+        var pars = {};
+        // Does the test for this rule expect any paramaters?
+        this._eachExpected(params, function(expects, expectsLength) {
+            // Check if the rule object has the required parameter.
+            if (params.constraint.hasOwnProperty(expects)) {
+                // Add the expected parameter value to the pars object.
+                pars[expects] = params.constraint[expects];
+            } else if (expectsLength &lt;= 1 &amp;&amp; /^[A-Za-z0-9]+$/i.test(params.constraint)) {
+                // Set the parameter to the rule's value.
+                pars[expects] = params.constraint;      
+            } else {
+                throw 'approve.value(): ' + params.rule + ' expects the ' + expects + ' parameter.';
+            }
         });
+        
+        // Does the rule have config?
+        if (params.constraint.hasOwnProperty('config')) {
+            // Add the config to the pars object.
+            pars.config = params.constraint.config;
+        }
+        // Return the parameters object
+        return pars;
+    };
+
+    /**
+     * Returns an object containing placholder values to correctly format an error message.
+     * @example
+     * var format = this._getFormat(params);
+     * @param {Object} params - The parameters required for testing.
+     * @return {Object} The object used to format an error message.
+     * @memberOf approve
+     * @ignore
+     */
+    approve._getFormat = function(params) {
+        var format = {};
+        // Does the test for the rule expect parameters?
+        this._eachExpected(params, function(expects) {
+            // Check if the rule object has the required parameter.
+            if (params.constraint.hasOwnProperty(expects)) {
+                // Add the expected parameter's format to the parameter value.
+                format[expects] = params.constraint[expects];
+            }
+            // Expected parameter not present, is the constraint formattable?
+            if (/^[A-Za-z0-9]+$/i.test(params.constraint)) {
+                format[expects] = params.constraint;
+            }
+        });
+        format.title = params.title;
+        // Return the formatted message.
+        return format;
     };
 
     /**
      * Returns an array of formatted error messages returned by tests that return objects instead of booleans.
      * @example
-     * this._formatMessages(['array', 'of', 'errors'], title);
+     * var errors = this._formatMessages(['array', 'of', 'errors'], params);
      * @param {Array} errors - The array of unformatted errors returned by the test's result.
-     * @param {String} title - The title to replace the {title} placeholder with.
+     * @param {Object} params - The parameters required for testing.
      * @return {Array} The formatted errors
      * @memberOf approve
      * @ignore
      */
-    approve._formatMessages = function(errors, rule, rules, title) {
-        var format = this._getFormat(rule, rules, title);
-        for (var i = errors.length - 1; i >= 0; i--) {
-            errors[i] = this._format(errors[i], format).trim();
+    approve._formatMessages = function(errors, params) {
+        var format = this._getFormat(params),
+            i = errors.length;
+        while (i--) {
+            errors[i] = this._format(errors[i], format);
         }
         return errors;  
-    };
-
-    /**
-     * Returns format object to correctly format an error message with the correct test values.
-     * @example
-     * this._getFormat(rule, rules, title);
-     * @param {String} rule - The current rule being processed.
-     * @param {Object} rules - The rules object for the value being tested.
-     * @param {String} title - The title to replace the {title} placeholder with.
-     * @return {Object} The object used to format an error message
-     * @memberOf approve
-     * @ignore
-     */
-    approve._getFormat = function(rule, rules, title) {
-        var format = {};
-        // Does the test for the rule expect parameters?
-        if (Array.isArray(this.tests[rule].expects)) {
-            // The test for the rule expects paramaters.
-            // Loop through expected paramaters for the rule's test.
-            var expects = '';
-            for (var i = this.tests[rule].expects.length - 1; i >= 0; i--) {
-                expects = this.tests[rule].expects[i];
-                // Check if the rule object has the required parameter.
-                if (rules[rule].hasOwnProperty(expects)) {
-                    // Add the expected parameter's format to the parameter value.
-                    format[expects] = rules[rule][expects];
-                }
-                // Expected parameter not present, is the constraint formattable?
-                if (/^[A-Za-z0-9]+$/i.test(rules[rule])) {
-                    format[expects] = rules[rule];
-                }
-            }
-        }
-        // Check if the rule has a name property?
-        // This is used to format the message with the field name.
-        if (rules.hasOwnProperty('title')) {
-            // Format the message to include the field name.
-            format.title = rules.title;
-        } else {
-            // Format the message to include the provided title paramater as the field name.
-            format.title = title;
-        }
-        // Return the formatted message.
-        return format;
     };
 
     /**
      * Returns the correctly formatted message representing the current test's failure.
      * @example
      * this._message(rule, rules, title);
-     * @param {String} rule - The current rule being processed.
-     * @param {Object} rules - The rules object for the value being tested.
-     * @param {String} title - The title to replace the {title} placeholder with.
+     * @param {Object} params - The parameters required for testing.
      * @return {String} The correctly formatted error message
      * @memberOf approve
      * @ignore
      */
-    approve._message = function(rule, rules, title) {
+    approve._formatMessage = function(params) {
         // Does the provided rule have a custom message?
-        if (rules[rule].hasOwnProperty('message')) {
+        if (params.constraint.hasOwnProperty('message')) {
             // The rule has a custom message, return it.
-            return rules[rule].message;
+            return params.constraint.message;
         }
         else {
             // The rule does not have a custom message.
             // Get the default message from the tests.
-            var message = this.tests[rule].message,
-                format = this._getFormat(rule, rules, title);
-            return this._format(message, format).trim();
+            var message = params.test.message,
+                format = this._getFormat(params);
+            return this._format(message, format);
         }        
     };
 
@@ -468,102 +611,19 @@
      *       console.log(error);
      *    });
      * }
-     * @param {String|Integer} value - The value to test against the rules.
+     * @param {Object} value - The value to test against the rules.
      * @param {Object} rules - The constraints for the value being tested.
-     * @param {String} [title] - The title to replace the {title} placeholder in error messages with.
      * @return {Object} The object containing the result of the tests performed.
      * @memberOf approve
      */
-    approve.value = function(value, rules, title) {
+    approve.value = function(value, rules) {
 
         // If rules is not an object, we cannot continue.
         if (typeof rules !== 'object') {
-            console.error('approve.value(value, rules): rules is not a valid object.');
-        }
-
-        // Instantiate a new result object.
-        var result = {
-            approved: true,
-            errors: [],
-            // Provides easy access to the loop for the errors.
-            each: function(fn) {
-                var isFunc = fn &amp;&amp; fn.constructor &amp;&amp; fn.call &amp;&amp; fn.apply;
-                for (var i = this.errors.length - 1; i >= 0; i--) {
-                    if (isFunc) {
-                        fn(this.errors[i]);
-                    }
-                }
-            }
-        };
-
-        // Loop through given rules.
-        for (var rule in rules) {
-            if (rules.hasOwnProperty(rule)) {
-                title = title || '';
-                // Check if rule exists in tests.
-                if (this.tests.hasOwnProperty(rule)) {
-                    // Create a pars object for required parameters.
-                    var pars = {};
-                    // Does the test for this rule expect any paramaters?
-                    if (Array.isArray(this.tests[rule].expects)) {
-                        // This test expects paramaters.
-                        // Loop through the test's expected parameters and add the values from the rule.
-                        for (var i = this.tests[rule].expects.length - 1; i >= 0; i--) {
-                            var expects = this.tests[rule].expects[i];
-                            // Check if the rule object has the required parameter.
-                            if (rules[rule].hasOwnProperty(expects)) {
-                                // Add the expected parameter value to the pars object.
-                                pars[expects] = rules[rule][expects];
-                            } else {
-                                // Set the parameter to the rule's value.
-                                pars[expects] = rules[rule];
-                            }
-                        }
-                    }
-                    // Does the rule have config?
-                    if (rules[rule].hasOwnProperty('config')) {
-                        // Add the config to the pars object.
-                        pars.config = rules[rule].config;
-                    }
-                    // Test the value.
-                    var ret = this.tests[rule].validate(value, pars);
-                    // Check if the returned value is an object.
-                    if(typeof ret === 'object')
-                    {
-                        // An object was returned.
-                        // Check if the test was successful.
-                        if (!ret.valid) {
-                            // The test failed, set the result object properties.
-                            result.approved = false;
-                            result.errors.push(this._message(rule, rules, title));
-                        }
-                        // Add the error messages returned by the resluting object.
-                        result.errors = result.errors.concat(this._formatMessages(ret.errors, rule, rules, title));
-                        // Merge any properties from the resulting object with the main result to be returned.
-                        for (var prop in ret) {
-                            if (ret.hasOwnProperty(prop)) {
-                                result[prop] = ret[prop];
-                            }
-                        }
-                    } else {
-                        // Check if the returned value is a boolean
-                        if (typeof ret !== 'boolean') {
-                            // We don't process if it's not a boolean or object.
-                            result.approved = false;
-                            result.errors.push(this._message(rule, rules, title));
-                        } else {
-                            if (!ret) {
-                                // The test failed, set the result object properties.
-                                result.approved = false;
-                                result.errors.push(this._message(rule, rules, title));
-                            }
-                        }
-                    }
-                }
-            }
+            throw 'approve.value(value, rules): rules is not a valid object.';
         }
         // Return the result object.
-        return result;
+        return this._start(value, rules);
     };
 
     /**
@@ -585,7 +645,7 @@
     approve.addTest = function(obj, name) {
         // If obj is not a valid object, we cannot continue.
         if (typeof obj !== 'object') {
-            console.error('approve.addTest(obj, name): obj is not a valid object.');
+            throw 'approve.addTest(obj, name): obj is not a valid object.';
         }
         try {
             // Check if the test name already exists.
@@ -594,10 +654,33 @@
                 this.tests[name] = obj;
             }
         } catch (e) {
-            console.error('approve.addTest(): ' + e.message);
+            throw 'approve.addTest(): ' + e.message;
         }
     };
 
+    /**
+     * The result object containing the outcome of the strength test.
+     * @param {string} message - The initial strength message.
+     * @param {integer} min - The minimum length.
+     * @param {integer} bonus - The minimum length before earning a bonus point.
+     */
+    function Score(message, min, bonus) {
+        this.message = message;
+        this.minimum = min;
+        this.minimumBonus = bonus;
+        this.score = {
+            value: 0,
+            isMinimum: false,
+            hasLower: false,
+            hasUpper: false,
+            hasNumber: false,
+            hasSpecial: false,
+            isBonus: false,
+            strength: 0
+        };
+        this.valid = false;
+        this.errors = [];
+    }
     /** 
      * Checks if a value is a strong password string.
      * @example
@@ -660,61 +743,44 @@
          */
         score: function(text) {
             // Create the object that represents the score of the text
-            var score = {
-                value: 0,
-                isMinimum: false,
-                hasLower: false,
-                hasUpper: false,
-                hasNumber: false,
-                hasSpecial: false,
-                isBonus: false,
-                strength: 0
-            };
+            var result = new Score(this.messages[0], this.minimum, this.minimumBonus);
             // If text is longer than minimum give 1 point.
-            if (text.length > this.minimum){
-                score.value++;
-                score.isMinimum = true;
-            } else {
-                score.value = 1;
-                score.isMinimum = false;
-            }
-            // If text has lowercase characters give 1 point.
-            if ( text.match(/[a-z]/) ) {
-                if(score.isMinimum) {
-                    score.value++;
-                }
-                score.hasLower = true;
-            }
-            // If text has uppercase characters give 1 point.
-            if ( text.match(/[A-Z]/) ) {
-                if(score.isMinimum) {
-                    score.value++;
-                }
-                score.hasUpper = true;
-            }
-            // If text has at least one number give 1 point.
-            if (text.match(/\d+/)) {
-                if(score.isMinimum) {
-                    score.value++;
-                }
-                score.hasNumber = true;
-            }
-            // If text has at least one special caracther give 1 point.
-            if ( text.match(/.[!,@,#,$,%,^,&amp;,*,?,_,~,-,(,)]/) ) {
-                if(score.isMinimum) {
-                    score.value++;
-                }
-                score.hasSpecial = true;
-            }
             // If text is longer than minimumBonus give another 1 point.
             if (text.length > this.minimumBonus) {
-                score.value++;
-                score.isBonus = true;
+                result.score.value += 2;
+                result.score.isBonus = true;
+                result.score.isMinimum = true;
+            } else if (text.length > this.minimum){
+                result.score.value++;
+                result.score.isMinimum = true;
+            } else {
+                result.score.value = 1;
+                result.score.isMinimum = false;
+            }
+            // If text has lowercase characters give 1 point.
+            result.score.hasLower = text.match(/[a-z]/);
+            if(result.score.isMinimum) {
+                result.score.value++;
+            }
+            // If text has uppercase characters give 1 point.
+            result.score.hasUpper = text.match(/[A-Z]/);
+            if(result.score.isMinimum) {
+                result.score.value++;
+            }
+            // If text has at least one number give 1 point.
+            result.score.hasNumber = text.match(/\d+/);
+            if(result.score.isMinimum) {
+                result.score.value++;
+            }
+            // If text has at least one special caracther give 1 point.
+            result.score.hasSpecial = text.match(/.[!,@,#,$,%,^,&amp;,*,?,_,~,-,(,)]/);
+            if(result.score.isMinimum) {
+                result.score.value++;
             }
             // Set the percentage value.
-            score.strength = Math.ceil((score.value / 6) * 100);
+            result.score.strength = Math.ceil((result.score.value / 6) * 100);
             // Return the score object.
-            return score;
+            return result;
         },
         /**
          * Returns an object containing the score and validation of a value.
@@ -722,15 +788,7 @@
          * @return {Object} The score and validation of the text.
          */
         strength: function (text) {
-            var result = {
-                    message: this.messages[0],
-                    minimum: this.minimum,
-                    minimumBonus: this.minimumBonus,
-                    score: {},
-                    valid: false,
-                    errors: []
-                };
-            result.score = this.score(text);
+            var result = this.score(text);
             result.message = this.messages[result.score.value];
             if (!result.score.isMinimum) {
                 result.errors.push(this.errors.isMinimum);
@@ -788,7 +846,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 19 2016 15:37:23 GMT+0200 (South Africa Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 13:37:31 GMT+0200 (South Africa Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
