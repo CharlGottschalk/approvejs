@@ -1,6 +1,6 @@
 {
   "name": "approvejs",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "A simple validation library that doesn't interfere.",
   "main": "dist/approve.min.js",
   "repository": {
@@ -25,6 +25,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.4",
     "gulp-util": "^3.0.7",
+    "jsdoc": "^3.4.0",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.2.0",
     "mocha": "^2.5.3"

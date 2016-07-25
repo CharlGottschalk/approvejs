@@ -1,6 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![version 0.0.6](https://img.shields.io/badge/version-0.0.6-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
+![stable 1.0.0](https://img.shields.io/badge/stable-1.0.0-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
 
 When I say, doesn't interfere, I mean it doesn't attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors.
 
@@ -13,6 +13,12 @@ Personally, I use [Vue.js](http://vuejs.org/guide/events.html) and use bindings 
 If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
 You can also easily [extend](https://github.com/CharlGottschalk/approvejs/wiki/Adding-Your-Own-Tests) ApproveJs with your own tests.
+
+<h2 style="color:#ff0000;">Major Release v1.0.0</h2>
+
+If you are using a version < 1.0.0, please read the [upgrade guide](https://github.com/CharlGottschalk/approvejs/wiki/Upgrade-Guide).
+
+---
 
 ### Installation
 

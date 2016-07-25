@@ -1,5 +1,5 @@
 /**
- * approve.js 0.0.6
+ * approve.js v1.0.0
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
@@ -34,12 +34,12 @@
         this.approved = true;
         this.errors = [];
         // Provides easy access to the loop for the errors.
-        this.each = function(fn) {
-            var isFunc = fn && fn.constructor && fn.call && fn.apply,
+        this.each = function(callback) {
+            var isFunc = callback && callback.constructor && callback.call && callback.apply,
                 i = this.errors.length;
             while (i--) {
                 if (isFunc) {
-                    fn(this.errors[i]);
+                    callback(this.errors[i]);
                 }
             }
         };
@@ -625,20 +625,16 @@
      * @param {integer} min - The minimum length.
      * @param {integer} bonus - The minimum length before earning a bonus point.
      */
-    function Score(message, min, bonus) {
-        this.message = message;
-        this.minimum = min;
-        this.minimumBonus = bonus;
-        this.score = {
-            value: 0,
-            isMinimum: false,
-            hasLower: false,
-            hasUpper: false,
-            hasNumber: false,
-            hasSpecial: false,
-            isBonus: false,
-            strength: 0
-        };
+    function Score(strength) {
+        this.strength = strength;
+        this.points = 0;
+        this.isMinimum = false;
+        this.hasLower = false;
+        this.hasUpper = false;
+        this.hasNumber = false;
+        this.hasSpecial = false;
+        this.isBonus = false;
+        this.percent = 0;
         this.valid = false;
         this.errors = [];
     }
@@ -669,7 +665,7 @@
         /**
          * The text representing the strength of a password.
          */
-        messages: {
+        strengths: {
             0: 'Very Weak',
             1: 'Weak',
             2: 'Better',
@@ -704,42 +700,42 @@
          */
         score: function(text) {
             // Create the object that represents the score of the text
-            var result = new Score(this.messages[0], this.minimum, this.minimumBonus);
+            var result = new Score(this.strengths[0]);
             // If text is longer than minimum give 1 point.
             // If text is longer than minimumBonus give another 1 point.
             if (text.length > this.minimumBonus) {
-                result.score.value += 2;
-                result.score.isBonus = true;
-                result.score.isMinimum = true;
+                result.points += 2;
+                result.isBonus = true;
+                result.isMinimum = true;
             } else if (text.length > this.minimum){
-                result.score.value++;
-                result.score.isMinimum = true;
+                result.points++;
+                result.isMinimum = true;
             } else {
-                result.score.value = 1;
-                result.score.isMinimum = false;
+                result.points = 1;
+                result.isMinimum = false;
             }
             // If text has lowercase characters give 1 point.
-            result.score.hasLower = text.match(/[a-z]/);
-            if(result.score.isMinimum) {
-                result.score.value++;
+            result.hasLower = text.match(/[a-z]/);
+            if(result.isMinimum) {
+                result.points++;
             }
             // If text has uppercase characters give 1 point.
-            result.score.hasUpper = text.match(/[A-Z]/);
-            if(result.score.isMinimum) {
-                result.score.value++;
+            result.hasUpper = text.match(/[A-Z]/);
+            if(result.isMinimum) {
+                result.points++;
             }
             // If text has at least one number give 1 point.
-            result.score.hasNumber = text.match(/\d+/);
-            if(result.score.isMinimum) {
-                result.score.value++;
+            result.hasNumber = text.match(/\d+/);
+            if(result.isMinimum) {
+                result.points++;
             }
             // If text has at least one special caracther give 1 point.
-            result.score.hasSpecial = text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/);
-            if(result.score.isMinimum) {
-                result.score.value++;
+            result.hasSpecial = text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/);
+            if(result.isMinimum) {
+                result.points++;
             }
             // Set the percentage value.
-            result.score.strength = Math.ceil((result.score.value / 6) * 100);
+            result.percent = Math.ceil((result.points / 6) * 100);
             // Return the score object.
             return result;
         },
@@ -750,23 +746,23 @@
          */
         strength: function (text) {
             var result = this.score(text);
-            result.message = this.messages[result.score.value];
-            if (!result.score.isMinimum) {
+            result.strength = this.strengths[result.points];
+            if (!result.isMinimum) {
                 result.errors.push(this.errors.isMinimum);
             }
-            if (!result.score.hasLower) {
+            if (!result.hasLower) {
                 result.errors.push(this.errors.hasLower);
             }
-            if (!result.score.hasUpper) {
+            if (!result.hasUpper) {
                 result.errors.push(this.errors.hasUpper);
             }
-            if (!result.score.hasSpecial) {
+            if (!result.hasSpecial) {
                 result.errors.push(this.errors.hasSpecial);
             }
-            if (!result.score.hasNumber) {
+            if (!result.hasNumber) {
                 result.errors.push(this.errors.hasNumber);
             }
-            if (result.score.value > 4) {
+            if (result.points > 4) {
               result.valid = true;
             } 
             return result;

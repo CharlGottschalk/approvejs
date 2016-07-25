@@ -7,12 +7,12 @@
         this.approved = true;
         this.errors = [];
         // Provides easy access to the loop for the errors.
-        this.each = function(fn) {
-            var isFunc = fn && fn.constructor && fn.call && fn.apply,
+        this.each = function(callback) {
+            var isFunc = callback && callback.constructor && callback.call && callback.apply,
                 i = this.errors.length;
             while (i--) {
                 if (isFunc) {
-                    fn(this.errors[i]);
+                    callback(this.errors[i]);
                 }
             }
         };

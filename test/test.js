@@ -147,7 +147,7 @@ describe("ApproveJs", function() {
 	    	};
 	        var result = approve.value('th!sIsaStr0ngPas$w0rd', rule),
 	        	is = result.approved,
-	        	has = result.hasOwnProperty('score'),
+	        	has = result.hasOwnProperty('points'),
 	            not = approve.value('Pfft!', rule).approved;
 	        expect(is).to.equal(true);
 	        expect(has).to.equal(true);
@@ -178,7 +178,6 @@ describe("ApproveJs", function() {
 	    	};
 	        var result = approve.value('@THISI$ASTR0NGPASSW0RD', rule),
 	        	is = result.errors[0] === 'At least one lower case letter expected from password';
-	        console.log(result);
 	        expect(is).to.equal(true);
 	    });
 
