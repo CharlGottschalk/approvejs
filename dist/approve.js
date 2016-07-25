@@ -53,7 +53,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '0.0.6';
+    approve.VERSION = '1.0.0';
 
     /**
      * Default tests.<br>
