@@ -516,16 +516,19 @@
      * @ignore
      */
     approve._formatMessage = function(params) {
+        var format = this._getFormat(params);
+        var message;
+
         // Does the provided rule have a custom message?
         if (params.constraint.hasOwnProperty('message')) {
             // The rule has a custom message, return it.
-            return params.constraint.message;
+            message = params.constraint.message;
+            return this._format(message, format);
         }
         else {
             // The rule does not have a custom message.
             // Get the default message from the tests.
-            var message = params.test.message,
-                format = this._getFormat(params);
+            message = params.test.message;
             return this._format(message, format);
         }        
     };
