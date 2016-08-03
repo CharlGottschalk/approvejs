@@ -1,5 +1,5 @@
 /**
- * approve.js v1.0.0
+ * approve.js v1.0.1
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
@@ -53,7 +53,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.0.0';
+    approve.VERSION = '1.0.1';
 
     /**
      * Default tests.<br>
@@ -111,22 +111,6 @@
                 return this.regex.test(value);
             },
             message: '{title} must be a valid web address',
-            expects: false
-        },
-        /**
-         * Checks if a value is a valid credit card number.
-         * @example
-         * approve.value('some value', {cc: true});
-         * @function cc
-         * @memberOf approve.tests
-         * @inner
-         */
-        cc: {
-            regex: /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/,
-            validate: function(value) {
-                return this.regex.test(value);
-            },
-            message: '{title} must be a valid credit card number',
             expects: false
         },
         /**
@@ -409,7 +393,9 @@
             // Check if the test was successful.
             result.approved = !ret.valid ? false : result.approved;
             // Add the error messages returned by the resluting object.
-            result.errors = result.errors.concat(this._formatMessages(ret.errors, params));
+            if (ret.hasOwnProperty('errors')) {
+                result.errors = result.errors.concat(this._formatMessages(ret.errors, params));
+            }
             // Merge any properties from the resulting object with the main result to be returned.
             for (var prop in ret) {
                 if (ret.hasOwnProperty(prop)) {
@@ -623,10 +609,136 @@
     };
 
     /**
+     * The result object containing the outcome of the credit card test.
+     */
+    function Card() {
+        this.scheme = '';
+        this.valid = false;
+    }
+    /** 
+     * Checks if a value is a valid credit card.
+     * @example
+     * var rule = {
+     *     cc: true
+     * };
+     * approve.value('5105105105105100', rule);
+     * @return {Object} An object with various properties relating to the value's score.
+     * @function cc
+     * @memberOf approve.tests
+     * @inner
+     */
+    var cc = {
+        /**
+         * The default error message.
+         */
+        message: '{title} is not a valid credit card number.',
+        schemes: [
+            {
+                regex: /^(5610|560221|560222|560223|560224|560225)/,
+                scheme: 'Australian Bank Card'
+            },
+            {
+                regex: /^(2014|2149)/,
+                scheme: 'Diner\'s Club'
+            },
+            {
+                regex: /^36/,
+                scheme: 'Diner\'s Club International'
+            },
+            {
+                regex: /^(30[0-5]|36|38|54|55|2014|2149)/,
+                scheme: 'Diner\'s Club / Carte Blanche'
+            },
+            {
+                regex: /^35(2[89]|[3-8][0-9])/,
+                scheme: 'Japanese Credit Bureau'
+            },
+            {
+                regex: /^(5018|5020|5038|6304|6759|676[1-3])/,
+                scheme: 'Maestro'
+            },
+            {
+                regex: /^5[1-5]/,
+                scheme: 'Mastercard'
+            },
+            {
+                regex: /^(6304|670[69]|6771)/,
+                scheme: 'Laser'
+            },
+            {
+                regex: /^(6334|6767)/,
+                scheme: 'Solo (Paymentech)'
+            },
+            {
+                regex: /^(6011|622|64|65)/,
+                scheme: 'Discover'
+            },
+            {
+                regex: /^3[47]/,
+                scheme: 'American Express'
+            },
+            {
+                regex: /^(4026|417500|4508|4844|491(3|7))/,
+                scheme: 'Visa Electron'
+            },
+            {
+                regex: /^(4)/,
+                scheme: 'Visa'
+            }
+        ],
+        /**
+         * Returns the name of the credit card scheme.
+         * @param {Object} value - The credit card number to test.
+         * @return {Object} The result of the test.
+         */
+        _getScheme: function(value) {
+            value = (''+ value).replace(/\D/g, '');
+
+            var i = this.schemes.length;
+            while (i--) {
+                if (this.schemes[i].regex.test(value)) {
+                    return this.schemes[i].scheme;
+                }
+            }
+
+            return undefined;
+        },
+        /**
+         * The method that is called by ApproveJs to perform the test.
+         * @param {Object} value - The value to test.
+         * @return {Object} The result object of the test.
+         */
+        validate: function(value) {
+            value = (''+ value).replace(/\D/g, '');
+
+            var card = new Card(), 
+                i = value.length,
+                sum = 0,
+                mul = 1,
+                ca;
+
+            // Not enough numbers. Shortest currently is 12. 
+            if (i < 12) {
+                return false;
+            }
+
+            while (i--) {
+                ca = value.charAt(i) * mul;
+                sum += ca - (ca > 9) * 9;
+                mul ^= 3;
+            }
+
+            card.valid = (sum % 10 === 0) && (sum > 0);
+            card.scheme = this._getScheme(value);
+
+            return card;
+        }
+    };
+    approve.tests.cc = cc;
+
+    /**
      * The result object containing the outcome of the strength test.
-     * @param {string} message - The initial strength message.
-     * @param {integer} min - The minimum length.
-     * @param {integer} bonus - The minimum length before earning a bonus point.
+     * @param {string} strength - The initial strength.
      */
     function Score(strength) {
         this.strength = strength;
@@ -701,7 +813,7 @@
          * @param {String} text - The text to score.
          * @return {Object} The score of the text.
          */
-        score: function(text) {
+        _getScore: function(text) {
             // Create the object that represents the score of the text
             var result = new Score(this.strengths[0]);
             // If text is longer than minimum give 1 point.
@@ -747,8 +859,8 @@
          * @param {String} text - The text to score.
          * @return {Object} The score and validation of the text.
          */
-        strength: function (text) {
-            var result = this.score(text);
+        _getStrength: function (text) {
+            var result = this._getScore(text);
             result.strength = this.strengths[result.points];
             if (!result.isMinimum) {
                 result.errors.push(this.errors.isMinimum);
@@ -785,8 +897,8 @@
                     }
                 }
             }
-            return this.strength(value);
-        },
+            return this._getStrength(value);
+        }
     };
     approve.tests.strength = strength;
 

@@ -26,7 +26,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.0.0';
+    approve.VERSION = '1.0.1';
 
     /**
      * Default tests.<br>
@@ -84,22 +84,6 @@
                 return this.regex.test(value);
             },
             message: '{title} must be a valid web address',
-            expects: false
-        },
-        /**
-         * Checks if a value is a valid credit card number.
-         * @example
-         * approve.value('some value', {cc: true});
-         * @function cc
-         * @memberOf approve.tests
-         * @inner
-         */
-        cc: {
-            regex: /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/,
-            validate: function(value) {
-                return this.regex.test(value);
-            },
-            message: '{title} must be a valid credit card number',
             expects: false
         },
         /**
@@ -382,7 +366,9 @@
             // Check if the test was successful.
             result.approved = !ret.valid ? false : result.approved;
             // Add the error messages returned by the resluting object.
-            result.errors = result.errors.concat(this._formatMessages(ret.errors, params));
+            if (ret.hasOwnProperty('errors')) {
+                result.errors = result.errors.concat(this._formatMessages(ret.errors, params));
+            }
             // Merge any properties from the resulting object with the main result to be returned.
             for (var prop in ret) {
                 if (ret.hasOwnProperty(prop)) {

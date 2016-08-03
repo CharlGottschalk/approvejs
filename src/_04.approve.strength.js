@@ -1,8 +1,6 @@
     /**
      * The result object containing the outcome of the strength test.
-     * @param {string} message - The initial strength message.
-     * @param {integer} min - The minimum length.
-     * @param {integer} bonus - The minimum length before earning a bonus point.
+     * @param {string} strength - The initial strength.
      */
     function Score(strength) {
         this.strength = strength;
@@ -77,7 +75,7 @@
          * @param {String} text - The text to score.
          * @return {Object} The score of the text.
          */
-        score: function(text) {
+        _getScore: function(text) {
             // Create the object that represents the score of the text
             var result = new Score(this.strengths[0]);
             // If text is longer than minimum give 1 point.
@@ -123,8 +121,8 @@
          * @param {String} text - The text to score.
          * @return {Object} The score and validation of the text.
          */
-        strength: function (text) {
-            var result = this.score(text);
+        _getStrength: function (text) {
+            var result = this._getScore(text);
             result.strength = this.strengths[result.points];
             if (!result.isMinimum) {
                 result.errors.push(this.errors.isMinimum);
@@ -161,7 +159,7 @@
                     }
                 }
             }
-            return this.strength(value);
-        },
+            return this._getStrength(value);
+        }
     };
     approve.tests.strength = strength;

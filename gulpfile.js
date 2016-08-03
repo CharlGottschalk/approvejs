@@ -17,14 +17,14 @@ var gulp = require('gulp'),
  |--------------------------------------------------------------------------
  */
 
-gulp.task('default', function(cb) {
-    gulp.src('src/_*.js')
+gulp.task('compile', function(cb) {
+    return gulp.src('src/_*.js')
         .pipe(concat('approve.js').on('error', util.log))
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('min', function(cb) {
-    gulp.src('dist/approve.js')
+gulp.task('min', ['compile'], function(cb) {
+    return gulp.src('dist/approve.js')
         .pipe(sourcemaps.init())
             .pipe(uglify({preserveComments: 'license'}).on('error', util.log))
             .pipe(rename('approve.min.js'))
@@ -32,8 +32,8 @@ gulp.task('min', function(cb) {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('gzip', function(cb) {
-    gulp.src('dist/approve.min.js')
+gulp.task('gzip', ['min'], function(cb) {
+    return gulp.src('dist/approve.min.js')
         .pipe(sourcemaps.init())
             .pipe(gzip())
             .pipe(rename('approve.min.gzip.js'))
@@ -41,7 +41,7 @@ gulp.task('gzip', function(cb) {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('docs', function(cb) {
+gulp.task('docs', ['gzip'], function(cb) {
     exec('npm run-script generate-docs', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
@@ -51,7 +51,9 @@ gulp.task('docs', function(cb) {
 
 gulp.task('lint', function() {
     jshintConf.lookup = false;
-    return gulp.src(['src/_02.approve.js', 'src/_03.approve.strength.js'])
+    return gulp.src(['src/_02.approve.js', 'src/_03.approve.creditcard.js', 'src/_04.approve.strength.js'])
         .pipe(jshint(jshintConf))
         .pipe(jshint.reporter(stylish));
 });
+
+gulp.task('default', ['docs']);

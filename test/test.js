@@ -45,12 +45,38 @@ describe("ApproveJs", function() {
 	    });
 	    // cc
 	    it("should be able to approve a credit card number", function() {
-	        var amex = approve.value('347658560901701', {cc: true}).approved,
-	            discover = approve.value('6011261363394257', {cc: true}).approved,
-	            master = approve.value('6011261363394257', {cc: true}).approved,
-	            visa = approve.value('4539326399580936', {cc: true}).approved,
-	            is = amex && discover && master && visa,
-	            not = approve.value('6356565786896346', {email: true}).approved;
+	    	var testnumbers = [
+		            4222222222222,
+		            4012888888881881,
+		            4111111111111111,
+		            5105105105105100,
+		            5555555555554444,
+		            3566002020360505,
+		            3530111333300000,
+		            6011000990139424,
+		            6011111111111117,
+		            6011601160116611,
+		            38520000023237,
+		            30569309025904,
+		            378734493671000,
+		            371449635398431,
+		            378282246310005,
+		            341111111111111,
+		            5431111111111111,
+		            5610591081018250,
+		            5019717010103742,
+		            6331101999990016
+		        ],
+	            is = true,
+	            not = approve.value('6356565786896346', {cc: true}).approved;
+	            var rule = {
+	            	cc: true
+	            };
+	            for (var i = testnumbers.length - 1; i >= 0; i--) {
+	            	if (!approve.value(testnumbers[i], rule).approved) {
+	            		is = false;
+	            	}
+	            };
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
