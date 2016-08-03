@@ -21,7 +21,7 @@
         /**
          * The default error message.
          */
-        message: '{title} is not a valid credit card number.',
+        message: '{title} is not a valid credit card number',
         schemes: [
             {
                 regex: /^(5610|560221|560222|560223|560224|560225)/,
