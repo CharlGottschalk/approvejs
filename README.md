@@ -1,6 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![stable 1.0.1](https://img.shields.io/badge/stable-1.0.1-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
+![stable 1.0.2](https://img.shields.io/badge/stable-1.0.2-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
 
 When I say, doesn't interfere, I mean it doesn't attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors.
 

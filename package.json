@@ -1,6 +1,6 @@
 {
   "name": "approvejs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple validation library that doesn't interfere.",
   "main": "dist/approve.min.js",
   "repository": {

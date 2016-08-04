@@ -120,8 +120,10 @@ describe("ApproveJs", function() {
 	    // ip
 	    it("should be able to approve ip addresses", function() {
 	        var ipv4 = approve.value('172.16.112.50', {ip: true}).approved,
+	        	ipv4Cidr = approve.value('172.16.112.50/11', {ip: true}).approved,
 	            ipv6 = approve.value('3ffe:1900:4545:3:200:f8ff:fe21:67cf', {ip: true}).approved,
-	            is = ipv4 && ipv6,
+	            ipv6Cidr = approve.value('0000:0000:0000:0000:0000:0000:0000:0000/19', {ip: true}).approved,
+	            is = ipv4 && ipv6 && ipv4Cidr && ipv6Cidr,
 	            not = approve.value('172.16.5.2.40', {ip: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
