@@ -21,7 +21,7 @@
     /** @constructor */
     var approve = {};
 
-    /** 
+    /**
      * ApproveJs version
      * @memberOf approve
      * @ignore
@@ -286,7 +286,7 @@
         }
     };
 
-    /** 
+    /**
      * A helper function for formatting strings:
      * @example
      * this._format('i can speak {language} since i was {age}', {language:'javascript',age:10});
@@ -305,7 +305,7 @@
         }).trim();
     };
 
-    /** 
+    /**
      * The start of the validation process:
      * @example
      * var result = this._start(value, rules);
@@ -316,6 +316,9 @@
      * @ignore
      */
     approve._start = function(value, rules) {
+      // Instantiate a result object.
+      var result = new Result();
+
         // Loop through given rules.
         for (var rule in rules) {
             if (rules.hasOwnProperty(rule) && rule !== 'title') {
@@ -326,7 +329,7 @@
                 // Check if the rule has a title property?
                 if (rules.hasOwnProperty('title')) {
                     title = rules.title;
-                }                
+                }
                 // Check if rule exists in tests.
                 if (this.tests.hasOwnProperty(rule)) {
                     // Set a pointer to the current test.
@@ -337,28 +340,28 @@
                         test: this.tests[rule],
                         value: value
                     };
-                    return this._test(params);
+                    this._test(params, result);
                 } else {
                     throw 'approve.value(): ' + rule + ' test not defined.';
                 }
             }
         }
+
+        return result;
     };
 
-    /** 
+    /**
      * Performs the actual testing of the value and returns the result including any errors.
      * @example
      * var result = this._test(params);
      * @param {Object} params - The parameters required for testing.
-     * @return {Object} The result of the test.
+     * @param {Object} result - The result object
      * @memberOf approve
      * @ignore
      */
-    approve._test = function(params) {
-        // Instantiate a new result object.
-        var result = new Result(),
-            // Create an args object for required parameters.
-            args = this._getArgs(params),
+    approve._test = function(params, result) {
+        // Create an args object for required parameters.
+        var args = this._getArgs(params),
             // Test the value.
             ret = params.test.validate(params.value, args);
         // Check if the returned value is an object.
@@ -386,10 +389,9 @@
         if (!result.approved) {
             result.errors.push(this._formatMessage(params));
         }
-        return result;
     };
 
-    /** 
+    /**
      * Helper method to loop over expected test parameters.
      * @example
      * this._eachExpected(params, function(expected) {
@@ -413,7 +415,7 @@
         }
     };
 
-    /** 
+    /**
      * Returns an object containing the arguments for a test's expected parameters.
      * @example
      * var pars = this._getArgs(params);
@@ -432,12 +434,12 @@
                 pars[expects] = params.constraint[expects];
             } else if (expectsLength <= 1 && /^[A-Za-z0-9]+$/i.test(params.constraint)) {
                 // Set the parameter to the rule's value.
-                pars[expects] = params.constraint;      
+                pars[expects] = params.constraint;
             } else {
                 throw 'approve.value(): ' + params.rule + ' expects the ' + expects + ' parameter.';
             }
         });
-        
+
         // Does the rule have config?
         if (params.constraint.hasOwnProperty('config')) {
             // Add the config to the pars object.
@@ -491,7 +493,7 @@
         while (i--) {
             errors[i] = this._format(errors[i], format);
         }
-        return errors;  
+        return errors;
     };
 
     /**
@@ -518,7 +520,7 @@
             // Get the default message from the tests.
             message = params.test.message;
             return this._format(message, format);
-        }        
+        }
     };
 
     /**
