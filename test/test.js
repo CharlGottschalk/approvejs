@@ -3,35 +3,34 @@
 var expect = require('chai').expect;
 var approve = require('../dist/approve.js');
 
-describe("ApproveJs", function() {
-
-    it("should be accessible from 'approve' variable", function() {
+// The main library
+describe('ApproveJs', function() {
+    it('should be accessible from 'approve' variable', function() {
         var is = approve ? true : false;
         expect(is).to.equal(true);
     });
-
-    it("should have the 'Strength' test", function() {
+    it('should have the 'Strength' test', function() {
         var is = typeof approve.tests.strength === 'object' ? true : false;
         expect(is).to.equal(true);
     });
-
-    describe("Tests", function() {
+    // The tests
+    describe('Tests', function() {
 	    // required
-	    it("should be able to approve a required value", function() {
+	    it('should be able to approve a required value', function() {
 	        var is = approve.value('Hello', {required: true}).approved,
 	            not = approve.value('', {required: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // email
-	    it("should be able to approve an email address", function() {
+	    it('should be able to approve an email address', function() {
 	        var is = approve.value('user@domain.com', {email: true}).approved,
 	            not = approve.value('fake.email', {email: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // url
-	    it("should be able to approve a web address", function() {
+	    it('should be able to approve a web address', function() {
 	        var dom1 = approve.value('http://domain.com', {url: true}).approved,
 	            dom2 = approve.value('http://www.domain.com', {url: true}).approved,
 	            dom3 = approve.value('www.domain.com', {url: true}).approved,
@@ -44,7 +43,7 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // cc
-	    it("should be able to approve a credit card number", function() {
+	    it('should be able to approve a credit card number', function() {
 	    	var testnumbers = [
 		            4222222222222,
 		            4012888888881881,
@@ -81,35 +80,35 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // alphaNumeric
-	    it("should be able to approve alpha numeric characters", function() {
+	    it('should be able to approve alpha numeric characters', function() {
 	        var is = approve.value('000', {alphaNumeric: true}).approved,
 	            not = approve.value('Hello World', {alphaNumeric: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // numeric
-	    it("should be able to approve numeric characters", function() {
+	    it('should be able to approve numeric characters', function() {
 	        var is = approve.value('000', {numeric: true}).approved,
 	            not = approve.value('aaa', {numeric: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // alpha
-	    it("should be able to approve alpha characters", function() {
+	    it('should be able to approve alpha characters', function() {
 	        var is = approve.value('aaa', {alpha: true}).approved,
 	            not = approve.value('000', {alpha: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // decimal
-	    it("should be able to approve decimal values", function() {
+	    it('should be able to approve decimal values', function() {
 	        var is = approve.value('10.000', {decimal: true}).approved,
 	            not = approve.value('1,0', {decimal: true}).approved;     
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // currency
-	    it("should be able to approve currency values", function() {
+	    it('should be able to approve currency values', function() {
 	        var cur1 = approve.value('10.00', {currency: true}).approved,
 	            cur2 = approve.value('10', {currency: true}).approved,
 	            is = cur1 && cur2,
@@ -118,7 +117,7 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // ip
-	    it("should be able to approve ip addresses", function() {
+	    it('should be able to approve ip addresses', function() {
 	        var ipv4 = approve.value('172.16.112.50', {ip: true}).approved,
 	        	ipv4Cidr = approve.value('172.16.112.50/11', {ip: true}).approved,
 	            ipv6 = approve.value('3ffe:1900:4545:3:200:f8ff:fe21:67cf', {ip: true}).approved,
@@ -129,21 +128,21 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // min
-	    it("should be able to approve minimum length", function() {
+	    it('should be able to approve minimum length', function() {
 	        var is = approve.value('123456', {min: 6}).approved,
 	            not = approve.value('12345', {min: 6}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // max
-	    it("should be able to approve maximum length", function() {
+	    it('should be able to approve maximum length', function() {
 	        var is = approve.value('123456', {max: 6}).approved,
 	            not = approve.value('1234567', {max: 6}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // range
-	    it("should be able to approve length between minimum and maximum", function() {
+	    it('should be able to approve length between minimum and maximum', function() {
 	        var is = approve.value('1234567', {range: {min: 6, max: 8}}).approved,
 	            tooShort = approve.value('12345', {range: {min: 6, max: 8}}).approved,
 	            tooLong = approve.value('123456789', {range: {min: 6, max: 8}}).approved,
@@ -152,21 +151,21 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // equal
-	    it("should be able to approve that values are equal", function() {
+	    it('should be able to approve that values are equal', function() {
 	        var is = approve.value('123456', {equal: {value: '123456', field: 'is equal'}}).approved,
 	            not = approve.value('1234567', {equal: {value: '123456', field: 'is not equal'}}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // format
-	    it("should be able to approve with a custom format", function() {
+	    it('should be able to approve with a custom format', function() {
 	        var is = approve.value('AbCd', {format: {regex: /^[A-Za-z]+$/}}).approved,
 	            not = approve.value('12345', {format: {regex: /^[A-Za-z]+$/}}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // strength
-	    it("should be able to approve the strength of a password", function() {
+	    it('should be able to approve the strength of a password', function() {
 	    	var rule = {
 	    		strength: {
 	    			min: 6,
@@ -182,7 +181,7 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // multiple
-	    it("should be able to approve multiple tests", function() {
+	    it('should be able to approve multiple tests', function() {
 	    	var rule = {
 	    		required: true,
 	    		min: 6,
@@ -198,7 +197,7 @@ describe("ApproveJs", function() {
 	        expect(not).to.equal(false);
 	    });
 	    // errors
-	    it("should be able to correctly format an error message", function() {
+	    it('should be able to correctly format an error message', function() {
 	        var fromProp = approve.value('not an email', {email: true, title: 'Email'}),
 	        	noTitle = approve.value('not an email', {email: true}),
 	        	isFromProp = fromProp.errors[0] === 'Email must be a valid email address',
@@ -207,7 +206,7 @@ describe("ApproveJs", function() {
 	        expect(isNoTitle).to.equal(true);
 	    });
 	    // config
-	    it("should be configurable", function() {
+	    it('should be configurable', function() {
 	    	var rule = {
 	    		title: 'password',
 	    		strength: {
@@ -224,7 +223,25 @@ describe("ApproveJs", function() {
 	        	is = result.errors[0] === 'At least one lower case letter expected from password';
 	        expect(is).to.equal(true);
 	    });
+	    // =========================================
+	    // Add additional / new test testing here
+	    // =========================================
 
-	});	
-    
+	    // it('should ...', function() {
+	    // 	// Get test results
+	    // 	expect(is).to.equal(true);
+	    // 	expect(not).to.equal(false);
+	    // });
+	});
+	// =========================================
+    // Add additional / new feature testing here
+    // =========================================
+
+    // describe('[new_feature]', function() {
+    // 	it('should ...', function() {
+	   //  	// Test feature
+	   //  	expect(is).to.equal(true);
+	   //  	expect(not).to.equal(false);
+	   //  });
+    // });
 });

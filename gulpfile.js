@@ -11,6 +11,12 @@ var gulp = require('gulp'),
     packageJSON = require('./package.json'),
     jshintConf = packageJSON.jshintConf;
 
+var lintFiles = [
+    'src/_02.approve.js', 
+    'src/_03.approve.creditcard.js', 
+    'src/_04.approve.strength.js'
+];
+
 /*
  |--------------------------------------------------------------------------
  | Gulp Tasks
@@ -51,7 +57,7 @@ gulp.task('docs', ['gzip'], function(cb) {
 
 gulp.task('lint', function() {
     jshintConf.lookup = false;
-    return gulp.src(['src/_02.approve.js', 'src/_03.approve.creditcard.js', 'src/_04.approve.strength.js'])
+    return gulp.src(lintFiles)
         .pipe(jshint(jshintConf))
         .pipe(jshint.reporter(stylish));
 });
