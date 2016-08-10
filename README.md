@@ -8,7 +8,7 @@ ApproveJs exposes a single method, `value()` and leaves you to decide when a val
 
 Using ApproveJs, you can automate validation however you please.
 
-Personally, I use [Vue.js](http://vuejs.org/guide/events.html) and use bindings to handle when validation occurs and display any errors.
+Personally, I use [Vue.js](http://vuejs.org/guide/events.html) and use bindings to handle when validation occurs and how errors are displayed.
 
 If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
@@ -30,7 +30,7 @@ style="color: #fff; background-color: #6496c8; margin: 0 10px 0 0; padding: 15px
 Add a `script` tag to the library before the end of your closing `<body>` tag
 
 ```html
-<script src="approve.min.js"></script>
+<script src="path/to/approve.min.js"></script>
 ```
 
 ##### Bower
@@ -66,8 +66,10 @@ var approve = require('approvejs');
 
 View the [wiki](https://github.com/CharlGottschalk/approvejs/wiki) for more info and documentation on rules and extending ApproveJs with your own tests.
 
+If you would like to contribute to the project, please read [contributing](https://github.com/CharlGottschalk/approvejs/wiki/Contributing).
+
 ---
 
 #### To Do:
 
-- Add AJAX test
+- Add server side test
