@@ -56,4 +56,12 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter(stylish));
 });
 
+gulp.task('test', ['compile'], function(cb) {
+    exec('npm run-script test', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+});
+
 gulp.task('default', ['docs']);

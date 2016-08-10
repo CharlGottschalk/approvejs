@@ -26,7 +26,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.0.2';
+    approve.VERSION = '1.0.3';
 
     /**
      * Default tests.<br>
@@ -316,20 +316,18 @@
      * @ignore
      */
     approve._start = function(value, rules) {
-      // Instantiate a result object.
-      var result = new Result();
-
+        // Instantiate a result object.
+        var result = new Result(),
+            // This is used to format the message with the value title.
+            title = '';
+        // Check if the rule has a title property?
+        if (rules.hasOwnProperty('title')) {
+            title = rules.title;
+        }
         // Loop through given rules.
         for (var rule in rules) {
             if (rules.hasOwnProperty(rule) && rule !== 'title') {
-                // This is used to format the message with the value title.
-                var title = '',
-                    // Set a pointer to the current rule's constraint.
-                    constraint = rules[rule];
-                // Check if the rule has a title property?
-                if (rules.hasOwnProperty('title')) {
-                    title = rules.title;
-                }
+                var constraint = rules[rule];
                 // Check if rule exists in tests.
                 if (this.tests.hasOwnProperty(rule)) {
                     // Set a pointer to the current test.
@@ -376,7 +374,7 @@
             }
             // Merge any properties from the resulting object with the main result to be returned.
             for (var prop in ret) {
-                if (ret.hasOwnProperty(prop)) {
+                if (ret.hasOwnProperty(prop) && !result.hasOwnProperty(prop)) {
                     result[prop] = ret[prop];
                 }
             }

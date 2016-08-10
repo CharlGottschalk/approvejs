@@ -181,6 +181,22 @@ describe("ApproveJs", function() {
 	        expect(has).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
+	    // multiple
+	    it("should be able to approve multiple tests", function() {
+	    	var rule = {
+	    		required: true,
+	    		min: 6,
+	    		max: 12
+	    	};
+	        var is = approve.value('lorem ipsum', rule).approved,
+	        	invalidMin = approve.value('lorem', rule).approved,
+	        	invalidMax = approve.value('lorem ipsum dolar', rule).approved,
+	        	not = approve.value('', rule).approved;
+	        expect(is).to.equal(true);
+	        expect(invalidMin).to.equal(false);
+	        expect(invalidMax).to.equal(false);
+	        expect(not).to.equal(false);
+	    });
 	    // errors
 	    it("should be able to correctly format an error message", function() {
 	        var fromProp = approve.value('not an email', {email: true, title: 'Email'}),

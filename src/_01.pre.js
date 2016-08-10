@@ -1,5 +1,5 @@
 /**
- * approve.js v1.0.2
+ * approve.js v1.0.3
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
