@@ -5,11 +5,11 @@ var approve = require('../dist/approve.js');
 
 // The main library
 describe('ApproveJs', function() {
-    it('should be accessible from 'approve' variable', function() {
+    it('should be accessible from \'approve\' variable', function() {
         var is = approve ? true : false;
         expect(is).to.equal(true);
     });
-    it('should have the 'Strength' test', function() {
+    it('should have the \'strength\' test', function() {
         var is = typeof approve.tests.strength === 'object' ? true : false;
         expect(is).to.equal(true);
     });
