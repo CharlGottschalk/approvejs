@@ -37,15 +37,13 @@
 <body class="landing-page">
     <!--FACEBOOK LIKE BUTTON JAVASCRIPT SDK-->
     <div id="fb-root"></div>
-    <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    </script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <div class="page-wrapper">
         <!-- ******Header****** -->
         <header class="header text-center">
@@ -82,7 +80,7 @@
                             }(document, 'script', 'twitter-wjs');
                             </script>
                     </div><!--//tweet-->
-                    <div class="social-btn" 
+                    <div class="social-btn fb-like" 
                         data-href="https://charlgottschalk.github.io/approvejs/" 
                         data-layout="standard" 
                         data-action="like" 
