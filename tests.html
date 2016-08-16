@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>ApproveJs : Tests</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple JavaScript validation library that doesn't interfere">
+    <meta name="author" content="Charl Gottschalk">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" value="A simple JavaScript validation library that doesn't interfere">
+    <!-- Open Graph data -->
+    <meta property="og:title" content="ApproveJs" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://charlgottschalk.github.io/approvejs/" />
+    <meta property="og:image" content="https://charlgottschalk.github.io/approvejs/og.jpg" />
+    <meta property="og:description" content="A simple JavaScript validation library that doesn't interfere" />
+
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="body-orange">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_box-checked icon"></span>
+                            <span class="text-highlight">Approve</span><span class="">Js</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Tests</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div id="demo" class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_genius"></span> Tests</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Aug 16th, 2016</div>
+                </div><!--//doc-header-->
+                <div id="intro" class="doc-body">
+                    <div class="doc-content">
+                        <div class="content-inner">
+                            <section id="Intro" class="doc-section">
+                                <h2 class="section-title">Intro</h2>
+                                <div class="section-block">
+                                    <p>
+                                        ApproveJs ships with various tests built in to get you started right away. 
+                                    </p>
+                                </div>
+                            </section>
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="required" class="doc-section">
+                                <h2 class="section-title">required</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is present (not empty or null).
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#required-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#required-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="required-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="requiredTest.class">
+                                                        <label>Required</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Required..." v-model="requiredTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in requiredTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('requiredTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="required-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Required',
+    required: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="email" class="doc-section">
+                                <h2 class="section-title">email</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is a valid email address.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#email-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#email-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="email-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="emailTest.class">
+                                                        <label>Email</label>
+                                                        <div class="input-group">
+                                                            <input type="email" class="form-control" placeholder="Email..." v-model="emailTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in emailTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('emailTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="email-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Email',
+    email: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="url" class="doc-section">
+                                <h2 class="section-title">url</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is a valid web address.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#url-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#url-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="url-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="urlTest.class">
+                                                        <label>Url</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Url..." v-model="urlTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in urlTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('urlTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="url-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Url',
+    url: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="cc" class="doc-section">
+                                <h2 class="section-title">cc</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is a valid credit card number.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#cc-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#cc-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="cc-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="ccTest.class">
+                                                        <label>Credit Card</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Credit Card..." v-model="ccTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-show="ccTest.result.aproved">{{ccTest.result.scheme}}</span>
+                                                        <span class="help-block" v-for="error in ccTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('ccTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="cc-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Credit Card',
+    cc: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="alphaNumeric" class="doc-section">
+                                <h2 class="section-title">alphaNumeric</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it contains only numbers.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#alphaNumeric-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#alphaNumeric-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="alphaNumeric-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="alphaNumericTest.class">
+                                                        <label>Alphanumeric</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Alphanumeric..." v-model="alphaNumericTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in alphaNumericTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('alphaNumericTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="alphaNumeric-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Alphanumeric',
+    alphaNumeric: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="alpha" class="doc-section">
+                                <h2 class="section-title">alpha</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it contains only numbers.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#alpha-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#alpha-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="alpha-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="alphaTest.class">
+                                                        <label>Alpha</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Alpha..." v-model="alphaTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in alphaTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('alphaTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="alpha-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Alpha',
+    alpha: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="numeric" class="doc-section">
+                                <h2 class="section-title">numeric</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it contains only numbers.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#numeric-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#numeric-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="numeric-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="numericTest.class">
+                                                        <label>Numeric</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Numeric..." v-model="numericTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in numericTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('numericTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="numeric-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Numeric',
+    numeric: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="decimal" class="doc-section">
+                                <h2 class="section-title">decimal</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is a valid decimal value.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#decimal-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#decimal-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="decimal-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="decimalTest.class">
+                                                        <label>Decimal</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Decimal..." v-model="decimalTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in decimalTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('decimalTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="decimal-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Decimal',
+    decimal: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="currency" class="doc-section">
+                                <h2 class="section-title">currency</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is a valid currency value.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#currency-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#currency-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="currency-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="currencyTest.class">
+                                                        <label>Currency</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Currency..." v-model="currencyTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in currencyTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('currencyTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="currency-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Currency',
+    currency: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="ip" class="doc-section">
+                                <h2 class="section-title">ip</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Test a value to check whether it is a valid ipv4 or ipv6 address.
+                                    </p>
+                                    <p class="text-muted">
+                                        Supports CIDR notation.
+                                    </p>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#ip-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#ip-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="ip-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="ipTest.class">
+                                                        <label>Min</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Ip..." v-model="ipTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in ipTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('ipTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="ip-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'IP',
+    ip: true
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="min" class="doc-section">
+                                <h2 class="section-title">min</h2>
+                                <div class="section-block">
+                                    <p class="lead">
+                                        Test a value to check whether it is a minimum of <em>n</em> characters.
+                                    </p>
+                                    <h6 class="text-muted">Arguments</h6>
+                                    <ul class="list-unstyled">
+                                        <li><code>min</code></li>
+                                        <li>The minimum length a value must be to pass the test</li>
+                                    </ul>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#min-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#min-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="min-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="minTest.class">
+                                                        <label>Min</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Min..." v-model="minTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block">Length must be a minimum of 6 characters</span>
+                                                        <span class="help-block" v-for="error in minTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('minTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="min-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Min',
+    min: 6
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="max" class="doc-section">
+                                <h2 class="section-title">max</h2>
+                                <div class="section-block">
+                                    <p class="lead">
+                                        Test a value to check whether it is a maximum of <em>n</em> characters.
+                                    </p>
+                                    <h6 class="text-muted">Arguments</h6>
+                                    <ul class="list-unstyled">
+                                        <li><code>max</code></li>
+                                        <li>The maximum length a value must be to pass the test</li>
+                                    </ul>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#max-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#max-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="max-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="maxTest.class">
+                                                        <label>Max</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Max..." v-model="maxTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block">Length must be a maximum of 8 characters</span>
+                                                        <span class="help-block" v-for="error in maxTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('maxTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="max-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Max',
+    max: 8
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="range" class="doc-section">
+                                <h2 class="section-title">range</h2>
+                                <div class="section-block">
+                                    <p class="lead">
+                                        Test a value to check whether it is a minimum of <em>x</em> and a maximum of <em>y</em> characters.
+                                    </p>
+                                    <h6 class="text-muted">Arguments</h6>
+                                    <ul class="list-unstyled">
+                                        <li><code>min</code></li>
+                                        <li>The minimum length a value must be to pass the test</li>
+                                        <li><code>max</code></li>
+                                        <li>The maximum length a value must be to pass the test</li>
+                                    </ul>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#range-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#range-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="range-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="rangeTest.class">
+                                                        <label>Range</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Range..." v-model="rangeTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block">Length must be between 6 and 8 characters</span>
+                                                        <span class="help-block" v-for="error in rangeTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('rangeTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="range-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Range',
+    range: {
+        min: 6,
+        max: 8
+    }
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="equal" class="doc-section">
+                                <h2 class="section-title">equal</h2>
+                                <div class="section-block">
+                                    <p class="lead">
+                                        Test a value to check whether it is equal to another value.
+                                    </p>
+                                    <h6 class="text-muted">Arguments</h6>
+                                    <ul class="list-unstyled">
+                                        <li><code>value</code></li>
+                                        <li>The value to compare with</li>
+                                        <li><code>field</code></li>
+                                        <li>The name of the other field for correctly formatting errors</li>
+                                    </ul>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#equal-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#equal-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="equal-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <label>Equal 1</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Equal 1..." v-model="equalTest.rules.equal.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" v-bind:class="equalTest.class">
+                                                        <label>Equal 2</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Equal 2..." v-model="equalTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block">Equal 2 must be equal to Equal 1</span>
+                                                        <span class="help-block" v-for="error in equalTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('equalTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="equal-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Equal 2',
+    equal: {
+        value: 'Some other text...',
+        field: 'Equal 1'
+    }
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="format" class="doc-section">
+                                <h2 class="section-title">format</h2>
+                                <div class="section-block">
+                                    <p class="lead">
+                                        Test a value to check whether it passes a custom regular expression test.
+                                    </p>
+                                    <h6 class="text-muted">Arguments</h6>
+                                    <ul class="list-unstyled">
+                                        <li><code>regex</code></li>
+                                        <li>The regular expression to test against</li>
+                                    </ul>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#format-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#format-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="format-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="formatTest.class">
+                                                        <label>Format</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Format..." v-model="formatTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block">Only lowercase characters accepted</span>
+                                                        <span class="help-block" v-for="error in formatTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('formatTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="format-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Format',
+    format: {
+        regex: /^[a-z]+$/
+    }
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                            <!--==========================================-->
+                            <!--test-->
+                            <section id="strength" class="doc-section">
+                                <h2 class="section-title">strength</h2>
+                                <div class="section-block">
+                                    <p class="lead">
+                                        Test a value to check whether it is strong password-like string using a 6 point scoring system.
+                                    </p>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            +1 point if value >= minimum required length 
+                                        </li>
+                                        <li>
+                                            +1 point if value contains at least one lowercase character*
+                                        </li>
+                                        <li>
+                                            +1 point if value contains at least one uppercase character*
+                                        </li>
+                                        <li>
+                                            +1 point if value contains at least one numeric character*
+                                        </li>
+                                        <li>
+                                            +1 point if value contains at least one special character*
+                                        </li>
+                                        <li>
+                                            +1 point if value >= minimum bonus length*
+                                        </li>
+                                    </ul>
+                                    <em>* Point only awarded if value >= minimum length</em>
+                                    <h6 class="text-muted">Arguments</h6>
+                                    <ul class="list-unstyled">
+                                        <li><code>min</code></li>
+                                        <li>The minimum length required</li>
+                                        <li><code>bonus</code></li>
+                                        <li>The minimum length (> min) for a bonus point</li>
+                                    </ul>
+                                    <hr>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#strength-demo" data-toggle="tab">Demo</a></li>
+                                        <li><a href="#strength-code" data-toggle="tab">Code</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="strength-demo">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group" v-bind:class="strengthTest.class">
+                                                        <label>Password</label>
+                                                        <div class="input-group">
+                                                            <input type="password" class="form-control" placeholder="Password..." v-model="strengthTest.value">
+                                                            <span class="input-group-addon icon"></span>
+                                                        </div>
+                                                        <span class="help-block" v-for="error in strengthTest.result.errors">{{error}}</span>
+                                                    </div>
+                                                    <button class="btn btn-default" v-on:click="run('strengthTest')">Approve</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="strength-code">
+                                            <div class="code-block">
+                                                <pre><code class="language-javascript">var rules = {
+    title: 'Password',
+    strength: {
+        min: 6,
+        bonus: 10
+    }
+};
+var result = approve.value('Some text...', rules);
+</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--//test-->
+
+                        </div>
+                    </div>
+
+                    <div class="doc-sidebar">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
+                                <li>
+                                    <a class="scrollto" href="#tests">Tests</a>
+                                    <ul class="nav doc-sub-menu">
+                                        <li><a class="scrollto" href="#required">required</a></li>
+                                        <li><a class="scrollto" href="#email">email</a></li>
+                                        <li><a class="scrollto" href="#url">url</a></li>
+                                        <li><a class="scrollto" href="#cc">cc</a></li>
+                                        <li><a class="scrollto" href="#alphaNumeric">alphaNumeric</a></li>
+                                        <li><a class="scrollto" href="#alpha">alpha</a></li>
+                                        <li><a class="scrollto" href="#numeric">numeric</a></li>
+                                        <li><a class="scrollto" href="#decimal">decimal</a></li>
+                                        <li><a class="scrollto" href="#currency">currency</a></li>
+                                        <li><a class="scrollto" href="#ip">ip</a></li>
+                                        <li><a class="scrollto" href="#min">min</a></li>
+                                        <li><a class="scrollto" href="#max">max</a></li>
+                                        <li><a class="scrollto" href="#range">range</a></li>
+                                        <li><a class="scrollto" href="#equal">equal</a></li>
+                                        <li><a class="scrollto" href="#format">format</a></li>
+                                        <li><a class="scrollto" href="#strength">strength</a></li>
+                                    </ul><!--//nav-->
+                                </li>
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+        <div id="promo-block" class="promo-block promo-block-2">
+            <div class="container">
+                <div class="promo-block-inner">
+                    <h3 class="promo-title text-center"><i class="fa fa-heart"></i> <a href="https://github.com/CharlGottschalk/frameworkjs" target="_blank">FrameworkJs</a></h3>
+                    <div class="row">
+                        <div class="content-holder col-md-12">
+                            <div class="content-holder-inner">
+                                <div class="desc">
+                                    <h4 class="content-title">
+                                        <strong>
+                                            Want to build your own JavaScript library?
+                                        </strong>
+                                    </h4>
+                                    <p>
+                                        Check out FrameworkJs - a boilerplate project complete with an accompanying tutorial for building and deploying your own JavaScript library or framework.
+                                    </p>
+                                    <p>
+                                    <strong class="highlight">
+                                        [Coming soon]:
+                                    </strong> 
+                                        The tutorial will show you how to start and build your own JavaScript library, utiliyze build tools such as gulp, publish your project on GitHub and deploy it to Bower and NPM.
+                                    </p>
+                                    <a class="btn btn-cta" href="https://github.com/CharlGottschalk/frameworkjs" target="_blank">View on Github</a>
+                                </div>
+                            </div><!--//content-holder-inner-->
+                        </div><!--//content-holder-->
+                    </div><!--//row-->
+                </div><!--//promo-block-inner-->  
+            </div><!--//container-->
+        </div><!--//promo-block-->  
+    </div><!--//page-wrapper-->
+
+    <footer class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">PrettyDocs theme by <a href="http://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a></small>
+        </div><!--//container-->
+    </footer><!--//footer-->
+
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/approve.min.js"></script>
+    <script type="text/javascript" src="assets/js/vue.min.js"></script>
+    <script type="text/javascript" src="assets/js/demo.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+</body>
+</html> 
+
