@@ -50,13 +50,13 @@ a:focus {
   text-decoration: none;
 }
 code {
-  background: #222;
-  color: #fff;
+  background: #f5f5f5;
+  color: #333;
   font-size: 14px;
   font-weight: bold;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  padding: 2px 8px;
-  padding-top: 4px;
+  /* padding: 2px 8px;
+  padding-top: 4px; */
   display: inline-block;
 }
 .btn,
@@ -342,7 +342,7 @@ select {
   color: #fff;
 }
 .branding {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-bottom: 10px;
 }
 .branding .logo {
@@ -353,25 +353,25 @@ select {
 .branding .logo a {
   text-decoration: none;
 }
-.branding .text-highlight {
+.text-highlight {
   color: #40babd;
 }
-.body-green .branding .text-highlight {
+.body-green .text-highlight {
   color: #75c181;
 }
-.body-blue .branding .text-highlight {
+.body-blue .text-highlight {
   color: #58bbee;
 }
-.body-orange .branding .text-highlight {
+.body-orange .text-highlight {
   color: #F88C30;
 }
-.body-red .branding .text-highlight {
+.body-red .text-highlight {
   color: #f77b6b;
 }
-.body-pink .branding .text-highlight {
+.body-pink .text-highlight {
   color: #EA5395;
 }
-.body-purple .branding .text-highlight {
+.body-purple .text-highlight {
   color: #8A40A7;
 }
 .branding .text-bold {
@@ -382,22 +382,28 @@ select {
   font-size: 24px;
   color: #40babd;
 }
-.body-green .branding .icon {
+.body-green .branding .icon,
+.body-green .navbar-brand .icon {
   color: #75c181;
 }
-.body-blue .branding .icon {
+.body-blue .branding .icon,
+.body-blue .navbar-brand .icon {
   color: #58bbee;
 }
-.body-orange .branding .icon {
+.body-orange .branding .icon,
+.body-orange .navbar-brand .icon {
   color: #F88C30;
 }
-.body-red .branding .icon {
+.body-red .branding .icon,
+.body-red .navbar-brand .icon {
   color: #f77b6b;
 }
-.body-pink .branding .icon {
+.body-pink .branding .icon,
+.body-pink .navbar-brand .icon {
   color: #EA5395;
 }
-.body-purple .branding .icon {
+.body-purple .branding .icon,
+.body-purple .navbar-brand .icon {
   color: #8A40A7;
 }
 .breadcrumb {
@@ -1111,7 +1117,7 @@ select {
   color: #fff;
 }
 .landing-page .branding {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-bottom: 20px;
 }
 .landing-page .branding .logo {
@@ -1125,7 +1131,7 @@ select {
 }
 .landing-page .branding .icon {
   font-size: 32px;
-  color: #40babd;
+  /* color: #40babd; */
 }
 .landing-page .tagline {
   font-weight: 600;
@@ -1297,4 +1303,21 @@ select {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   border-top: none;
+}
+
+.color-white {
+  color: #fff !important;
+}
+
+.no-b-margin {
+  margin-bottom: 0 !important;
+}
+
+.navbar-brand span {
+  line-height: 2;
+}
+
+li.divider {
+  height: 1px;
+  background-color: #e7e7e7;
 }

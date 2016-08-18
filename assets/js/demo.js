@@ -168,10 +168,10 @@ new Vue({
             value: '',
             result: {},
             rules: {
-                title: 'Equal 2', 
+                title: 'Password Confirmation', 
                 equal: {
                     value: '',
-                    field: 'Equal 1'
+                    field: 'Password'
                 }
             }
         },
@@ -207,16 +207,17 @@ new Vue({
     },
     methods: {
         run: function(test) {
-            var rules = this[test].rules;
-            var result = approve.value(this[test].value, rules);
-            if (result.approved) {
-                this[test].class['has-error'] = false;
-                this[test].class['has-success'] = true;
-            } else {
-                this[test].class['has-error'] = true;
-                this[test].class['has-success'] = false;
-            }
+            var result = approve.value(this[test].value, this[test].rules);
+            this[test].class = this.getClass(result.approved);
             this[test].result = result;
+        },
+        getClass: function(approved) {
+            return {
+                'has-error': !approved,
+                'has-success': approved
+            };
         }
+    },
+    ready: function() {
     }
 });

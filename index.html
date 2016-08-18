@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+;<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
@@ -34,21 +34,20 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="landing-page">
+<body class="landing-page body-green">
     <div class="page-wrapper">
-        <!-- ******Header****** -->
         <header class="header text-center">
             <div class="container">
                 <div class="branding">
                     <h1 class="logo">
                         <span aria-hidden="true" class="icon_box-checked icon"></span>
-                        <span class="text-highlight">Approve</span><span class="">Js</span>
+                        <span class="color-white">Approve</span><span class="text-highlight">Js</span>
                     </h1>
-                </div><!--//branding-->
+                </div>
                 <div class="tagline">
                     <p>A simple JavaScript validation library that doesn't interfere</p>
                     <p>With <i class="fa fa-heart"></i> from <a href="http://charlg.co.za">Charl Gottschalk</a></p>
-                </div><!--//tagline-->
+                </div>
                 <div class="social-container">
                     <div class="social-btn">
                         <a href="https://twitter.com/share" 
@@ -90,19 +89,38 @@
                             Star
                         </a>
                     </div>
-                 </div><!--//social-container-->
-            </div><!--//container-->
-        </header><!--//header-->
-        
+                 </div>
+            </div>
+        </header>
+        <nav class="navbar navbar-default navbar-static-top no-b-margin">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand visible-xs visible-sm" href="index.html" style="padding: 5px;" data-page="index">
+                        <span aria-hidden="true" class="icon_box-checked icon"></span>
+                        <span class="">Approve</span><span class="text-highlight">Js</span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="javascript:void(0)">Home</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="tests.html">Tests</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <section class="cards-section text-center">
             <div class="container">
-                <h2 class="title">Another validation library?</h2>
+                <h2 class="title">Validation the way you want</h2>
                 <div class="intro">
                     <p class="lead">
-                        Yes, but ApproveJs is a little different. It doesn't interfere.
-                    </p>
-                    <p>
-                        When I say, doesn't interfere, I mean it doesn't attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors.
+                        ApproveJs doesn't automatically attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors. This allows you to handle validation how you want.
                     </p>
                     <p>
                         ApproveJs exposes a single method, <code>value()</code> and leaves you to decide when a value is validated and how errors are displayed.
@@ -117,42 +135,41 @@
                         <i class="fa fa-cloud-download"></i> 
                         Download Now
                     </a>
-                    </div><!--//cta-container-->
-                </div><!--//intro-->
+                    </div>
+                </div>
                 <div id="cards-wrapper" class="cards-wrapper row">
-                    <div class="item item-green item-2 col-md-6 col-sm-6 col-xs-6">
+                    <div class="item item-blue item-2 col-md-6 col-sm-6 col-xs-6">
                         <div class="item-inner">
                             <div class="icon-holder">
                                 <span aria-hidden="true" class="icon icon_document"></span>
-                            </div><!--//icon-holder-->
+                            </div>
                             <h3 class="title">Documentation</h3>
                             <p class="intro">Learn how to use ApproveJs</p>
                             <a class="link" href="docs.html"><span></span></a>
-                        </div><!--//item-inner-->
-                    </div><!--//item-->
+                        </div>
+                    </div>
                     <div class="item item-orange col-md-6 col-sm-6 col-xs-6">
                         <div class="item-inner">
                             <div class="icon-holder">
                                 <span aria-hidden="true" class="icon icon_genius"></span>
-                            </div><!--//icon-holder-->
+                            </div>
                             <h3 class="title">Tests</h3>
                             <p class="intro">Learn more about the built-in tests</p>
                             <a class="link" href="tests.html"><span></span></a>
-                        </div><!--//item-inner-->
-                    </div><!--//item-->
-                </div><!--//cards-->
-            </div><!--//container-->
-        </section><!--//cards-section-->
-    </div><!--//page-wrapper-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
     
     <footer class="footer text-center">
         <div class="container">
             <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
             <small class="copyright">PrettyDocs theme by <a href="http://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a></small>
-        </div><!--//container-->
-    </footer><!--//footer-->
-
-    <!-- Main Javascript -->          
+        </div>
+    </footer>
+         
     <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>

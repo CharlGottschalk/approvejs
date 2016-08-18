@@ -35,31 +35,53 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="body-green">
+<body class="body-blue">
     <div class="page-wrapper">
-        <!-- ******Header****** -->
-        <header id="header" class="header">
+        <header id="header" class="header hidden-xs hidden-sm">
             <div class="container">
                 <div class="branding">
                     <h1 class="logo">
                         <a href="index.html">
-                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
-                            <span class="text-highlight">Approve</span><span class="">Js</span>
+                            <span aria-hidden="true" class="icon_box-checked icon"></span>
+                            <span class="color-white">Approve</span><span class="text-highlight">Js</span>
                         </a>
                     </h1>
-                </div><!--//branding-->
+                </div>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a></li>
-                    <li class="active">Documentation</li>
+                    <li class="active">Tests</li>
                 </ol>
-            </div><!--//container-->
-        </header><!--//header-->
+            </div>
+        </header>
+        <nav class="navbar navbar-default navbar-static-top no-b-margin">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand visible-xs visible-sm" href="index.html" style="padding: 5px;" data-page="index">
+                        <span aria-hidden="true" class="icon_box-checked icon"></span>
+                        <span class="">Approve</span><span class="text-highlight">Js</span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active"><a href="javascript:void(0)">Documentation</a></li>
+                        <li><a href="tests.html">Tests</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="doc-wrapper">
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><i class="icon icon_document"></i> Documentation</h1>
-                    <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Aug 16th, 2016</div>
-                </div><!--//doc-header-->
+                    <div class="meta">ApproveJs version: 1.0.3</div>
+                </div>
                 <div class="doc-body">
                     <div class="doc-content">
                         <div class="content-inner">
@@ -74,19 +96,22 @@
                                     </p>
                                     <a href="https://github.com/CharlGottschalk/approvejs/wiki" class="btn btn-green" target="_blank"><i class="icon icon_document_alt"></i> Visit Wiki</a>
                                 </div>
-                            </section><!--//doc-section-->
-                        </div><!--//content-inner-->
-                    </div><!--//doc-content-->
+                            </section>
+                        </div>
+                    </div>
                     <div class="doc-sidebar hidden-xs">
                         <nav id="doc-nav">
                             <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                                <li>
+                                    <a class="scrollto" href="#header"><small>Top</small></a>
+                                </li>
                                 <li><a class="scrollto" href="#download-section">Appologies</a></li>
-                            </ul><!--//doc-menu-->
+                            </ul><
                         </nav>
-                    </div><!--//doc-sidebar-->
-                </div><!--//doc-body-->              
-            </div><!--//container-->
-        </div><!--//doc-wrapper-->
+                    </div>
+                </div>             
+            </div>
+        </div>
         
         <div id="promo-block" class="promo-block promo-block-2">
             <div class="container">
@@ -112,23 +137,22 @@
                                     </p>
                                     <a class="btn btn-cta" href="https://github.com/CharlGottschalk/frameworkjs" target="_blank">View on Github</a>
                                 </div>
-                            </div><!--//content-holder-inner-->
-                        </div><!--//content-holder-->
-                    </div><!--//row-->
-                </div><!--//promo-block-inner-->  
-            </div><!--//container-->
-        </div><!--//promo-block--> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-    </div><!--//page-wrapper-->
+    </div>
 
     <footer class="footer text-center">
         <div class="container">
             <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
             <small class="copyright">PrettyDocs theme by <a href="http://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a></small>
-        </div><!--//container-->
-    </footer><!--//footer-->
-
-    <!-- Main Javascript -->          
+        </div>
+    </footer>
+            
     <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
