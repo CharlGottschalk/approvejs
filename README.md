@@ -64,12 +64,6 @@ var approve = require('approvejs');
 
 ---
 
-View the [documentation](https://charlgottschalk.co.za/projects/approvejs) for demos and documentation on rules and extending ApproveJs with your own tests.
+View the [project page](https://charlgottschalk.co.za/projects/approvejs) for [demos](http://charlgottschalk.co.za/projects/approvejs/demo) and [documentation](http://charlgottschalk.co.za/projects/approvejs/docs) on rules and extending ApproveJs with your own tests.
 
-If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/approvejs/contributing).
-
----
-
-#### To Do:
-
-- Add server side test
+If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/approvejs/docs/contributing).
