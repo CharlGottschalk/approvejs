@@ -47,14 +47,6 @@ gulp.task('gzip', ['min'], function(cb) {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('docs', ['gzip'], function(cb) {
-    exec('npm run-script generate-docs', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
-});
-
 gulp.task('lint', function() {
     jshintConf.lookup = false;
     return gulp.src(lintFiles)
@@ -70,4 +62,4 @@ gulp.task('test', ['compile'], function(cb) {
     });
 });
 
-gulp.task('default', ['docs']);
+gulp.task('default', ['gzip']);
