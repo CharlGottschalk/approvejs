@@ -16,7 +16,7 @@ You can also easily [extend](https://github.com/CharlGottschalk/approvejs/wiki/A
 
 <h2 style="color:#ff0000;">Major Release v1.0.0</h2>
 
-If you are using a version < 1.0.0, please read the [upgrade guide](https://github.com/CharlGottschalk/approvejs/wiki/Upgrade-Guide).
+If you are using a version < 1.0.0, please read the [upgrade guide](http://charlgottschalk.co.za/projects/approvejs/docs/1.0.3/upgrade-guide).
 
 ---
 
@@ -64,6 +64,6 @@ var approve = require('approvejs');
 
 ---
 
-View the [project page](https://charlgottschalk.co.za/projects/approvejs) for [demos](http://charlgottschalk.co.za/projects/approvejs/demo) and [documentation](http://charlgottschalk.co.za/projects/approvejs/docs) on rules and extending ApproveJs with your own tests.
+View the [project page](http://charlgottschalk.co.za/projects/approvejs) for [demos](http://charlgottschalk.co.za/projects/approvejs/demo) and [documentation](http://charlgottschalk.co.za/projects/approvejs/docs) on rules and extending ApproveJs with your own tests.
 
 If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/approvejs/docs/contributing).
