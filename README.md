@@ -1,6 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![stable 1.0.3](https://img.shields.io/badge/stable-1.0.3-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
+![semver 1.0.3](https://img.shields.io/badge/semver-1.0.3-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
 
 When I say, doesn't interfere, I mean it doesn't attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors.
 
@@ -44,7 +44,7 @@ $ bower install approvejs
 Add a `script` tag to the library before the end of your closing `<body>` tag
 
 ```html
-<script src="bower_components/approvejs/dist/approve.min.js"></script>
+<script src="path/to/bower/approvejs/dist/approve.min.js"></script>
 ```
 
 
