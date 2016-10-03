@@ -26,7 +26,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.0.3';
+    approve.VERSION = '1.0.4';
 
     /**
      * Default tests.<br>
@@ -220,7 +220,7 @@
             expects: ['max']
         },
         /**
-         * Checks if a value's length is between a minimum and maximum.
+         * Checks if a string's length or number is between a minimum and maximum.
          * @param {Integer} min - The minimum allowed length.
          * @param {Integer} max - The maximum allowed length.
          * @example
@@ -237,7 +237,13 @@
          */
         range: {
             validate: function(value, pars) {
-                return typeof value === 'string' && value.length >= pars.min && value.length <= pars.max;
+                if (typeof value === 'string')
+                {
+                    return value.length >= pars.min && value.length <= pars.max;
+                } else if (typeof value === 'number') {
+                    return value >= pars.min && value <= pars.max;
+                }
+                return false;
             },
             message: '{title} must be a minimum of {min} and a maximum of {max} characters',
             expects: ['min', 'max']

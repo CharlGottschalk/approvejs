@@ -12,9 +12,8 @@ var gulp = require('gulp'),
     jshintConf = packageJSON.jshintConf;
 
 var lintFiles = [
-    'src/_02.approve.js', 
-    'src/_03.approve.creditcard.js', 
-    'src/_04.approve.strength.js'
+    './src/lib/_02.approve.js',
+    './src/*.js'
 ];
 
 /*
@@ -24,13 +23,18 @@ var lintFiles = [
  */
 
 gulp.task('compile', function(cb) {
-    return gulp.src('src/_*.js')
+    return gulp.src([
+            './src/lib/_01.pre.js',
+            './src/lib/_02.approve.js',
+            './src/*.js',
+            './src/lib/_03.post.js',
+        ])
         .pipe(concat('approve.js').on('error', util.log))
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('min', ['compile'], function(cb) {
-    return gulp.src('dist/approve.js')
+    return gulp.src('./dist/approve.js')
         .pipe(sourcemaps.init())
             .pipe(uglify({preserveComments: 'license'}).on('error', util.log))
             .pipe(rename('approve.min.js'))
@@ -39,7 +43,7 @@ gulp.task('min', ['compile'], function(cb) {
 });
 
 gulp.task('gzip', ['min'], function(cb) {
-    return gulp.src('dist/approve.min.js')
+    return gulp.src('./dist/approve.min.js')
         .pipe(sourcemaps.init())
             .pipe(gzip())
             .pipe(rename('approve.min.gzip.js'))

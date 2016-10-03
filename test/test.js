@@ -142,13 +142,17 @@ describe('ApproveJs', function() {
 	        expect(not).to.equal(false);
 	    });
 	    // range
-	    it('should be able to approve length between minimum and maximum', function() {
+	    it('should be able to approve a string\'s length or number between minimum and maximum', function() {
 	        var is = approve.value('1234567', {range: {min: 6, max: 8}}).approved,
 	            tooShort = approve.value('12345', {range: {min: 6, max: 8}}).approved,
 	            tooLong = approve.value('123456789', {range: {min: 6, max: 8}}).approved,
+	            numFail = approve.value(10, {range: {min: 6, max: 8}}).approved,
+	            numPass = approve.value(7, {range: {min: 6, max: 8}}).approved,
 	            not = !!tooShort && !!tooLong;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
+	        expect(numFail).to.equal(false);
+	        expect(numPass).to.equal(true);
 	    });
 	    // equal
 	    it('should be able to approve that values are equal', function() {
