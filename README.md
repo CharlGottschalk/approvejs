@@ -12,7 +12,7 @@ Personally, I use [Vue.js](http://vuejs.org/guide/events.html) bindings to handl
 
 If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
-ApproveJS is also easily extended with [custom tests](http://charlgottschalk.co.za/projects/approvejs/docs/1.0.4/custom-tests).
+ApproveJS is also easily extended with [custom tests](http://charlgottschalk.co.za/projects/approvejs/docs/master/custom-tests).
 
 ---
 
@@ -20,7 +20,7 @@ ApproveJS is also easily extended with [custom tests](http://charlgottschalk.co.
 
 ##### Standalone
 
-<a href="https://github.com/CharlGottschalk/approvejs/releases"
+<a href="https://github.com/CharlGottschalk/approvejs/releases/latest"
 style="color: #fff; background-color: #6496c8; margin: 0 10px 0 0; padding: 15px 45px; font-size: 32px; line-height: 1.8; box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);"> Download Latest Release </a>
 
 Add a `script` tag to the library before the end of your closing `<body>` tag
