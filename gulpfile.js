@@ -12,7 +12,9 @@ var gulp = require('gulp'),
     jshintConf = packageJSON.jshintConf;
 
 var lintFiles = [
-    './src/lib/_02.approve.js',
+    //'./src/lib/_02.approve.start.js',
+    './src/lib/_03.approve.tests.js',
+    //'./src/lib/_04.approve.end.js',
     './src/*.js'
 ];
 
@@ -25,9 +27,11 @@ var lintFiles = [
 gulp.task('compile', function(cb) {
     return gulp.src([
             './src/lib/_01.pre.js',
-            './src/lib/_02.approve.js',
+            './src/lib/_02.approve.start.js',
+            './src/lib/_03.approve.tests.js',
+            './src/lib/_04.approve.end.js',
             './src/*.js',
-            './src/lib/_03.post.js',
+            './src/lib/_05.post.js',
         ])
         .pipe(concat('approve.js').on('error', util.log))
         .pipe(gulp.dest('dist'));

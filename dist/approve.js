@@ -53,7 +53,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.0.3';
+    approve.VERSION = '1.1.4';
 
     /**
      * Default tests.<br>
@@ -316,9 +316,72 @@
             },
             message: '{title} did not pass the [{regex}] test',
             expects: ['regex']
+        },
+        /**
+         * Checks if a value is a valid time string.
+         * @example
+         * approve.value('12:25:30', {timeString: true});
+         * @function time
+         * @memberOf approve.tests
+         * @inner
+         */
+        timeString: {
+            regex: /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/,
+            validate: function(value) {
+                return this.regex.test(value);
+            },
+            message: '{title} is not a valid time',
+            expects: false
+        },
+        /**
+         * Checks if a value is a valid date (YYYY[-/]MM[-/]DD).
+         * @example
+         * approve.value('2016-10-01', {dateString: true});
+         * @function date
+         * @memberOf approve.tests
+         * @inner
+         */
+        dateString: {
+            regex: /^(?:\2)(?:[0-9]{2})?[0-9]{2}([\/-])(1[0-2]|0?[1-9])([\/-])(3[01]|[12][0-9]|0?[1-9])$/,
+            validate: function(value) {
+                return this.regex.test(value);
+            },
+            message: '{title} is not a valid date',
+            expects: false
+        },
+        /**
+         * Checks if a value is truthy ('yes', 'true', 'ok[ay]', '1').
+         * @example
+         * approve.value('yes', {truthy: true});
+         * @function truthy
+         * @memberOf approve.tests
+         * @inner
+         */
+        truthy: {
+            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+            validate: function(value) {
+                return this.regex.test(value);
+            },
+            message: '{title} is not valid',
+            expects: false
+        },
+        /**
+         * Checks if a value is falsy ('No', 'false', '0').
+         * @example
+         * approve.value('No', {falsy: true});
+         * @function falsy
+         * @memberOf approve.tests
+         * @inner
+         */
+        falsy: {
+            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+            validate: function(value) {
+                return !this.regex.test(value);
+            },
+            message: '{title} is not valid',
+            expects: false
         }
     };
-
     /**
      * A helper function for formatting strings:
      * @example
@@ -615,7 +678,6 @@
             throw 'approve.addTest(): ' + e.message;
         }
     };
-
     /**
      * The result object containing the outcome of the credit card test.
      */

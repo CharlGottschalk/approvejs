@@ -9,10 +9,6 @@ describe('ApproveJs', function() {
         var is = approve ? true : false;
         expect(is).to.equal(true);
     });
-    it('should have the \'strength\' test', function() {
-        var is = typeof approve.tests.strength === 'object' ? true : false;
-        expect(is).to.equal(true);
-    });
     // The tests
     describe('Tests', function() {
 	    // required
@@ -165,6 +161,51 @@ describe('ApproveJs', function() {
 	    it('should be able to approve with a custom format', function() {
 	        var is = approve.value('AbCd', {format: {regex: /^[A-Za-z]+$/}}).approved,
 	            not = approve.value('12345', {format: {regex: /^[A-Za-z]+$/}}).approved;
+	        expect(is).to.equal(true);
+	        expect(not).to.equal(false);
+	    });
+	    // time
+	    it('should be able to approve time strings', function() {
+	        var is = approve.value('12:25:30', {timeString: true}).approved,
+	            not = approve.value('000', {timeString: true}).approved;
+	        expect(is).to.equal(true);
+	        expect(not).to.equal(false);
+	    });
+	    // date
+	    it('should be able to approve date strings', function() {
+	        var is = approve.value('2016-10-01', {dateString: true}).approved,
+	            not = approve.value('000', {dateString: true}).approved;
+	        expect(is).to.equal(true);
+	        expect(not).to.equal(false);
+	    });
+	    // truthy
+	    it('should be able to approve truthy values', function() {
+	        var yes = approve.value('yes', {truthy: true}).approved,
+	        	truth = approve.value('true', {truthy: true}).approved,
+	        	one = approve.value('1', {truthy: true}).approved,
+	        	ok = approve.value('ok', {truthy: true}).approved,
+	        	is = yes && truth && one && ok,
+	        	no = approve.value('no', {truthy: true}).approved,
+	        	falsy = approve.value('false', {truthy: true}).approved,
+	        	zero = approve.value('0', {truthy: true}).approved,
+	        	notOk = approve.value('nope', {truthy: true}).approved,
+	            not = !!no && !!falsy && !!zero && !!notOk;
+	        expect(is).to.equal(true);
+	        expect(not).to.equal(false);
+	    });
+	    // falsy
+	    it('should be able to approve falsy values', function() {
+	        var yes = approve.value('yes', {falsy: true}).approved,
+	        	truth = approve.value('true', {falsy: true}).approved,
+	        	one = approve.value('1', {falsy: true}).approved,
+	        	ok = approve.value('ok', {falsy: true}).approved,
+	        	not = !!yes && !!truth && !!one && !!ok,
+	        	no = approve.value('no', {falsy: true}).approved,
+	        	falsy = approve.value('false', {falsy: true}).approved,
+	        	zero = approve.value('0', {falsy: true}).approved,
+	        	notOk = approve.value('nope', {falsy: true}).approved,
+	        	is = no && falsy && zero && notOk;
+	            
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
