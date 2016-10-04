@@ -1,5 +1,5 @@
 /**
- * approve.js v1.0.3
+ * approve.js v1.1.0
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
@@ -53,7 +53,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.1.4';
+    approve.VERSION = '1.1.0';
 
     /**
      * Default tests.<br>
@@ -325,7 +325,7 @@
          * @memberOf approve.tests
          * @inner
          */
-        timeString: {
+        time: {
             regex: /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/,
             validate: function(value) {
                 return this.regex.test(value);
@@ -341,7 +341,7 @@
          * @memberOf approve.tests
          * @inner
          */
-        dateString: {
+        date: {
             regex: /^(?:\2)(?:[0-9]{2})?[0-9]{2}([\/-])(1[0-2]|0?[1-9])([\/-])(3[01]|[12][0-9]|0?[1-9])$/,
             validate: function(value) {
                 return this.regex.test(value);

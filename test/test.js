@@ -166,15 +166,15 @@ describe('ApproveJs', function() {
 	    });
 	    // time
 	    it('should be able to approve time strings', function() {
-	        var is = approve.value('12:25:30', {timeString: true}).approved,
-	            not = approve.value('000', {timeString: true}).approved;
+	        var is = approve.value('12:25:30', {time: true}).approved,
+	            not = approve.value('000', {time: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
 	    // date
 	    it('should be able to approve date strings', function() {
-	        var is = approve.value('2016-10-01', {dateString: true}).approved,
-	            not = approve.value('000', {dateString: true}).approved;
+	        var is = approve.value('2016-10-01', {date: true}).approved,
+	            not = approve.value('000', {date: true}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });

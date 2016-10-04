@@ -268,7 +268,7 @@
          * @memberOf approve.tests
          * @inner
          */
-        timeString: {
+        time: {
             regex: /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/,
             validate: function(value) {
                 return this.regex.test(value);
@@ -284,7 +284,7 @@
          * @memberOf approve.tests
          * @inner
          */
-        dateString: {
+        date: {
             regex: /^(?:\2)(?:[0-9]{2})?[0-9]{2}([\/-])(1[0-2]|0?[1-9])([\/-])(3[01]|[12][0-9]|0?[1-9])$/,
             validate: function(value) {
                 return this.regex.test(value);
