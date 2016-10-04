@@ -1,5 +1,5 @@
 /**
- * approve.js v1.1.0
+ * approve.js v1.1.1
  * A simple validation library that doesn't interfere.
  * Author: Charl Gottschalk
  * @license: MIT
@@ -53,7 +53,7 @@
      * @memberOf approve
      * @ignore
      */
-    approve.VERSION = '1.1.0';
+    approve.VERSION = '1.1.1';
 
     /**
      * Default tests.<br>
@@ -358,7 +358,7 @@
          * @inner
          */
         truthy: {
-            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/i,
             validate: function(value) {
                 return this.regex.test(value);
             },
@@ -374,7 +374,7 @@
          * @inner
          */
         falsy: {
-            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/i,
             validate: function(value) {
                 return !this.regex.test(value);
             },

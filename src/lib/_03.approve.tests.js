@@ -301,7 +301,7 @@
          * @inner
          */
         truthy: {
-            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/i,
             validate: function(value) {
                 return this.regex.test(value);
             },
@@ -317,7 +317,7 @@
          * @inner
          */
         falsy: {
-            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+            regex: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/i,
             validate: function(value) {
                 return !this.regex.test(value);
             },
