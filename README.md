@@ -40,7 +40,7 @@ $ bower install approvejs
 Add a `script` tag to the library before the end of your closing `<body>` tag
 
 ```html
-<script src="path/to/bower/approvejs/dist/approve.min.js"></script>
+<script src="path/to/bower_components/approvejs/dist/approve.min.js"></script>
 ```
 
 
@@ -50,6 +50,12 @@ In your terminal run:
 
 ```
 $ npm install approvejs
+```
+
+or if you're using [Yarn](https://yarnpkg.com/)
+
+```
+$ yarn add approvejs
 ```
 
 Require `approvejs`.
@@ -97,7 +103,7 @@ while(i--) {
 }
 ```
 
-##### .each Method
+##### `.each` Method
 
 The result object exposes an `each()` method for easily getting to errors.
 
