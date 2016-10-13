@@ -60,6 +60,55 @@ var approve = require('approvejs');
 
 ---
 
+### Usage
+
+ApproveJS exposes a single method `value` that takes two parameters.
+
+The first parameter is the value to validate and the second is the set of rules to test against.
+
+```javascript
+var rules = {
+    required: true,
+    email: true
+};
+
+var result = approve.value('user@domain.com', rules);
+```
+
+The returned `result` contains two properties:
+
+```javascript
+{
+    approved: true|false,
+    errors: []
+}
+```
+
+#### Accessing Errors
+
+You can access errors returned by the result in one of two ways:
+
+##### Errors Property
+
+```javascript
+var i = result.errors.length;
+while(i--) {
+    console.log(result.errors[i]);
+}
+```
+
+##### .each Method
+
+The result object exposes an `each()` method for easily getting to errors.
+
+```javascript
+result.each(function(error) {
+    console.log(error);
+});
+```
+
+---
+
 View the [project page](http://charlgottschalk.co.za/projects/approvejs) for [demos](http://charlgottschalk.co.za/projects/approvejs/demo) and [documentation](http://charlgottschalk.co.za/projects/approvejs/docs) on rules and extending ApproveJs with your own tests.
 
 If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/approvejs/docs/contributing).
