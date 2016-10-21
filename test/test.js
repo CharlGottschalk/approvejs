@@ -171,13 +171,29 @@ describe('ApproveJs', function() {
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
-	    // date
-	    it('should be able to approve date strings', function() {
-	        var is = approve.value('2016-10-01', {date: true}).approved,
-	            not = approve.value('000', {date: true}).approved;
-	        expect(is).to.equal(true);
-	        expect(not).to.equal(false);
-	    });
+        // date
+        it('should be able to approve date strings', function() {
+            var is = approve.value('10/10/2016', {date: {formats: ['DD/MM/YYYY']}}).approved,
+                not = approve.value('2016/01/12', {date: true}).approved;
+            expect(is).to.equal(true);
+            expect(not).to.equal(false);
+        });
+
+        // dateBefore
+        it('should be able to approve check if a date happens before a specified one', function() {
+            var is = approve.value('10/10/2016', {dateBefore: {date: '24/12/2016', config: { formats: ['DD/MM/YYYY']}}}).approved,
+                not = approve.value('12/25/2016', {dateBefore: {date: '12/24/2016'}}).approved;
+            expect(is).to.equal(true);
+            expect(not).to.equal(false);
+        });
+
+        // dateAfter
+        it('should be able to approve check if a date happens after a specified one', function() {
+            var is = approve.value('30/12/2016', {dateAfter: {date: '25/12/2016', config: { formats: ['DD/MM/YYYY']}}}).approved,
+                not = approve.value('12/23/2016', {dateAfter: {date: '12/24/2016'}}).approved;
+            expect(is).to.equal(true);
+            expect(not).to.equal(false);
+        });
 	    // truthy
 	    it('should be able to approve truthy values', function() {
 	        var yes = approve.value('yes', {truthy: true}).approved,

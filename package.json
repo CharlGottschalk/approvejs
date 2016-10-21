@@ -26,7 +26,8 @@
     "gulp-util": "^3.0.7",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.2.0",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "moment": "^2.15.1"
   },
   "scripts": {
     "test": "mocha --reporter spec"
