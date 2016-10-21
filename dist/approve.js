@@ -334,22 +334,6 @@
             expects: false
         },
         /**
-         * Checks if a value is a valid date (YYYY[-/]MM[-/]DD).
-         * @example
-         * approve.value('2016-10-01', {dateString: true});
-         * @function date
-         * @memberOf approve.tests
-         * @inner
-         */
-        date: {
-            regex: /^(?:\2)(?:[0-9]{2})?[0-9]{2}([\/-])(1[0-2]|0?[1-9])([\/-])(3[01]|[12][0-9]|0?[1-9])$/,
-            validate: function(value) {
-                return this.regex.test(value);
-            },
-            message: '{title} is not a valid date',
-            expects: false
-        },
-        /**
          * Checks if a value is truthy ('yes', 'true', 'ok[ay]', '1').
          * @example
          * approve.value('yes', {truthy: true});
@@ -533,6 +517,7 @@
                 throw 'approve.value(): ' + params.rule + ' expects the ' + expects + ' parameter.';
             }
         });
+
 
         // Does the rule have config?
         if (params.constraint.hasOwnProperty('config')) {
@@ -805,6 +790,156 @@
         }
     };
     approve.tests.cc = cc;
+
+    // Set defaults
+    approve._date = {
+        formats: ['MM/DD/YY', 'MM/DD/YYYY']
+    }
+
+    // uncomment if using these rules
+    //var moment = require('moment');
+
+    /**
+     * Checks if a value is a valid date.
+     * @example
+     * var rule = {
+     *     date: {
+     *         formats: ['MM/DD/YY', 'MM/DD/YYYY']
+     *     }
+     * };
+     * approve.value('12/24/2016', rule);
+     * @function date
+     * @memberOf approve.tests
+     * @inner
+     */
+    var date = {
+        /**
+         * Expects 'formats' as a  parameter.
+         */
+        expects: ['formats'],
+
+        /**
+         * The default error message.
+         */
+        message: '{title} is not a valid date.',
+
+        /**
+         * The method that is called by ApproveJs to perform the test.
+         * @param {String} value - The value to test.
+         * @param {object} value - The parameters to test with.
+         * @return {Object} The result object of the test.
+         */
+        validate: function(val, pars){
+            var format = pars.format || approve._date.formats;
+
+            return moment(val, format, true).isValid();
+        }
+    }
+
+    approve.tests.date = date;
+
+    /**
+     * Checks if a value is a valid date.
+     * @example
+     * var rule = {
+     *     dateBefore: {
+     *         before: '12/24/2016'
+     *     }
+     * };
+     * approve.value('12/23/2016', rule);
+     * @return {Object} An object with various properties relating to the value's score.
+     * @function date
+     * @memberOf approve.tests
+     * @inner
+     */
+    var dateBefore = {
+        /**
+         * Expects the 'date' (and 'formats') as  parameters.
+         */
+        expects: ['date'],
+
+        config: {
+            formats: approve._date.formats
+        },
+
+        /**
+         * The default error message.
+         */
+        message: '{title} should be before {date}.',
+
+        /**
+         * The method that is called by ApproveJs to perform the test.
+         * @param {String} value - The value to test.
+         * @param {object} value - The parameters to test with.
+         * @return {Object} The result object of the test.
+         */
+        validate: function(val, pars){
+            var date = pars.date;
+            var format = typeof pars.config != 'undefined' ? pars.config.formats || this.config.formats : this.config.formats;
+
+            var beforeDate = moment(date, format, true);
+
+            // If it's not a valid date, error
+            if (beforeDate === false)
+                return false;
+
+            return moment(val, format) < beforeDate;
+        }
+    }
+
+    approve.tests.dateBefore = dateBefore;
+
+
+    /**
+     * Checks if a value is a valid date.
+     * @example
+     * var rule = {
+     *     dateAfter: {
+     *         before: '12/24/2016'
+     *     }
+     * };
+     * approve.value('12/23/2016', rule);
+     * @return {Object} An object with various properties relating to the value's score.
+     * @function date
+     * @memberOf approve.tests
+     * @inner
+     */
+    var dateAfter = {
+        /**
+         * Expects the 'date' (and 'formats') as  parameters.
+         */
+        expects: ['date'],
+
+        config: {
+            formats: approve._date.formats
+        },
+
+        /**
+         * The default error message.
+         */
+        message: '{title} should be after {date}.',
+
+        /**
+         * The method that is called by ApproveJs to perform the test.
+         * @param {String} value - The value to test.
+         * @param {object} value - The parameters to test with.
+         * @return {Object} The result object of the test.
+         */
+        validate: function(val, pars){
+            var date = pars.date;
+            var format = typeof pars.config != 'undefined' ? pars.config.formats || this.config.formats : this.config.formats;
+
+            var afterDate = moment(date, format, true);
+
+            // If it's not a valid date, error
+            if (afterDate === false)
+                return false;
+
+            return moment(val, format) > afterDate;
+        }
+    }
+
+    approve.tests.dateAfter = dateAfter;
 
     /**
      * The result object containing the outcome of the strength test.

@@ -277,22 +277,6 @@
             expects: false
         },
         /**
-         * Checks if a value is a valid date (YYYY[-/]MM[-/]DD).
-         * @example
-         * approve.value('2016-10-01', {dateString: true});
-         * @function date
-         * @memberOf approve.tests
-         * @inner
-         */
-        date: {
-            regex: /^(?:\2)(?:[0-9]{2})?[0-9]{2}([\/-])(1[0-2]|0?[1-9])([\/-])(3[01]|[12][0-9]|0?[1-9])$/,
-            validate: function(value) {
-                return this.regex.test(value);
-            },
-            message: '{title} is not a valid date',
-            expects: false
-        },
-        /**
          * Checks if a value is truthy ('yes', 'true', 'ok[ay]', '1').
          * @example
          * approve.value('yes', {truthy: true});
