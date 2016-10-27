@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     gzip = require('gulp-gzip'),
     util = require('gulp-util'),
+    lec = require('gulp-line-ending-corrector'),
     jshint = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
     exec = require('child_process').exec,
@@ -34,6 +35,7 @@ gulp.task('compile', function(cb) {
             './src/lib/_05.post.js',
         ])
         .pipe(concat('approve.js').on('error', util.log))
+        .pipe(lec({verbose:true, eolc: 'LF', encoding:'utf8'}))
         .pipe(gulp.dest('dist'));
 });
 
