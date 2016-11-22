@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 
 var lintFiles = [
     //'./src/lib/_02.approve.start.js',
-    './src/lib/_03.approve.tests.js',
+    './src/tests/*.js',
     //'./src/lib/_04.approve.end.js',
     './src/*.js'
 ];
@@ -24,22 +24,7 @@ var lintFiles = [
  | Gulp Tasks
  |--------------------------------------------------------------------------
  */
-
-gulp.task('compile', function(cb) {
-    return gulp.src([
-            './src/lib/_01.pre.js',
-            './src/lib/_02.approve.start.js',
-            './src/lib/_03.approve.tests.js',
-            './src/lib/_04.approve.end.js',
-            './src/*.js',
-            './src/lib/_05.post.js',
-        ])
-        .pipe(concat('approve.js').on('error', util.log))
-        .pipe(lec({verbose:true, eolc: 'LF', encoding:'utf8'}))
-        .pipe(gulp.dest('dist'));
-});
-
-gulp.task('min', ['compile'], function(cb) {
+gulp.task('min', function(cb) {
     return gulp.src('./dist/approve.js')
         .pipe(sourcemaps.init())
             .pipe(uglify({preserveComments: 'license'}).on('error', util.log))
@@ -62,14 +47,6 @@ gulp.task('lint', function() {
     return gulp.src(lintFiles)
         .pipe(jshint(jshintConf))
         .pipe(jshint.reporter(stylish));
-});
-
-gulp.task('test', ['compile'], function(cb) {
-    exec('npm run-script test', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
 });
 
 gulp.task('default', ['gzip']);

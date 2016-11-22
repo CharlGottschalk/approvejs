@@ -1,6 +1,6 @@
 {
   "name": "approvejs",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "A simple JavaScript validation library that doesn't interfere.",
   "main": "dist/approve.min.js",
   "repository": {
@@ -27,10 +27,12 @@
     "gulp-util": "^3.0.7",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.2.0",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "rollup": "^0.36.3"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "build": "rollup -c && gulp"
   },
   "bugs": {
     "url": "https://github.com/CharlGottschalk/approvejs/issues"
@@ -43,7 +45,7 @@
     "maxdepth": 5,
     "maxstatements": 25,
     "maxcomplexity": 10,
-    "es5": true,
+    "esversion": 6,
     "browser": true,
     "boss": false,
     "curly": false,

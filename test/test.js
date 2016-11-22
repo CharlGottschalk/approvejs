@@ -173,10 +173,14 @@ describe('ApproveJs', function() {
 	    });
 	    // date
 	    it('should be able to approve date strings', function() {
-	        var is = approve.value('2016-10-01', {date: true}).approved,
-	            not = approve.value('000', {date: true}).approved;
-	        expect(is).to.equal(true);
-	        expect(not).to.equal(false);
+	        var isymd = approve.value('2016-10-25', {date: 'ymd'}).approved,
+	        	isdmy = approve.value('31/10/16', {date: {format: 'dmy'}}).approved,
+	            notymd = approve.value('2016-25-23', {date: 'ymd'}).approved,
+	            notdmy = approve.value('25-23-16', {date: {format: 'dmy'}}).approved;
+	        expect(isymd).to.equal(true);
+	        expect(isdmy).to.equal(true);
+	        expect(notymd).to.equal(false);
+	        expect(notdmy).to.equal(false);
 	    });
 	    // truthy
 	    it('should be able to approve truthy values', function() {
