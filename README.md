@@ -1,12 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![semver 2.0.0](https://img.shields.io/badge/semver-2.0.0-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
-
----
-
-### Major Update: Version 2.0.0 [Upgrade Guide](http://charlgottschalk.co.za/projects/approvejs/docs/upgrade-guide)
-
-- `date` test updated to expect format. [More](http://charlgottschalk.co.za/projects/approvejs/docs/2.0.0/tests#date)
+![semver 2.1.0](https://img.shields.io/badge/semver-2.1.0-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
 
 ---
 
@@ -91,7 +85,7 @@ The returned `result` contains two properties:
 
 ```javascript
 {
-    approved: true|false,
+    approved: boolean,
     errors: []
 }
 ```

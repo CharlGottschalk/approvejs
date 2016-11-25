@@ -17,16 +17,12 @@ var Result = function() {
 
 /** @constructor */
 export default {
-	/*
-	 * DEPRECATED
-	 */
-	VERSION: 'VERSION PROPERTY DEPRECATED',
 	/**
 	 * Default tests.<br>
 	 */
 	tests: tests,
 	/**
-	 * A helper function for formatting strings:
+	 * A helper function for formatting strings.
 	 */
 	_format: function(text, col) {
 	    col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
@@ -37,20 +33,40 @@ export default {
 	    }).trim();
 	},
 	/**
-	 * The start of the validation process:
+	 * Checks whether the given rule is not a config property.
+	 */
+	_isRule: function(rule) {
+		var props = [
+			'title',
+			'stop'
+		];
+		return props.indexOf(rule) < 0;
+	},
+	/**
+	 * The start of the validation process.
 	 */
 	_start: function(value, rules) {
 	    // Instantiate a result object.
 	    var result = new Result(),
 	        // This is used to format the message with the value title.
-	        title = '';
+	        title = '',
+	        // When true, tests will not continue after first failed test.
+	        stop = false;
 	    // Check if the rule has a title property?
 	    if (rules.hasOwnProperty('title')) {
 	        title = rules.title;
 	    }
+	    // Check if the rule has a stop property?
+	    if (rules.hasOwnProperty('stop')) {
+	        stop = rules.stop;
+	    }
 	    // Loop through given rules.
 	    for (var rule in rules) {
-	        if (rules.hasOwnProperty(rule) && rule !== 'title') {
+	    	// Stop validating after each failed test
+	    	if (stop && !result.approved) {
+	    		break;
+	    	}
+	        if (rules.hasOwnProperty(rule) && this._isRule(rule)) {
 	            var constraint = rules[rule];
 	            // Check if rule exists in tests.
 	            if (this.tests.hasOwnProperty(rule)) {

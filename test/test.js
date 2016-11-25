@@ -245,6 +245,37 @@ describe('ApproveJs', function() {
 	        expect(invalidMax).to.equal(false);
 	        expect(not).to.equal(false);
 	    });
+	    // stop
+	    it('should be able to stop after first failed test if stop = true', function() {
+	    	var rule = {
+	    		stop: true,
+	    		email: true,
+	    		required: true
+	    	};
+	        var result = approve.value('', rule),
+	        	stopped = result.errors.length === 1;
+
+	        expect(stopped).to.equal(true);
+	    });
+	    // continue
+	    it('should be able to continue all tests if stop = false', function() {
+	    	var ruleFalse = {
+	    		stop: false,
+	    		required: true,
+	    		email: true
+	    	};
+	    	var ruleAbsent = {
+	    		required: true,
+	    		email: true
+	    	};
+	        var resultFalse = approve.value('', ruleFalse),
+	        	resultAbsent = approve.value('', ruleAbsent),
+	        	continuedFalse = resultFalse.errors.length > 1,
+	        	continuedAbsent = resultAbsent.errors.length > 1;
+
+	        expect(continuedFalse).to.equal(true);
+	        expect(continuedAbsent).to.equal(true);
+	    });
 	    // errors
 	    it('should be able to correctly format an error message', function() {
 	        var fromProp = approve.value('not an email', {email: true, title: 'Email'}),
