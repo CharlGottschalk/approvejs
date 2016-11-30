@@ -1,6 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![semver 2.1.0](https://img.shields.io/badge/semver-2.1.0-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
+![semver 3.0.0](https://img.shields.io/badge/semver-3.0.0-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
 
 ---
 
@@ -13,6 +13,17 @@ Using ApproveJs, you can automate validation however you please.
 If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
 ApproveJS is also easily extended with [custom tests](http://charlgottschalk.co.za/projects/approvejs/docs/master/custom-tests).
+
+---
+
+## Major Update V3.0.0
+
+[Upgrade Guide](http://charlgottschalk.co.za/projects/approvejs/docs/upgrade-guide)
+
+####Whats new:
+
+- You can now filter errors for specific tests. [More](http://charlgottschalk.co.za/projects/approvejs/docs/3.0.0/errors)
+- Test result now contains properties of each tested rule. [More](http://charlgottschalk.co.za/projects/approvejs/docs/3.0.0/validation#test-results)
 
 ---
 

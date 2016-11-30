@@ -223,7 +223,7 @@ describe('ApproveJs', function() {
 	    	};
 	        var result = approve.value('th!sIsaStr0ngPas$w0rd', rule),
 	        	is = result.approved,
-	        	has = result.hasOwnProperty('points'),
+	        	has = result.strength.hasOwnProperty('points'),
 	            not = approve.value('Pfft!', rule).approved;
 	        expect(is).to.equal(true);
 	        expect(has).to.equal(true);
@@ -312,6 +312,29 @@ describe('ApproveJs', function() {
 	    // 	expect(is).to.equal(true);
 	    // 	expect(not).to.equal(false);
 	    // });
+	});
+	describe('Results', function() {
+		// result
+	    it('should contain test result properties', function() {
+	    	var rule = {
+	    		required: true,
+	    		email: true
+	    	};
+	        var is = approve.value('example@domain.com', rule).required.approved,
+	        	not = approve.value('lorem ipsum', rule).email.approved;
+	        expect(is).to.equal(true);
+	        expect(not).to.equal(false);
+	    });
+	    // failed
+	    it('should contain failed tests array', function() {
+	    	var rule = {
+	    		required: true,
+	    		email: true
+	    	};
+	        var result = approve.value('', rule),
+	        	is = result.failed.length > 0;
+	        expect(is).to.equal(true);
+	    });
 	});
 	// =========================================
     // Add additional / new feature testing here

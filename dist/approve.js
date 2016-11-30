@@ -201,23 +201,23 @@ var strength = {
             result.isMinimum = false;
         }
         // If text has lowercase characters give 1 point.
-        result.hasLower = text.match(/[a-z]/);
-        if(result.isMinimum) {
+        result.hasLower = text.match(/[a-z]/) === null ? false : true;
+        if(result.isMinimum && result.hasLower) {
             result.points++;
         }
         // If text has uppercase characters give 1 point.
-        result.hasUpper = text.match(/[A-Z]/);
-        if(result.isMinimum) {
+        result.hasUpper = text.match(/[A-Z]/) === null ? false : true;
+        if(result.isMinimum && result.hasUpper) {
             result.points++;
         }
         // If text has at least one number give 1 point.
-        result.hasNumber = text.match(/\d+/);
-        if(result.isMinimum) {
+        result.hasNumber = text.match(/\d+/) === null ? false : true;
+        if(result.isMinimum && result.hasNumber) {
             result.points++;
         }
         // If text has at least one special caracther give 1 point.
-        result.hasSpecial = text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/);
-        if(result.isMinimum) {
+        result.hasSpecial = text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/) === null ? false : true;
+        if(result.isMinimum && result.hasSpecial) {
             result.points++;
         }
         // Set the percentage value.
@@ -485,6 +485,7 @@ var tests = {
 var Result = function() {
     this.approved = true;
     this.errors = [];
+    this.failed = [];
     // Provides easy access to the loop for the errors.
     this.each = function(callback) {
         var isFunc = callback && callback.constructor && callback.call && callback.apply,
@@ -494,6 +495,19 @@ var Result = function() {
                 callback(this.errors[i]);
             }
         }
+    };
+    // Provides easy access to the loop for a test's errors.
+    this.filter = function(test, callback) {
+    	var isFunc = callback && callback.constructor && callback.call && callback.apply,
+    		i = 0;
+    	if (this.hasOwnProperty(test)) {
+    		i = this[test].errors.length;
+    		while (i--) {
+	            if (isFunc) {
+	                callback(this[test].errors[i]);
+	            }
+	        }
+    	}
     };
 };
 
@@ -577,20 +591,28 @@ var approve = {
 	    var args = this._getArgs(params),
 	        // Test the value.
 	        ret = params.test.validate(params.value, args);
+
+	    result[params.rule] = {
+	    	approved: true,
+	    	errors: []
+	    };
 	    // Check if the returned value is an object.
 	    if(typeof ret === 'object')
 	    {
 	        // An object was returned.
 	        // Check if the test was successful.
 	        result.approved = !ret.valid ? false : result.approved;
+	        result[params.rule].approved = ret.valid;
 	        // Add the error messages returned by the resluting object.
 	        if (ret.hasOwnProperty('errors')) {
-	            result.errors = result.errors.concat(this._formatMessages(ret.errors, params));
+	        	var messages = this._formatMessages(ret.errors, params);
+	            result.errors = result.errors.concat(messages);
+	            result[params.rule].errors = messages;
 	        }
 	        // Merge any properties from the resulting object with the main result to be returned.
 	        for (var prop in ret) {
 	            if (ret.hasOwnProperty(prop) && !result.hasOwnProperty(prop)) {
-	                result[prop] = ret[prop];
+	                result[params.rule][prop] = ret[prop];
 	            }
 	        }
 	    } else if (typeof ret !== 'boolean') {
@@ -598,10 +620,16 @@ var approve = {
 	        throw 'approve.value(): ' + params.rule + ' returned an invalid value';
 	    } else {
 	        result.approved = !ret ? false : result.approved;
+	        result[params.rule].approved = ret;
 	    }
 	    if (!result.approved) {
-	        result.errors.push(this._formatMessage(params));
+	    	var message = this._formatMessage(params);
+	        result.errors.push(message);
+	        result[params.rule].errors.push(message);
 	    }
+	    if (!ret.valid) {
+        	result.failed.push(params.rule);
+        }
 	},
 	/**
 	 * Helper method to loop over expected test parameters.

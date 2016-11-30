@@ -76,23 +76,23 @@ export default {
             result.isMinimum = false;
         }
         // If text has lowercase characters give 1 point.
-        result.hasLower = text.match(/[a-z]/);
-        if(result.isMinimum) {
+        result.hasLower = text.match(/[a-z]/) === null ? false : true;
+        if(result.isMinimum && result.hasLower) {
             result.points++;
         }
         // If text has uppercase characters give 1 point.
-        result.hasUpper = text.match(/[A-Z]/);
-        if(result.isMinimum) {
+        result.hasUpper = text.match(/[A-Z]/) === null ? false : true;
+        if(result.isMinimum && result.hasUpper) {
             result.points++;
         }
         // If text has at least one number give 1 point.
-        result.hasNumber = text.match(/\d+/);
-        if(result.isMinimum) {
+        result.hasNumber = text.match(/\d+/) === null ? false : true;
+        if(result.isMinimum && result.hasNumber) {
             result.points++;
         }
         // If text has at least one special caracther give 1 point.
-        result.hasSpecial = text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/);
-        if(result.isMinimum) {
+        result.hasSpecial = text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/) === null ? false : true;
+        if(result.isMinimum && result.hasSpecial) {
             result.points++;
         }
         // Set the percentage value.
