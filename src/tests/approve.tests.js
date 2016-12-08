@@ -49,7 +49,7 @@ export default {
      * Checks if a value contains only numbers.
      */
     numeric: {
-        regex: /^[0-9]+$/,
+        regex: /^-?[0-9]+$/,
         validate: function(value) {
             return this.regex.test(value);
         },
