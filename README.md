@@ -1,6 +1,6 @@
 # ApproveJs
 #### A simple validation library that doesn't interfere
-![semver 3.0.1](https://img.shields.io/badge/semver-3.0.1-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs)
+![semver 3.0.1](https://img.shields.io/badge/semver-3.0.1-green.svg) [![Build Status](https://travis-ci.org/CharlGottschalk/approvejs.svg?branch=master)](https://travis-ci.org/CharlGottschalk/approvejs) [![CDNJS](https://img.shields.io/cdnjs/v/approvejs.svg)](https://cdnjs.com/libraries/approvejs)
 
 ---
 
