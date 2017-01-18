@@ -174,7 +174,7 @@ export default {
 	        if (params.constraint.hasOwnProperty(expects)) {
 	            // Add the expected parameter value to the pars object.
 	            pars[expects] = params.constraint[expects];
-	        } else if (expectsLength <= 1 && /^[A-Za-z0-9]+$/i.test(params.constraint)) {
+	        } else if (expectsLength <= 1 && (/^[A-Za-z0-9]+$/i.test(params.constraint) || toString.call(params.constraint) === '[object RegExp]')) {
 	            // Set the parameter to the rule's value.
 	            pars[expects] = params.constraint;
 	        } else {

@@ -45,7 +45,7 @@ Add a `script` tag to the library before the end of your closing `<body>` tag
 
 ##### cdnjs
 
-Add a `script` tag to the library cdn url before the end of your closing `<body>` tag
+Add a `script` tag to the library CDN url before the end of your closing `<body>` tag
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/approvejs/[version]/approve.min.js"></script>
@@ -53,7 +53,7 @@ Add a `script` tag to the library cdn url before the end of your closing `<body>
 
 Get the cdn urls from [here](https://cdnjs.com/libraries/approvejs)
 
-*Many thanks to [cdnjs](https://cdnjs.com/)*
+*Many thanks to [cdnjs](https://cdnjs.com/) who kindly hosts ApproveJS through a reliable CDN*
 
 ##### Node
 

@@ -159,8 +159,8 @@ describe('ApproveJs', function() {
 	    });
 	    // format
 	    it('should be able to approve with a custom format', function() {
-	        var is = approve.value('AbCd', {format: {regex: /^[A-Za-z]+$/}}).approved,
-	            not = approve.value('12345', {format: {regex: /^[A-Za-z]+$/}}).approved;
+	        var is = approve.value('AbCd', {format: /^[A-Za-z]+$/}).approved,
+	            not = approve.value('12345', {format: /^[A-Za-z]+$/}).approved;
 	        expect(is).to.equal(true);
 	        expect(not).to.equal(false);
 	    });
