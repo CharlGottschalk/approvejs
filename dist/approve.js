@@ -534,7 +534,8 @@ var approve = {
 	_isRule: function(rule) {
 		var props = [
 			'title',
-			'stop'
+			'stop',
+			'ignoreNull'
 		];
 		return props.indexOf(rule) < 0;
 	},
@@ -547,7 +548,9 @@ var approve = {
 	        // This is used to format the message with the value title.
 	        title = '',
 	        // When true, tests will not continue after first failed test.
-	        stop = false;
+	        stop = false,
+	        // When true, tests will not be executed if the value is null.
+	        ignoreNull = false;
 	    // Check if the rule has a title property?
 	    if (rules.hasOwnProperty('title')) {
 	        title = rules.title;
@@ -555,6 +558,10 @@ var approve = {
 	    // Check if the rule has a stop property?
 	    if (rules.hasOwnProperty('stop')) {
 	        stop = rules.stop;
+	    }
+	    // Check if the rule has an ignoreNull property?
+	    if (rules.hasOwnProperty('ignoreNull')) {
+	        ignoreNull = rules.ignoreNull;
 	    }
 	    // Loop through given rules.
 	    for (var rule in rules) {
@@ -572,7 +579,8 @@ var approve = {
 	                    rule: rule,
 	                    title: title,
 	                    test: this.tests[rule],
-	                    value: value
+	                    value: value,
+	                    ignoreNull: ignoreNull
 	                };
 	                this._test(params, result);
 	            } else {
@@ -587,6 +595,12 @@ var approve = {
 	 * Performs the actual testing of the value and returns the result including any errors.
 	 */
 	_test: function(params, result) {
+		// Check if nulls should be ignored
+		if (params.hasOwnProperty('ignoreNull')) {
+			if (params.value === null && params.ignoreNull) {
+				return;
+			}
+		}
 	    // Create an args object for required parameters.
 	    var args = this._getArgs(params),
 	        // Test the value.

@@ -276,6 +276,29 @@ describe('ApproveJs', function() {
 	        expect(continuedFalse).to.equal(true);
 	        expect(continuedAbsent).to.equal(true);
 	    });
+	    // ignore null value
+	    it('should be able to ignore null values', function() {
+	    	var rule = {
+	    		ignoreNull: true,
+	    		email: true,
+	    		required: true
+	    	};
+	        var result = approve.value(null, rule),
+	        	ignored = result.errors.length === 0;
+
+	        expect(ignored).to.equal(true);
+	    });
+	    // do not ignore null
+	    it('should be able to test null values', function() {
+	    	var rule = {
+	    		email: true,
+	    		required: true
+	    	};
+	        var result = approve.value(null, rule),
+	        	ignored = result.errors.length > 0;
+
+	        expect(ignored).to.equal(true);
+	    });
 	    // errors
 	    it('should be able to correctly format an error message', function() {
 	        var fromProp = approve.value('not an email', {email: true, title: 'Email'}),
