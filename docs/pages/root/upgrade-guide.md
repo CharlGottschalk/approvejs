@@ -49,7 +49,7 @@ The result will now look like:
 
 This allows you easier access to specific test results.
 
-As a result of the above, tests such as [strength](/tests#strength) that return its own additional properties are no longer merged with the main result object, but instead are now part of the test's own properties i.e.
+As a result of the above, tests such as [strength](/approvejs/tests/#strength) that return its own additional properties are no longer merged with the main result object, but instead are now part of the test's own properties i.e.
 
 Before v3.\*
 
@@ -97,7 +97,7 @@ From v3.\*
 
 #### Date Test
 
-The [date](/tests#date) test now expects a `format` parameter when testing a value. The format can either be `ymd` for testing `[YY]YY[-/]MM[-/]DD` or `dmy` when testing for `DD[-/]MM[-/][YY]YY`.
+The [date](/approvejs/tests/#date) test now expects a `format` parameter when testing a value. The format can either be `ymd` for testing `[YY]YY[-/]MM[-/]DD` or `dmy` when testing for `DD[-/]MM[-/][YY]YY`.
 
 <a name="upgrading-to-1"></a>
 
@@ -105,7 +105,7 @@ The [date](/tests#date) test now expects a `format` parameter when testing a val
 
 #### Strength Test
 
-The only major changes made is to the [strength](/tests#strength) test. The resulting properties after running this test has been renamed to make more sense and moved from the nested `.score` object to the root of the result.
+The only major changes made is to the [strength](/approvejs/tests/#strength) test. The resulting properties after running this test has been renamed to make more sense and moved from the nested `.score` object to the root of the result.
 
 Consider the following code:
 

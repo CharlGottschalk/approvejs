@@ -132,23 +132,10 @@
 </ul>
 <p><a name="results"></a></p>
 <h3 id="results">Results</h3>
-<p>All tests return a default object as a <a href="/validation#test-results">result</a>.</p>
+<p>All tests return a default object as a <a href="/approvejs/validation/#test-results">result</a>.</p>
 <p><a name="tests"></a></p>
 <h3 id="available-tests-">Available Tests:</h3>
-<style>
-    .collection-method-list > p {
-        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
-        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
-    }
-
-    .collection-method-list a {
-        display: block;
-    }
-</style>
-
-<div class="collection-method-list" markdown="1">
-
-<a href="#required">required</a>
+<p><a href="#required">required</a>
 <a href="#email">email</a>
 <a href="#url">url</a>
 <a href="#cc">cc</a>
@@ -167,9 +154,7 @@
 <a href="#date">date</a>
 <a href="#truthy">truthy</a>
 <a href="#falsy">falsy</a>
-<a href="#strength">strength</a>
-</div>
-
+<a href="#strength">strength</a></p>
 <hr>
 <p><a name="required"></a></p>
 <p><code>required</code></p>
@@ -467,13 +452,13 @@ var result = approve.value(&#39;No&#39;, rule);
 <p>It checks based on a 6 point score:</p>
 <ul>
 <li>value &gt;= minimum required length ? +1 point</li>
-<li>value contains at least one lowercase character ? +1 point</li>
-<li>value contains at least one uppercase character ? +1 point</li>
-<li>value contains at least one numeric character ? +1 point</li>
-<li>value contains at least one special character ? +1 point</li>
-<li>value &gt;= minimum bonus length ? +1 point</li>
+<li>value contains at least one lowercase character ? +1 point*</li>
+<li>value contains at least one uppercase character ? +1 point*</li>
+<li>value contains at least one numeric character ? +1 point*</li>
+<li>value contains at least one special character ? +1 point*</li>
+<li>value &gt;= minimum bonus length ? +1 point*</li>
 </ul>
-<p>Point is only awarded if value &gt;= minimum length.</p>
+<p>*Point is only awarded if value &gt;= minimum length.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>min</code>: The minimum length a password must be. Default <code>8</code>.</li>

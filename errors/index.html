@@ -136,7 +136,7 @@ while(i--) {
 </code></pre>
 <h5 id="-each-method">.each Method</h5>
 <p>The result object exposes an <code>each()</code> method for easily getting to errors. This will loop through the <code>result.errors</code> property.
-This method takes a single argument, a callback funcation that will pass an error as its first parameter.</p>
+This method takes a single argument, a callback function that will pass an error as its first parameter.</p>
 <pre><code class="lang-javascript">result.each(function(error) {
     console.log(error);
 });
@@ -168,7 +168,7 @@ This method takes a single argument, a callback funcation that will pass an erro
 <h3 id="error-formatting">Error Formatting</h3>
 <p>All default errors are automatically formatted to display correctly.</p>
 <p>For instance, the <code>range</code> test’s default error message is <code>&#39;{title} must be a minimum of {min} and a maximum of {max} characters&#39;</code>. As you can see, the message contains three placeholders, <code>{title}</code>, <code>{min}</code> and <code>{max}</code>. These placeholders are automatically replaced with the correct values when added to the result. </p>
-<p><code>{min}</code> will be replaced by the range test’s <code>min:?</code> constraint, and <code>{max}</code> with the <code>max:?</code> constraint. <code>{title}</code> will be replaced with the <code>title:?</code> property in the <a href="/validation#rules-object"><strong>rules</strong></a> object, or an empty string if the <code>{title:?}</code> property is absent.</p>
+<p><code>{min}</code> will be replaced by the range test’s <code>min:?</code> constraint, and <code>{max}</code> with the <code>max:?</code> constraint. <code>{title}</code> will be replaced with the <code>title:?</code> property in the <a href="/approvejs/validation/#rules-object"><strong>rules</strong></a> object, or an empty string if the <code>{title:?}</code> property is absent.</p>
 <h6 id="example">Example</h6>
 <p>The rule, without the <code>title:?</code> property</p>
 <pre><code class="lang-javascript">var rule = {

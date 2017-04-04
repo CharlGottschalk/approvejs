@@ -57,7 +57,7 @@ Before you compile the library, you need to lint to check for errors and potenti
 
 In your terminal, run:
 
-````
+```
 gulp lint
 ```
 

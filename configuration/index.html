@@ -134,7 +134,7 @@
 
 var result = approve.value(&#39;&#39;, rules);
 </code></pre>
-<p>The above code will check whether the value is present (<code>required = true</code>) and whether it is a valid email address (<code>email = true</code>). Should the value fail the <code>required</code> rule, ApproveJS will continue and also test the <code>email</code> rule, returning errors for both tests.</p>
+<p>The above code will check whether the value is present (<code>required = true</code>) and whether it is a valid email address (<code>email = true</code>). Should the value fail the <code>required</code> rule, ApproveJs will continue and also test the <code>email</code> rule, returning errors for both tests.</p>
 <p>It makes sense though, that if the value fails the <code>required</code> test, that it will automatically fail the <code>email</code> test, so you might want to stop testing and return only the errors for the failed <code>required</code> test. For this we use the <code>stop</code> property which will stop all testing after the first failed rule, i.e.</p>
 <pre><code class="lang-javascript">var rules = {
    stop: true,
@@ -213,9 +213,9 @@ var result = approve.value(&#39;user@domain.com&#39;, rules);
 };
 </code></pre>
 <h3 id="test-configuration">Test Configuration</h3>
-<p>Some tests might have configurable options. For instance, in addition to the default error message, the <a href="/tests#strength"><code>strength</code></a> test returns other errors regarding the score. Those error messages can be replaced with your own.</p>
-<p>To send configuration along to the test, simply add a <code>config</code> property to the test constraints in the <a href="/validation#rules-object">rules object</a>, and ApproveJs will pass it to the test.</p>
-<p>For configurable options, check the <a href="/tests">built-in tests</a> <em>Options</em>.</p>
+<p>Some tests might have configurable options. For instance, in addition to the default error message, the <a href="/approvejs/tests/#strength"><code>strength</code></a> test returns other errors regarding the score. Those error messages can be replaced with your own.</p>
+<p>To send configuration along to the test, simply add a <code>config</code> property to the test constraints in the <a href="/approvejs/validation/#rules-object">rules object</a>, and ApproveJs will pass it to the test.</p>
+<p>For configurable options, check the <a href="/approvejs/tests">built-in tests</a> <em>Options</em>.</p>
 <h6 id="example">Example</h6>
 <p>For the strength test, let’s configure the default score error messages:</p>
 <pre><code class="lang-javascript">var rules = {

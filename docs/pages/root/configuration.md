@@ -23,7 +23,7 @@ var rules = {
 var result = approve.value('', rules);
 ```
 
-The above code will check whether the value is present (`required = true`) and whether it is a valid email address (`email = true`). Should the value fail the `required` rule, ApproveJS will continue and also test the `email` rule, returning errors for both tests.
+The above code will check whether the value is present (`required = true`) and whether it is a valid email address (`email = true`). Should the value fail the `required` rule, ApproveJs will continue and also test the `email` rule, returning errors for both tests.
 
 It makes sense though, that if the value fails the `required` test, that it will automatically fail the `email` test, so you might want to stop testing and return only the errors for the failed `required` test. For this we use the `stop` property which will stop all testing after the first failed rule, i.e.
 
@@ -139,11 +139,11 @@ var rules = {
 
 ### Test Configuration
 
-Some tests might have configurable options. For instance, in addition to the default error message, the [`strength`](/tests#strength) test returns other errors regarding the score. Those error messages can be replaced with your own.
+Some tests might have configurable options. For instance, in addition to the default error message, the [`strength`](/approvejs/tests/#strength) test returns other errors regarding the score. Those error messages can be replaced with your own.
 
-To send configuration along to the test, simply add a `config` property to the test constraints in the [rules object](/validation#rules-object), and ApproveJs will pass it to the test.
+To send configuration along to the test, simply add a `config` property to the test constraints in the [rules object](/approvejs/validation/#rules-object), and ApproveJs will pass it to the test.
 
-For configurable options, check the [built-in tests](/tests) *Options*.
+For configurable options, check the [built-in tests](/approvejs/tests) *Options*.
 
 ###### Example
 

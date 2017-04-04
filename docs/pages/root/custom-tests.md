@@ -50,7 +50,7 @@ var myTest = {
 };
 ```
 
-_You'll notice three placeholders in the message. You can read more about that at [errors](/errors#error-formatting)._
+_You'll notice three placeholders in the message. You can read more about that at [errors](/approvejs/errors/#error-formatting)._
 
 Great, now we only need the required method that will perform our test when called by ApproveJs, `validate()`. ApproveJs will automatically call this function when testing a value against our test, and pass the value being tested as the first parameter, and the expected constraints as properties of an object, as the second parameter.
 
@@ -71,7 +71,7 @@ And that's it. Now we can add the test to ApproveJs. That's easy too, thanks to 
 
 The `addTest()` method expects two parameters:
 
-The first parameter is the test object, like the one we just created, and the second parameter is the name of the test, as it will be accessed by a [rules](/validation#rules-object) object.
+The first parameter is the test object, like the one we just created, and the second parameter is the name of the test, as it will be accessed by a [rules](/approvejs/validation/#rules-object) object.
 
 ```javascript
 var myTest = {
@@ -104,7 +104,7 @@ var result = approve.value('Hello crazy world', rule);
 
 ---
 
-That was simple, but what if we want to return more detail? For instance, the built-in [`strength`](/tests#strength) test returns a score object with the test result.
+That was simple, but what if we want to return more detail? For instance, the built-in [`strength`](/approvejs/tests/#strength) test returns a score object with the test result.
 
 Well, that's easy. Your test's `validate()` function can simply return an object, which ApproveJs will merge with the result object of the main `approve.value()` function.
 
@@ -128,7 +128,8 @@ var myTest = {
     validate = function (value, pars) {
         var result = {
             valid: true,
-            level: 'Puny Human!'
+            level: 'Puny Human!',
+            errors: []
        };
        if (value.indexOf('Captain Picard') >= 0)
        {
@@ -160,7 +161,7 @@ if (!result.approved) {
     result.each(function(error) {
         console.log(error);
     });
-    // Let's just alert the level of this answer as well.
+    // Let's just alert the level of this result as well.
     alert('You are a ' + result.myTest.level);
 }
 ```

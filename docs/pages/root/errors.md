@@ -28,7 +28,7 @@ while(i--) {
 ##### .each Method
 
 The result object exposes an `each()` method for easily getting to errors. This will loop through the `result.errors` property.
-This method takes a single argument, a callback funcation that will pass an error as its first parameter.
+This method takes a single argument, a callback function that will pass an error as its first parameter.
 
 ```javascript
 result.each(function(error) {
@@ -77,7 +77,7 @@ All default errors are automatically formatted to display correctly.
 
 For instance, the `range` test's default error message is `'{title} must be a minimum of {min} and a maximum of {max} characters'`. As you can see, the message contains three placeholders, `{title}`, `{min}` and `{max}`. These placeholders are automatically replaced with the correct values when added to the result. 
 
-`{min}` will be replaced by the range test's `min:?` constraint, and `{max}` with the `max:?` constraint. `{title}` will be replaced with the `title:?` property in the [**rules**](/validation#rules-object) object, or an empty string if the `{title:?}` property is absent.
+`{min}` will be replaced by the range test's `min:?` constraint, and `{max}` with the `max:?` constraint. `{title}` will be replaced with the `title:?` property in the [**rules**](/approvejs/validation/#rules-object) object, or an empty string if the `{title:?}` property is absent.
 
 ###### Example
 

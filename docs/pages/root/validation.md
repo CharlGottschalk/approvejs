@@ -67,7 +67,7 @@ var rules = {
 var result = approve.value('This text is longer than 5 characters', rules);
 ```
 
-That will do exactly the same thing, although, that seems like overkill. But hang on, there's a reason for that, [configuration](/configuration).
+That will do exactly the same thing, although, that seems like overkill. But hang on, there's a reason for that, [configuration](/approvejs/configuration).
 
 For tests that expect more than one constraint, an object containing those is required. For instance:
 
@@ -90,7 +90,7 @@ var result = approve.value('This text is longer than 5 characters', rules);
 
 ### Test Results
 
-ApproveJS returns a default object as a result.
+ApproveJs returns a default object as a result.
 
 ```javascript
 {
@@ -153,4 +153,4 @@ This allows you easier access to specific test results.
 
 #### Note
 
-Some tests, such as [strength](/tests#strength), might return additional properties with its result. Learn more from [built in tests](/tests).
+Some tests, such as [strength](/approvejs/tests/#strength), might return additional properties with its result. Learn more from [built in tests](/approvejs/tests).

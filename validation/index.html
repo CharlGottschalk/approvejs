@@ -162,7 +162,7 @@ var result = approve.value(&#39;This text is longer than 5 characters&#39;, rule
 
 var result = approve.value(&#39;This text is longer than 5 characters&#39;, rules);
 </code></pre>
-<p>That will do exactly the same thing, although, that seems like overkill. But hang on, there’s a reason for that, <a href="/configuration">configuration</a>.</p>
+<p>That will do exactly the same thing, although, that seems like overkill. But hang on, there’s a reason for that, <a href="/approvejs/configuration">configuration</a>.</p>
 <p>For tests that expect more than one constraint, an object containing those is required. For instance:</p>
 <p>The <code>range</code> test that checks whether a value has a minimum of <em>n</em> characters and a maximum of <em>n</em> characters expects <code>min</code> and <code>max</code>. For example:</p>
 <pre><code class="lang-javascript">var rules = {
@@ -177,7 +177,7 @@ var result = approve.value(&#39;This text is longer than 5 characters&#39;, rule
 <p><em>If an expected constraint is not present in the rules, ApproveJs will throw an error to the console letting you know.</em></p>
 <p><a name="test-results"></a></p>
 <h3 id="test-results">Test Results</h3>
-<p>ApproveJS returns a default object as a result.</p>
+<p>ApproveJs returns a default object as a result.</p>
 <pre><code class="lang-javascript">{
     approved: boolean,
     errors: [],
@@ -222,7 +222,7 @@ var result = approve.value(&#39;example@domain.com&#39;, rules);
 <p>This allows you easier access to specific test results.</p>
 <hr>
 <h4 id="note">Note</h4>
-<p>Some tests, such as <a href="/tests#strength">strength</a>, might return additional properties with its result. Learn more from <a href="/tests">built in tests</a>.</p>
+<p>Some tests, such as <a href="/approvejs/tests/#strength">strength</a>, might return additional properties with its result. Learn more from <a href="/approvejs/tests">built in tests</a>.</p>
 
 
                         </div>

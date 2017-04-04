@@ -19,24 +19,11 @@ ApproveJs ships with various tests built in to get you started right away.
 
 ### Results
 
-All tests return a default object as a [result](/validation#test-results).
+All tests return a default object as a [result](/approvejs/validation/#test-results).
 
 <a name="tests"></a>
 
 ### Available Tests:
-
-<style>
-    .collection-method-list > p {
-        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
-        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
-    }
-
-    .collection-method-list a {
-        display: block;
-    }
-</style>
-
-<div class="collection-method-list" markdown="1">
 
 [required](#required)
 [email](#email)
@@ -58,7 +45,6 @@ All tests return a default object as a [result](/validation#test-results).
 [truthy](#truthy)
 [falsy](#falsy)
 [strength](#strength)
-</div>
 
 ---
 
@@ -547,13 +533,13 @@ Checks if the value is a strong password like string.
 It checks based on a 6 point score:
 
 - value >= minimum required length ? +1 point
-- value contains at least one lowercase character ? +1 point
-- value contains at least one uppercase character ? +1 point
-- value contains at least one numeric character ? +1 point
-- value contains at least one special character ? +1 point
-- value >= minimum bonus length ? +1 point
+- value contains at least one lowercase character ? +1 point\*
+- value contains at least one uppercase character ? +1 point\*
+- value contains at least one numeric character ? +1 point\*
+- value contains at least one special character ? +1 point\*
+- value >= minimum bonus length ? +1 point\*
 
-Point is only awarded if value >= minimum length.
+\*Point is only awarded if value >= minimum length.
 
 
 **Parameters:**

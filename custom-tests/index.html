@@ -151,7 +151,7 @@ Here is how you can extend the ApproveJs tests with your own.</p>
     message = &#39;{title} must start with {startswith} and end with {endsWith}.&#39;
 };
 </code></pre>
-<p><em>You’ll notice three placeholders in the message. You can read more about that at <a href="/errors#error-formatting">errors</a>.</em></p>
+<p><em>You’ll notice three placeholders in the message. You can read more about that at <a href="/approvejs/errors/#error-formatting">errors</a>.</em></p>
 <p>Great, now we only need the required method that will perform our test when called by ApproveJs, <code>validate()</code>. ApproveJs will automatically call this function when testing a value against our test, and pass the value being tested as the first parameter, and the expected constraints as properties of an object, as the second parameter.</p>
 <pre><code class="lang-javascript">var myTest = {
     expects = [
@@ -166,7 +166,7 @@ Here is how you can extend the ApproveJs tests with your own.</p>
 </code></pre>
 <p>And that’s it. Now we can add the test to ApproveJs. That’s easy too, thanks to the <code>addTest()</code> method. </p>
 <p>The <code>addTest()</code> method expects two parameters:</p>
-<p>The first parameter is the test object, like the one we just created, and the second parameter is the name of the test, as it will be accessed by a <a href="/validation#rules-object">rules</a> object.</p>
+<p>The first parameter is the test object, like the one we just created, and the second parameter is the name of the test, as it will be accessed by a <a href="/approvejs/validation/#rules-object">rules</a> object.</p>
 <pre><code class="lang-javascript">var myTest = {
     expects = [
         &#39;startsWith&#39;,
@@ -192,7 +192,7 @@ var rule = {
 var result = approve.value(&#39;Hello crazy world&#39;, rule);
 </code></pre>
 <hr>
-<p>That was simple, but what if we want to return more detail? For instance, the built-in <a href="/tests#strength"><code>strength</code></a> test returns a score object with the test result.</p>
+<p>That was simple, but what if we want to return more detail? For instance, the built-in <a href="/approvejs/tests/#strength"><code>strength</code></a> test returns a score object with the test result.</p>
 <p>Well, that’s easy. Your test’s <code>validate()</code> function can simply return an object, which ApproveJs will merge with the result object of the main <code>approve.value()</code> function.</p>
 <p>However, for it to work properly, your object <strong>MUST</strong> have the following.</p>
 <p><code>valid</code> - A boolean letting ApproveJs know whether your test succeeded or not, so you need to set this property to <code>true</code> if it succeeded, otherwise <code>false</code>.</p>
@@ -208,7 +208,8 @@ var result = approve.value(&#39;Hello crazy world&#39;, rule);
     validate = function (value, pars) {
         var result = {
             valid: true,
-            level: &#39;Puny Human!&#39;
+            level: &#39;Puny Human!&#39;,
+            errors: []
        };
        if (value.indexOf(&#39;Captain Picard&#39;) &gt;= 0)
        {
@@ -237,7 +238,7 @@ if (!result.approved) {
     result.each(function(error) {
         console.log(error);
     });
-    // Let&#39;s just alert the level of this answer as well.
+    // Let&#39;s just alert the level of this result as well.
     alert(&#39;You are a &#39; + result.myTest.level);
 }
 </code></pre>
