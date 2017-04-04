@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home</title>
+        <title>Installation</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="https://charlgottschalk.github.com/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -110,20 +110,30 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="approvejs">ApproveJs</h1>
-<h4 id="simple-javascript-validation-that-doesn-t-interfere">Simple JavaScript validation that doesn’t interfere</h4>
-<hr>
-<p>ApproveJs doesn’t automatically attach itself to input change events or form submit events. It also doesn’t manipulate the DOM for you by automatically displaying errors. This allows you to automate validation how you want.</p>
-<p>With a single method (<code>approve.value()</code>), you can decide how to handle validation.</p>
-<h5 id="as-easy-as-">As easy as:</h5>
-<pre><code class="lang-javascript">var rules = {
-    required: true,
-    email: true
-};
-
-var result = approve.value(&#39;user@domain.com&#39;, rules);
+                            <h1 id="installation">Installation</h1>
+<h5 id="standalone">Standalone</h5>
+<p><a href="https://github.com/CharlGottschalk/approvejs/archive/master.zip" class="btn btn-lg btn-info">Download Latest Release</a></p>
+<p>Unzip <code>master.zip</code> and add a <code>script</code> tag to the library before the end of your closing <code>&lt;body&gt;</code> tag</p>
+<pre><code>&lt;script src=&quot;path/to/approve.min.js&quot;&gt;&lt;/script&gt;
+</code></pre><h5 id="cdnjs">cdnjs</h5>
+<p>Add a <code>script</code> tag to the library CDN url before the end of your closing <code>&lt;body&gt;</code> tag</p>
+<pre><code class="lang-html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/approvejs/[version]/approve.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
-<p><a href="/installation" class="btn btn-lg btn-info">Get Started</a></p>
+<p>Get the cdn urls from <a href="https://cdnjs.com/libraries/approvejs">here</a></p>
+<p><em>Many thanks to <a href="https://cdnjs.com/">cdnjs</a> who kindly hosts ApproveJS through a reliable CDN</em></p>
+<h5 id="bower">Bower</h5>
+<p>In your terminal run:</p>
+<pre><code>$ bower install approvejs
+</code></pre><p>Add a <code>script</code> tag to the library before the end of your closing <code>&lt;body&gt;</code> tag</p>
+<pre><code>&lt;script src=&quot;bower_components/approvejs/dist/approve.min.js&quot;&gt;&lt;/script&gt;
+</code></pre><h5 id="node">Node</h5>
+<p>In your terminal run:</p>
+<pre><code>$ npm install approvejs
+</code></pre><p>or if you’re using <a href="https://yarnpkg.com/">Yarn</a></p>
+<pre><code>$ yarn add approvejs
+</code></pre><p>Require <code>approvejs</code>.</p>
+<pre><code class="lang-javascript">var approve = require(&#39;approvejs&#39;);
+</code></pre>
 
 
                         </div>

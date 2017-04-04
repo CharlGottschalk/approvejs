@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home</title>
+        <title>Upgrade Guide</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="https://charlgottschalk.github.com/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -110,20 +110,134 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="approvejs">ApproveJs</h1>
-<h4 id="simple-javascript-validation-that-doesn-t-interfere">Simple JavaScript validation that doesn’t interfere</h4>
+                            <h1 id="upgrade-guide">Upgrade Guide</h1>
+<ul>
+<li><a href="#upgrading-to-3">Upgrading to 3.* from &lt;= 2.*</a></li>
+<li><a href="#upgrading-to-2">Upgrading to 2.* from &lt;= 1.*</a></li>
+<li><a href="#upgrading-to-1">Upgrading to 1.* from &lt;= 0.0.6</a></li>
+</ul>
 <hr>
-<p>ApproveJs doesn’t automatically attach itself to input change events or form submit events. It also doesn’t manipulate the DOM for you by automatically displaying errors. This allows you to automate validation how you want.</p>
-<p>With a single method (<code>approve.value()</code>), you can decide how to handle validation.</p>
-<h5 id="as-easy-as-">As easy as:</h5>
-<pre><code class="lang-javascript">var rules = {
-    required: true,
-    email: true
+<p><a name="upgrading-to-3"></a></p>
+<h2 id="upgrading-to-3-from-2-">Upgrading To 3.* From &lt;= 2.*</h2>
+<h4 id="test-properties">Test Properties</h4>
+<p>Each rule that is tested will now have it’s own property in the result i.e.</p>
+<p>Consider the following code:</p>
+<pre><code class="lang-javascript">var rule = {
+    required: true
 };
-
-var result = approve.value(&#39;user@domain.com&#39;, rules);
+var result = approve.value(&#39;lorem ipsum&#39;, rule);
 </code></pre>
-<p><a href="/installation" class="btn btn-lg btn-info">Get Started</a></p>
+<p>The result will now look like:</p>
+<pre><code class="lang-javascript">{
+    approved: boolean,
+    errors: [],
+    failed: [],
+    required: {
+        approved: boolean,
+        errors: []
+    }
+}
+</code></pre>
+<p>This allows you easier access to specific test results.</p>
+<p>As a result of the above, tests such as <a href="/tests#strength">strength</a> that return its own additional properties are no longer merged with the main result object, but instead are now part of the test’s own properties i.e.</p>
+<p>Before v3.*</p>
+<pre><code class="lang-javascript">{
+    approved: boolean,
+    errors: [],
+    failed: [],
+    strength: string,
+    points: integer,
+    isMinimum: boolean,
+    hasLower: boolean,
+    hasUpper: boolean,
+    hasNumber: boolean,
+    hasSpecial: boolean,
+    isBonus: boolean,
+    percent: integer
+}
+</code></pre>
+<p>From v3.*</p>
+<pre><code class="lang-javascript">{
+    approved: boolean,
+    errors: [],
+    failed: [],
+    strength: {
+        strength: string,
+        points: integer,
+        isMinimum: boolean,
+        hasLower: boolean,
+        hasUpper: boolean,
+        hasNumber: boolean,
+        hasSpecial: boolean,
+        isBonus: boolean,
+        percent: integer
+    }
+}
+</code></pre>
+<p><a name="upgrading-to-2"></a></p>
+<h2 id="upgrading-to-2-from-1-">Upgrading To 2.* From &lt;= 1.*</h2>
+<h4 id="date-test">Date Test</h4>
+<p>The <a href="/tests#date">date</a> test now expects a <code>format</code> parameter when testing a value. The format can either be <code>ymd</code> for testing <code>[YY]YY[-/]MM[-/]DD</code> or <code>dmy</code> when testing for <code>DD[-/]MM[-/][YY]YY</code>.</p>
+<p><a name="upgrading-to-1"></a></p>
+<h2 id="upgrading-to-1-from-0-0-6">Upgrading To 1.* From &lt;= 0.0.6</h2>
+<h4 id="strength-test">Strength Test</h4>
+<p>The only major changes made is to the <a href="/tests#strength">strength</a> test. The resulting properties after running this test has been renamed to make more sense and moved from the nested <code>.score</code> object to the root of the result.</p>
+<p>Consider the following code:</p>
+<pre><code class="lang-javascript">var rule = {
+    strength: {
+        min: 8,
+        bonus: 10
+    }
+};
+var result = approve.value(&#39;some text&#39;, rule);
+</code></pre>
+<h6 id="the-result-v1-would-look-like-the-following-">The result (&lt; v1) would look like the following:</h6>
+<pre><code class="lang-javascript">{
+    approved: false,
+    errors: [],
+    message: &#39;Weak&#39;,
+    minimum: 8,
+    minimumBonus: 10,
+    score: {
+        value: 1,
+        isMinimum: true,
+        hasLower: true,
+        hasUpper: false,
+        hasNumber: false,
+        hasSpecial: false,
+        isBonus: false,
+        strength: 0
+    }
+}
+</code></pre>
+<h6 id="from-v1-the-result-will-now-be-">From v1.* the result will now be:</h6>
+<pre><code class="lang-javascript">{
+    approved: false,
+    errors: [],
+    strength: &#39;Weak&#39;,
+    points: 1,
+    isMinimum: true,
+    hasLower: true,
+    hasUpper: false,
+    hasNumber: false,
+    hasSpecial: false,
+    isBonus: false,
+    percent: 0
+}
+</code></pre>
+<ol>
+<li><code>result.message</code> is now <code>result.strength</code></li>
+<li><code>result.score.value</code> is now <code>result.points</code></li>
+<li><code>result.score.isMinimum</code> is now <code>result.isMinimum</code></li>
+<li><code>result.score.hasLower</code> is now <code>result.hasLower</code></li>
+<li><code>result.score.hasUpper</code> is now <code>result.hasUpper</code></li>
+<li><code>result.score.hasNumber</code> is now <code>result.hasNumber</code></li>
+<li><code>result.score.hasSpecial</code> is now <code>result.hasSpecial</code></li>
+<li><code>result.score.isBonus</code> is now <code>result.isBonus</code></li>
+<li><code>result.score.strength</code> is now <code>result.percent</code></li>
+</ol>
+<h4 id="versioning">Versioning</h4>
+<p>I initially used a custom versioning system, but to avoid confusion and follow the standard, ApproveJs will now follow proper semantic versioning (<a href="http://semver.org/">semver</a>).</p>
 
 
                         </div>

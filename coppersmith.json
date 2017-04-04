@@ -1,0 +1,28 @@
+{
+  "name": "ApproveJs",
+  "author": "Charl Gottschalk",
+  "sourcePath": "docs",
+  "buildPath": "./",
+  "base_bak": "file:///C:/Development/github/charlgottschalk/approvejs",
+  "base": "https://charlgottschalk.github.com/approvejs",
+  "template": {
+    "path": "",
+    "theme": "default",
+    "skin": "black-light"
+  },
+  "options": {
+    "copyright_year": "2017",
+    "copyright_url": "http://charlgottschalk.co.za",
+    "copyright_display": "Charl Gottschalk"
+  },
+  "publish": {
+    "to": "ftp",
+    "destination": "public_html/destination/folder",
+    "config": {
+      "host": "ftp.domain.com",
+      "port": 21,
+      "username": "username",
+      "password": "password"
+    }
+  }
+}

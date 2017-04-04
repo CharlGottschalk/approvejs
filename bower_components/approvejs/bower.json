@@ -1,0 +1,32 @@
+{
+  "name": "approvejs",
+  "description": "A simple JavaScript validation library that doesn't interfere.",
+  "main": "dist/approve.js",
+  "authors": [
+    "Charl Gottschalk (http://charlg.co.za)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "validation",
+    "validate"
+  ],
+  "homepage": "https://github.com/CharlGottschalk/approvejs",
+  "moduleType": [
+    "globals",
+    "amd",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "docs",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CharlGottschalk/approvejs.git"
+  }
+}
