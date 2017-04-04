@@ -6,7 +6,7 @@
   "base_bak": "file:///C:/Development/github/charlgottschalk/approvejs",
   "base": "https://charlgottschalk.github.com/approvejs",
   "template": {
-    "path": "",
+    "path": "docs/templates",
     "theme": "default",
     "skin": "black-light"
   },

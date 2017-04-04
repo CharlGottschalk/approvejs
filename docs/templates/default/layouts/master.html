@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+    {{> head}}
+
+    <body class="hold-transition skin-{{skin}} sidebar-mini">
+        <div class="wrapper">
+
+            {{> top}}
+
+            {{> nav}}
+
+            <div class="content-wrapper">
+                
+                <section class="content">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            
+                            {{{contents}}}
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            {{> footer}}
+            
+        </div>
+
+        {{> scripts}}
+        
+    </body>
+</html>
