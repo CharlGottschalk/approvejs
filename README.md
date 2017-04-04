@@ -4,15 +4,13 @@
 
 ---
 
-ApproveJs doesn't automatically attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors. This allows you to handle validation how you want.
+ApproveJs doesn't automatically attach itself to input change events or form submit events. It also doesn't manipulate the DOM for you by automatically displaying errors. This allows you to automate validation how you want.
 
-ApproveJs exposes a single method, `value()` and leaves you to decide when a value is validated and how errors are displayed.
-
-Using ApproveJs, you can automate validation however you please.
+With a single method (`approve.value()`), you can decide how to handle validation.
 
 If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
-ApproveJS is also easily extended with [custom tests](http://charlgottschalk.co.za/projects/approvejs/docs/master/custom-tests).
+ApproveJs is also easily extended with [custom tests](https://charlgottschalk.github.io/approvejs/custom-tests).
 
 ---
 
@@ -20,10 +18,9 @@ ApproveJS is also easily extended with [custom tests](http://charlgottschalk.co.
 
 ##### Standalone
 
-<a href="https://github.com/CharlGottschalk/approvejs/releases/latest"
-style="color: #fff; background-color: #6496c8; margin: 0 10px 0 0; padding: 15px 45px; font-size: 32px; line-height: 1.8; box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);"> Download Latest Release </a>
+[Download Latest Release](https://github.com/CharlGottschalk/approvejs/archive/master.zip)
 
-Add a `script` tag to the library before the end of your closing `<body>` tag
+Unzip `master.zip` into your desired folder and add a `script` tag to the library before the end of your closing `<body>` tag
 
 ```html
 <script src="path/to/approve.min.js"></script>
@@ -126,6 +123,6 @@ result.each(function(error) {
 
 ---
 
-View the [project page](http://charlgottschalk.co.za/projects/approvejs) for [demos](http://charlgottschalk.co.za/projects/approvejs/demo) and [documentation](http://charlgottschalk.co.za/projects/approvejs/docs) on rules and extending ApproveJs with your own tests.
+View the [documentation](https://charlgottschalk.github.io/approvejs/) at [https://charlgottschalk.github.io/approvejs/](https://charlgottschalk.github.io/approvejs/).
 
-If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/approvejs/docs/contributing).
+If you would like to contribute to the project, please read [contributing](https://charlgottschalk.github.io/approvejs/contributing/).
