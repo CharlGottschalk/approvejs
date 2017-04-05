@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ApproveJs : Tests</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
+    	<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    	<!-- Ionicons -->
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/AdminLTE.css">
+        <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/prism.css">
+        <link rel="stylesheet" href="/approvejs/assets/css/skins/skins-all.css">
+    
+        <meta name="keywords" content="approvejs,javascript validation,validation">
+        <meta name="description" content="Simple javascript validation that doesn't interfere.">
+    
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="hold-transition skin-black-light sidebar-mini">
+        <div class="wrapper">
+
+            <header class="main-header">
+            	<!-- Logo -->
+            	<a href="https://charlgottschalk.github.com/approvejs/docs" class="logo">
+            		<!-- mini logo for sidebar mini 50x50 pixels -->
+            		<span class="logo-mini"></span>
+            		<!-- logo for regular state and mobile devices -->
+            		<span class="logo-lg">ApproveJs</span>
+            	</a>
+            	<!-- Header Navbar: style can be found in header.less -->
+            	<nav class="navbar navbar-static-top">
+            		<!-- Sidebar toggle button-->
+            		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            			<span class="sr-only">Toggle navigation</span>
+            			<span class="icon-bar"></span>
+            			<span class="icon-bar"></span>
+            			<span class="icon-bar"></span>
+            		</a>
+            
+            		<div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                      <li>
+                        <a href="https://github.com/CharlGottschalk/approvejs" target="_blank"><i class="fa fa-github"></i></a>
+                      </li>
+                      <li>
+                        <a href="https://github.com/CharlGottschalk/approvejs/archive/master.zip"><i class="fa fa-download"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+            	</nav>
+            </header>
+            <aside class="main-sidebar">
+            	<section class="sidebar">
+            		<ul class="sidebar-menu">
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Home</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/upgrade-guide">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Upgrade Guide</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/contributing">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Contributing</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/installation">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Installation</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/validation">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Validation</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/errors">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Errors</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/configuration">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Configuration</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/tests">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Tests</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="https://charlgottschalk.github.com/approvejs/docs/custom-tests">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Custom Tests</span>
+            				</a>
+            			</li>
+            		</ul>
+            	</section>
+            </aside>
+            <div class="content-wrapper">
+                
+                <section class="content">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            
+                            <h1 id="tests">Tests</h1>
+<p>ApproveJs ships with various tests built in to get you started right away.</p>
+<ul>
+<li><a href="#results">Results</a></li>
+<li><a href="#tests">Available Tests</a></li>
+</ul>
+<p><a name="results"></a></p>
+<h3 id="results">Results</h3>
+<p>All tests return a default object as a <a href="/approvejs/docs/validation/#test-results">result</a>.</p>
+<p><a name="tests"></a></p>
+<h3 id="available-tests-">Available Tests:</h3>
+<p><a href="#required">required</a>
+<a href="#email">email</a>
+<a href="#url">url</a>
+<a href="#cc">cc</a>
+<a href="#alphaNumeric">alphaNumeric</a>
+<a href="#numeric">numeric</a>
+<a href="#alpha">alpha</a>
+<a href="#decimal">decimal</a>
+<a href="#currency">currency</a>
+<a href="#ip">ip</a>
+<a href="#min">min</a>
+<a href="#max">max</a>
+<a href="#range">range</a>
+<a href="#equal">equal</a>
+<a href="#format">format</a>
+<a href="#time">time</a>
+<a href="#date">date</a>
+<a href="#truthy">truthy</a>
+<a href="#falsy">falsy</a>
+<a href="#strength">strength</a></p>
+<hr>
+<p><a name="required"></a></p>
+<p><code>required</code></p>
+<p>Checks if the value is not empty or null or undefined.</p>
+<p><strong>Parameters:</strong> <em>none</em>  </p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} is required&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    required: true
+};
+var result = approve.value(&#39;value&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="email"></a></p>
+<p><code>email</code></p>
+<p>Checks if the value is a valid email address.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a valid email address&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    email: true
+};
+var result = approve.value(&#39;user@domain.com&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="url"></a></p>
+<p><code>url</code></p>
+<p>Check if the value is a valid web address.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a valid web address&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    url: true
+};
+var result = approve.value(&#39;http://www.domain.com&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="cc"></a></p>
+<p><code>cc</code></p>
+<p>Checks if the value is a valid credit card number.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong></p>
+<pre><code class="lang-javascript">{
+    **default**
+    cc: {
+        scheme: string
+    }
+}
+</code></pre>
+<p><code>scheme</code>: The credit card scheme i.e. <code>&#39;American Express&#39;</code></p>
+<p><strong>Message:</strong> <code>&#39;{title} is not a valid credit card number&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    cc: true
+};
+var result = approve.value(&#39;000000000000000&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="alphaNumeric"></a></p>
+<p><code>alphaNumeric</code></p>
+<p>Checks if the value contains both letters and numbers.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} may only contain [A-Za-z] and [0-9]&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    alphaNumeric: true
+};
+var result = approve.value(&#39;Some Text 123&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="numeric"></a></p>
+<p><code>numeric</code></p>
+<p>Checks if the value is a number.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} may only contain [0-9]&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    numeric: true
+};
+var result = approve.value(123, rule);
+</code></pre>
+<hr>
+<p><a name="alpha"></a></p>
+<p><code>alpha</code></p>
+<p>Checks if the value contains only letters.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} may only contain [A-Za-z]&#39;</code></p>
+<h5 id="example-">Example:</h5>
+<pre><code class="lang-javascript">var rule = {
+    alpha: true
+};
+var result = approve.value(&#39;Some Text&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="decimal"></a></p>
+<p><code>decimal</code></p>
+<p>Checks if the value is a valid decimal.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a valid decimal&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    decimal: true
+};
+var result = approve.value(10.50, rule);
+</code></pre>
+<hr>
+<p><a name="currency"></a></p>
+<p><code>currency</code></p>
+<p>Checks if the value is a valid currency value.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a valid currency value&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    currency: true
+};
+var result = approve.value(9.99, rule);
+</code></pre>
+<hr>
+<p><a name="ip"></a></p>
+<p><code>ip</code></p>
+<p>Checks if the value is a valid ipv4 or ipv6 address.</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a valid IP address&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    ip: true
+};
+var result = approve.value(&#39;192.16.118.25&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="min"></a></p>
+<p><code>min</code></p>
+<p>Checks if the value has a minimum of <em>n</em> characters.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>min</code>: minimum length</li>
+</ul>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a minimum of {min} characters&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    min: 5
+};
+var result = approve.value(&#39;Some Text&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="max"></a></p>
+<p><code>max</code></p>
+<p>Checks if the value has a maximum of <em>n</em> characters.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>max</code>: maximum length </li>
+</ul>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a maximum of {max} characters&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    max: 20
+};
+var result = approve.value(&#39;Some Text&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="range"></a></p>
+<p><code>range</code></p>
+<p>Checks if a string’s character length or a number is between a minimum and maximum.</p>
+<p><em>The value to test must be a <code>typeof === &#39;string&#39;</code> or <code>typeof === &#39;number&#39;</code>. Any other type will fail the test.</em></p>
+<p><strong>Parameters:</strong> </p>
+<ul>
+<li><code>min</code>: minimum length</li>
+<li><code>max</code>: maximum length</li>
+</ul>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} must be a minimum of {min} and a maximum of {max} characters&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    range: {
+        min: 5,
+        max: 20
+    }
+};
+// Test a string&#39;s length
+var length = approve.value(&#39;Some Text&#39;, rule);
+// Test a number
+var number = approve.value(15, rule);
+</code></pre>
+<hr>
+<p><a name="equal"></a></p>
+<p><code>equal</code></p>
+<p>Checks if the value equals another value.</p>
+<p><strong>Parameters:</strong> </p>
+<ul>
+<li><code>value</code>: The other value to compare with.</li>
+<li><code>field</code>: The name of the other value for correctly formatting errors.</li>
+</ul>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{field} must be equal to {title}&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    title: &#39;Password&#39;
+    equal: {
+        value: &#39;Other text&#39;,
+        field: &#39;Confirm Password&#39;
+    }
+};
+var result = approve.value(&#39;Some Text&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="format"></a></p>
+<p><code>format</code></p>
+<p>Checks if the value passes a custom regular expression.</p>
+<p><strong>Parameters:</strong> </p>
+<ul>
+<li><code>regex</code>: a regular expression to test against</li>
+</ul>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} did not pass the [{regex}] test&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    format: /^[A-Za-z]+$/
+};
+var result = approve.value(&#39;Some Text&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="time"></a></p>
+<p><code>time</code></p>
+<p>Checks if the value is a valid string representing time in a 24 hour format (<em>hh:mm:ss</em>).</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} is not a valid time&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    time: true
+};
+var result = approve.value(&#39;12:25:30&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="date"></a></p>
+<p><code>date</code></p>
+<p>Checks if the value is a valid string representing a date (<em>YYYY[/-]MM[-/]DD</em>).</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>format</code>: The date format to use when testing<ul>
+<li><code>ymd</code>: ‘[YY]YY[-/]MM[-/]DD’</li>
+<li><code>dmy</code>: ‘DD[-/]MM[-/][YY]YY’</li>
+</ul>
+</li>
+</ul>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} is not a valid date&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    date: &#39;ymd&#39;
+};
+var result = approve.value(&#39;2016-10-01&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="truthy"></a></p>
+<p><code>truthy</code></p>
+<p>Checks if the value is truthy (<em>‘Yes’</em>, <em>‘1’</em>, <em>‘true’</em>, <em>‘ok[ay]’</em>).</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} is not valid&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    truthy: true
+};
+var result = approve.value(&#39;Yes&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="falsy"></a></p>
+<p><code>falsy</code></p>
+<p>Checks if the value is not truthy (<em>‘No’</em>, <em>‘0’</em>, <em>‘false’</em>).</p>
+<p><strong>Parameters:</strong> <em>none</em></p>
+<p><strong>Result:</strong> <em>default</em></p>
+<p><strong>Message:</strong> <code>&#39;{title} is not valid&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    falsy: true
+};
+var result = approve.value(&#39;No&#39;, rule);
+</code></pre>
+<hr>
+<p><a name="strength"></a></p>
+<p><code>strength</code></p>
+<p>Checks if the value is a strong password like string.</p>
+<p>It checks based on a 6 point score:</p>
+<ul>
+<li>value &gt;= minimum required length ? +1 point</li>
+<li>value contains at least one lowercase character ? +1 point*</li>
+<li>value contains at least one uppercase character ? +1 point*</li>
+<li>value contains at least one numeric character ? +1 point*</li>
+<li>value contains at least one special character ? +1 point*</li>
+<li>value &gt;= minimum bonus length ? +1 point*</li>
+</ul>
+<p>*Point is only awarded if value &gt;= minimum length.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>min</code>: The minimum length a password must be. Default <code>8</code>.</li>
+<li><code>bonus</code>: The minimum length a password must be, higher than <code>min</code> for a bonus point. Default <code>10</code>.</li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul>
+<li><code>messages</code>: The default error messages for the password score.<ul>
+<li><code>isMinimum</code>: <code>&#39;{title} must be at least {min} characters&#39;</code></li>
+<li><code>hasLower</code>: <code>&#39;{title} must have at least 1 lower case character&#39;</code></li>
+<li><code>hasUpper</code>: <code>&#39;{title} must have at least 1 upper case character&#39;</code></li>
+<li><code>hasNumber</code>: <code>&#39;{title} must have at least 1 number&#39;</code></li>
+<li><code>hasSpecial</code>: <code>&#39;{title} must have at least 1 special character&#39;</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Result:</strong> </p>
+<pre><code class="lang-javascript">{
+    **default**
+    strength: {
+        strength: string,
+        points: integer,
+        isMinimum: boolean,
+        hasLower: boolean,
+        hasUpper: boolean,
+        hasNumber: boolean,
+        hasSpecial: boolean,
+        isBonus: boolean,
+        percent: integer
+    }
+}
+</code></pre>
+<ul>
+<li><code>result.strength.strength</code>: The strength of the string based on points.<ul>
+<li>0: ‘Very Weak’,</li>
+<li>1: ‘Weak’,</li>
+<li>2: ‘Better’,</li>
+<li>3: ‘Almost’,</li>
+<li>4: ‘Acceptable’,</li>
+<li>5: ‘Strong’,</li>
+<li>6: ‘Very Strong’</li>
+</ul>
+</li>
+<li><code>result.strength.points</code>: The calculated points</li>
+<li><code>result.strength.isMinimum</code>: Length &gt;= minimum</li>
+<li><code>result.strength.hasLower</code>: Has at least one lower case character</li>
+<li><code>result.strength.hasUpper</code>: Has at least one upper case character</li>
+<li><code>result.strength.hasNumber</code>: Has at least one number</li>
+<li><code>result.strength.hasSpecial</code>: Has at least one special character</li>
+<li><code>result.strength.isBonus</code>: Length &gt;= bonus length</li>
+<li><code>result.strength.percent</code>: The strength percentage (%) 0 to 100</li>
+</ul>
+<p><strong>Message:</strong> <code>&#39;{title} did not pass the strength test.&#39;</code></p>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-javascript">var rule = {
+    strength: {
+        min: 8,
+        bonus: 10
+    }
+};
+var result = approve.value(&#39;Some Text 123&#39;, rule);
+</code></pre>
+<hr>
+<h3 id="remember">Remember</h3>
+<p>You can pass multiple tests with your rules object:</p>
+<pre><code class="lang-javascript">var rule = {
+    required: true,
+    format: /^[A-Za-z]+$/,
+    min: 5,
+    max: 20
+};
+</code></pre>
+
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="main-footer">
+            	<div class="pull-right hidden-xs">
+            		Made with <a href="https://github.com/CharlGottschalk/coppersmith">Copper<strong>Smith</strong></a>
+            	</div>
+            	<strong>
+            		Copyright © 2017 <a href="http://charlgottschalk.co.za">Charl Gottschalk</a>.
+            	</strong> 
+            	All rights reserved.
+            </footer>            
+        </div>
+
+        <script src="/approvejs/assets/js/jquery-2.2.3.min.js"></script>
+        <script src="/approvejs/assets/js/bootstrap.min.js"></script>
+        <script src="/approvejs/assets/js/prism.js"></script>
+        <script src="/approvejs/assets/js/app.min.js"></script>        
+    </body>
+</html>

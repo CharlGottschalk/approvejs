@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ApproveJs : Home</title>
+        <title>ApproveJs : Contributing</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -124,20 +124,56 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="approvejs">ApproveJs</h1>
-<h4 id="simple-javascript-validation-that-doesn-t-interfere">Simple JavaScript validation that doesn’t interfere</h4>
-<hr>
-<p>ApproveJs doesn’t automatically attach itself to input change events or form submit events. It also doesn’t manipulate the DOM for you by automatically displaying errors. This allows you to automate validation how you want.</p>
-<p>With a single method (<code>approve.value()</code>), you can decide how to handle validation.</p>
-<h5 id="as-easy-as-">As easy as:</h5>
-<pre><code class="lang-javascript">var rules = {
-    required: true,
-    email: true
-};
-
-var result = approve.value(&#39;user@domain.com&#39;, rules);
-</code></pre>
-<p><a href="/approvejs/docs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+                            <h1 id="contributing">Contributing</h1>
+<p>If you would like to contribute to ApproveJs, thank you. Here’s how you do it.</p>
+<ol>
+<li><a href="https://help.github.com/articles/fork-a-repo/">Fork</a> your own copy of the repo.</li>
+<li><a href="https://help.github.com/articles/cloning-a-repository/">Clone</a> your newly forked copy to your local machine.</li>
+<li>Open a terminal / command line and <code>cd</code> to the root directory.</li>
+<li>Install dev dependencies. In your terminal, run <code>npm install</code>.</li>
+</ol>
+<p>Once NPM has finished installing all dependecies, you can make any changes you want.</p>
+<h4 id="adding-tests">Adding tests</h4>
+<p>If your change includes a new test, add a separate file for it in <code>src/tests/</code>. It should be named <code>approve.[test name].js</code>.</p>
+<p>Please use <code>src/tests/approve.creditcard.js</code> as an example.</p>
+<h4 id="before-you-commit">Before you commit</h4>
+<h5 id="1-bump-the-version">1. Bump the version</h5>
+<p>ApproveJs uses semantic versioning (<a href="http://semver.org/">semver</a>) and each change requires the version to be incremented depending on the type of change.</p>
+<p>The version looks like the following:</p>
+<p><strong>1.0.2</strong> or <strong>[major].[minor].[patch]</strong></p>
+<h6 id="bug-issue">Bug / Issue</h6>
+<p>If you fixed a bug or an issue with the code you need to increment the <strong>[patch]</strong> by one (+1).</p>
+<h6 id="new-feature-test">New Feature / Test</h6>
+<p>If you added a new feature or a new test, you need to increment the <strong>[minor]</strong> by one (+1).</p>
+<h6 id="potential-incompatibillity">Potential Incompatibillity</h6>
+<p>If you made a change that could possibly break previous versions of the library or is not backwards compatible, you need to increment the <strong>[major]</strong> by one (+1).</p>
+<p>The version number needs to be bumped in the following files:</p>
+<ul>
+<li><code>package.json</code> version property</li>
+</ul>
+<h5 id="2-lint">2. Lint</h5>
+<p>Before you compile the library, you need to lint to check for errors and potential problems in your code. Fix any problems that appear before continuing. </p>
+<p>In your terminal, run:</p>
+<pre><code>gulp lint
+</code></pre><h5 id="3-compile">3. Compile</h5>
+<p>Now you can compile the library. This will create the distribution (<code>dist/\*</code>) files.</p>
+<p>In your terminal, run:</p>
+<pre><code>npm run build
+</code></pre><h5 id="4-test">4. Test</h5>
+<p>Now you need to make sure the code doesn’t break. </p>
+<p>In your terminal, run:</p>
+<pre><code>npm run test
+</code></pre><p>Check to see if all tests pass, and fix any errors.</p>
+<p><em>If you created a new test or feature, make sure to add a <code>describe()</code> or <code>it()</code> for it in <code>test/tests.js</code>.</em></p>
+<p>ApproveJs uses <a href="https://mochajs.org">mocha</a> and <a href="http://chaijs.com/">chai</a> assertion library for testing.</p>
+<h5 id="5-commit">5. Commit</h5>
+<p>If everything checks out and all tests pass, commit the changes to your forked copy.</p>
+<h5 id="6-create-a-pull-request">6. Create a pull request</h5>
+<p><a href="https://help.github.com/articles/creating-a-pull-request/">Create a pull request</a> and describe in as much detail as possible the changes you made.</p>
+<h4 id="note">Note</h4>
+<h6 id="commenting">Commenting</h6>
+<p>Please comment your code thoroughly. </p>
+<p>For an example, please see <code>src/tests/approve.creditcard.js</code>.</p>
 
 
                         </div>

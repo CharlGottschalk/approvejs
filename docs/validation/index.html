@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ApproveJs : Home</title>
+        <title>ApproveJs : Validation</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -124,12 +124,19 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="approvejs">ApproveJs</h1>
-<h4 id="simple-javascript-validation-that-doesn-t-interfere">Simple JavaScript validation that doesn’t interfere</h4>
-<hr>
-<p>ApproveJs doesn’t automatically attach itself to input change events or form submit events. It also doesn’t manipulate the DOM for you by automatically displaying errors. This allows you to automate validation how you want.</p>
-<p>With a single method (<code>approve.value()</code>), you can decide how to handle validation.</p>
-<h5 id="as-easy-as-">As easy as:</h5>
+                            <h1 id="validation">Validation</h1>
+<p>Validating values with ApproveJs is easy.</p>
+<p>To run a test, ApproveJs exposes a single method called <code>value()</code> that requires two parameters. The first parameter is the value you wish to test, and the second parameter is an object containing the rules you wish to test against.</p>
+<pre><code class="lang-javascript">approve.value(&#39;value&#39;, rules);
+</code></pre>
+<p><a name="rules-object"></a></p>
+<h3 id="the-rules-object-">The Rules Object:</h3>
+<p>The rules object is how you will tell ApproveJs to test your value. It is a simple object containing the name of each test to perform as a property, and it’s constraints as it’s value. For example:</p>
+<pre><code class="lang-javascript">var rules = {
+    test: constraint
+};
+</code></pre>
+<p>Let’s pretend we want to approve a value against the <code>email</code> and <code>required</code> tests.</p>
 <pre><code class="lang-javascript">var rules = {
     required: true,
     email: true
@@ -137,7 +144,85 @@
 
 var result = approve.value(&#39;user@domain.com&#39;, rules);
 </code></pre>
-<p><a href="/approvejs/docs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+<p>The above code will check whether the value is present (<code>required = true</code>) and whether it is a valid email address (<code>email = true</code>).</p>
+<p>You’ll notice we only passed a boolean as the constraint for the <code>required</code> and <code>email</code> tests. That is because the <code>require</code> and <code>email</code> tests expect no constraints. Some tests, however, expect one or more constraints. For instance:</p>
+<p>The <code>min</code> test that checks for a minimum length, expects an integer value to test against:</p>
+<pre><code class="lang-javascript">var rules = {
+    min: 5
+};
+
+var result = approve.value(&#39;This text is longer than 5 characters&#39;, rules);
+</code></pre>
+<p>We could also pass the constraint in an object, and ApproveJs will correctly pass it to the test, for example:</p>
+<pre><code class="lang-javascript">var rules = {
+    min: {
+        min: 5
+    }
+};
+
+var result = approve.value(&#39;This text is longer than 5 characters&#39;, rules);
+</code></pre>
+<p>That will do exactly the same thing, although, that seems like overkill. But hang on, there’s a reason for that, <a href="/approvejs/docs/configuration">configuration</a>.</p>
+<p>For tests that expect more than one constraint, an object containing those is required. For instance:</p>
+<p>The <code>range</code> test that checks whether a value has a minimum of <em>n</em> characters and a maximum of <em>n</em> characters expects <code>min</code> and <code>max</code>. For example:</p>
+<pre><code class="lang-javascript">var rules = {
+    range: {
+        min: 5,
+        max: 20
+    }
+};
+
+var result = approve.value(&#39;This text is longer than 5 characters&#39;, rules);
+</code></pre>
+<p><em>If an expected constraint is not present in the rules, ApproveJs will throw an error to the console letting you know.</em></p>
+<p><a name="test-results"></a></p>
+<h3 id="test-results">Test Results</h3>
+<p>ApproveJs returns a default object as a result.</p>
+<pre><code class="lang-javascript">{
+    approved: boolean,
+    errors: [],
+    failed: [],
+    **tests**
+}
+</code></pre>
+<p><code>result.approved</code> will be <code>true</code> if all the tests passed, otherwise <code>false</code> .</p>
+<p><code>result.errors</code> is an array containing all error messages of all failed tests.</p>
+<p><code>result.failed</code> is an array containing a list of tests that failed i.e.</p>
+<pre><code class="lang-javascript">{
+    failed: [
+        &#39;required&#39;,
+        &#39;email&#39;
+    ]
+}
+</code></pre>
+<p>The result will also contain a property for each test that was performed and its own errors i.e.</p>
+<p>Consider the following code:</p>
+<pre><code class="lang-javascript">var rules = {
+    required: true,
+    email: true
+};
+
+var result = approve.value(&#39;example@domain.com&#39;, rules);
+</code></pre>
+<p>The result will contain a property for each rule with the same name, that has its own properties regarding the outcome of the test i.e.</p>
+<pre><code class="lang-javascript">{
+    approved: boolean,
+    errors: [],
+    failed: [],
+    required: {
+        approved: boolean,
+        errors: []
+    },
+    email: {
+        approved: boolean,
+        errors: []
+    }
+}
+</code></pre>
+<p>This allows you easier access to specific test results.</p>
+<hr>
+<h4 id="note">Note</h4>
+<p>Some tests, such as <a href="/approvejs/docs/tests/#strength">strength</a>, might return additional properties with its result. Learn more from <a href="/approvejs/docs/tests">built in tests</a>.</p>
 
 
                         </div>

@@ -1,19 +1,19 @@
 {
   "name": "ApproveJs",
-  "smlName": "A<strong>Js</strong>",
   "author": "Charl Gottschalk",
-  "sourcePath": "docs",
-  "buildPath": "./",
-  "base": "https://charlgottschalk.github.com/approvejs",
+  "sourcePath": "src",
+  "buildPath": "docs",
+  "base": "https://charlgottschalk.github.com/approvejs/docs",
   "template": {
-    "path": "docs/templates",
+    "path": "src/templates",
     "theme": "default",
     "skin": "black-light"
   },
   "options": {
     "copyright_year": "2017",
     "copyright_url": "http://charlgottschalk.co.za",
-    "copyright_display": "Charl Gottschalk"
+    "copyright_display": "Charl Gottschalk",
+    "smlName": "A<strong>Js</strong>"
   },
   "publish": {
     "to": "ftp",

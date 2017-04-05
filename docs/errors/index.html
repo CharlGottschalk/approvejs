@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ApproveJs : Home</title>
+        <title>ApproveJs : Errors</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -124,20 +124,87 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="approvejs">ApproveJs</h1>
-<h4 id="simple-javascript-validation-that-doesn-t-interfere">Simple JavaScript validation that doesn’t interfere</h4>
-<hr>
-<p>ApproveJs doesn’t automatically attach itself to input change events or form submit events. It also doesn’t manipulate the DOM for you by automatically displaying errors. This allows you to automate validation how you want.</p>
-<p>With a single method (<code>approve.value()</code>), you can decide how to handle validation.</p>
-<h5 id="as-easy-as-">As easy as:</h5>
-<pre><code class="lang-javascript">var rules = {
-    required: true,
-    email: true
+                            <h1 id="errors">Errors</h1>
+<h3 id="accessing-errors">Accessing Errors</h3>
+<p>You can access errors returned by the result in a few ways:</p>
+<h5 id="errors-property">Errors Property</h5>
+<p>The <code>result.errors</code> property is an array containing all errors from all tests.</p>
+<pre><code class="lang-javascript">var i = result.errors.length;
+while(i--) {
+    console.log(result.errors[i]);
+}
+</code></pre>
+<h5 id="-each-method">.each Method</h5>
+<p>The result object exposes an <code>each()</code> method for easily getting to errors. This will loop through the <code>result.errors</code> property.
+This method takes a single argument, a callback function that will pass an error as its first parameter.</p>
+<pre><code class="lang-javascript">result.each(function(error) {
+    console.log(error);
+});
+</code></pre>
+<h5 id="-filter-method">.filter Method</h5>
+<p>The result object exposes a <code>filter()</code> method for easily getting to errors of a specific test. This is useful if you only want to display errors for certain tests. The method takes two arguments, the first is the name of the test to filter for, and the second is a callback function that will pass an error as its first parameter i.e.</p>
+<pre><code class="lang-javascript">result.filter(&#39;strength&#39;, function(error) {
+    console.log(error);
+});
+</code></pre>
+<h5 id="test-properties">Test Properties</h5>
+<p>The result will contain a property for each rule with the same name, that has its own properties regarding the outcome of the test. This allows you to easily access a specific test’s result.</p>
+<pre><code class="lang-javascript">{
+    **default**
+    email: {
+        approved: boolean,
+        errors: []
+    }
+}
+</code></pre>
+<p>This allows you to do the following as an example:</p>
+<pre><code class="lang-javascript">if (!result.email.approved) {
+    var i = result.email.errors.length;
+    while (i--) {
+        console.log(result.email.errors[i]);
+    }
+}
+</code></pre>
+<h3 id="error-formatting">Error Formatting</h3>
+<p>All default errors are automatically formatted to display correctly.</p>
+<p>For instance, the <code>range</code> test’s default error message is <code>&#39;{title} must be a minimum of {min} and a maximum of {max} characters&#39;</code>. As you can see, the message contains three placeholders, <code>{title}</code>, <code>{min}</code> and <code>{max}</code>. These placeholders are automatically replaced with the correct values when added to the result. </p>
+<p><code>{min}</code> will be replaced by the range test’s <code>min:?</code> constraint, and <code>{max}</code> with the <code>max:?</code> constraint. <code>{title}</code> will be replaced with the <code>title:?</code> property in the <a href="/approvejs/docs/validation/#rules-object"><strong>rules</strong></a> object, or an empty string if the <code>{title:?}</code> property is absent.</p>
+<h6 id="example">Example</h6>
+<p>The rule, without the <code>title:?</code> property</p>
+<pre><code class="lang-javascript">var rule = {
+    range: {
+        min: 5,
+        max: 20
+    }
 };
 
-var result = approve.value(&#39;user@domain.com&#39;, rules);
+var result = approve.value(&#39;Some text&#39;, rule);
 </code></pre>
-<p><a href="/approvejs/docs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+<p>will return the following result if the test fails</p>
+<pre><code class="lang-javascript">{
+    approved: false,
+    errors: [
+        &#39;must be a minimum of 5 and a maximum of 20 characters&#39;
+    ]
+}
+</code></pre>
+<p>If we include the <code>title:?</code> property</p>
+<pre><code class="lang-javascript">var rule = {
+    title: &#39;Username&#39;,
+    range: {
+        min: 5,
+        max: 20
+    }
+};
+</code></pre>
+<p>the result will now be</p>
+<pre><code class="lang-javascript">{
+    approved: false,
+    errors: [
+        &#39;Username must be a minimum of 5 and a maximum of 20 characters&#39;
+    ]
+}
+</code></pre>
 
 
                         </div>
