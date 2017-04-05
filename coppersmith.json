@@ -4,7 +4,6 @@
   "author": "Charl Gottschalk",
   "sourcePath": "docs",
   "buildPath": "./",
-  "base_bak": "file:///C:/Development/github/charlgottschalk/approvejs",
   "base": "https://charlgottschalk.github.com/approvejs",
   "template": {
     "path": "docs/templates",
