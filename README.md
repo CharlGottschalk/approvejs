@@ -10,7 +10,7 @@ With a single method (`approve.value()`), you can decide how to handle validatio
 
 If you like to be in control or have a little OCD like me, ApproveJs is for you.
 
-ApproveJs is also easily extended with [custom tests](https://charlgottschalk.github.io/approvejs/custom-tests).
+ApproveJs is also easily extended with [custom tests](https://charlgottschalk.github.io/approvejs/docs/custom-tests).
 
 ---
 
@@ -123,6 +123,6 @@ result.each(function(error) {
 
 ---
 
-View the [documentation](https://charlgottschalk.github.io/approvejs/) at [https://charlgottschalk.github.io/approvejs/](https://charlgottschalk.github.io/approvejs/).
+Read [documentation here](https://charlgottschalk.github.io/approvejs/docs/).
 
-If you would like to contribute to the project, please read [contributing](https://charlgottschalk.github.io/approvejs/contributing/).
+If you would like to contribute to the project, please read [contributing](https://charlgottschalk.github.io/approvejs/docs/contributing/).
