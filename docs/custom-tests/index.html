@@ -136,7 +136,7 @@ Here is how you can extend the ApproveJs tests with your own.</p>
 <p><code>expects</code> - Expects is either false if your test expects no constraints or an array of strings with the names of the expected constraints. For example:</p>
 <p>Our new test will expect <code>startsWith</code> and <code>endsWith</code>. Let’s add them:</p>
 <pre><code class="lang-javascript">var myTest = {
-    expects = [
+    expects: [
         &#39;startsWith&#39;,
         &#39;endsWith&#39;
     ]
@@ -144,22 +144,22 @@ Here is how you can extend the ApproveJs tests with your own.</p>
 </code></pre>
 <p>The next required property is <code>message</code>, which will hold the default error message to return if a value fails our test.</p>
 <pre><code class="lang-javascript">var myTest = {
-    expects = [
+    expects: [
         &#39;startsWith&#39;,
         &#39;endsWith&#39;
     ],
-    message = &#39;{title} must start with {startswith} and end with {endsWith}.&#39;
+    message: &#39;{title} must start with {startswith} and end with {endsWith}.&#39;
 };
 </code></pre>
 <p><em>You’ll notice three placeholders in the message. You can read more about that at <a href="/approvejs/docs/errors/#error-formatting">errors</a>.</em></p>
 <p>Great, now we only need the required method that will perform our test when called by ApproveJs, <code>validate()</code>. ApproveJs will automatically call this function when testing a value against our test, and pass the value being tested as the first parameter, and the expected constraints as properties of an object, as the second parameter.</p>
 <pre><code class="lang-javascript">var myTest = {
-    expects = [
+    expects: [
         &#39;startsWith&#39;,
         &#39;endsWith&#39;
     ],
-    message = &#39;{title} must start with {startswith} and end with {endsWith}.&#39;,
-    validate = function (value, pars) {
+    message: &#39;{title} must start with {startswith} and end with {endsWith}.&#39;,
+    validate: function (value, pars) {
         return value.startsWith(pars.startsWith) &amp;&amp; value.endsWith(pars.endsWith);
     }
 };
@@ -168,12 +168,12 @@ Here is how you can extend the ApproveJs tests with your own.</p>
 <p>The <code>addTest()</code> method expects two parameters:</p>
 <p>The first parameter is the test object, like the one we just created, and the second parameter is the name of the test, as it will be accessed by a <a href="/approvejs/docs/validation/#rules-object">rules</a> object.</p>
 <pre><code class="lang-javascript">var myTest = {
-    expects = [
+    expects: [
         &#39;startsWith&#39;,
         &#39;endsWith&#39;
     ],
-    message = &#39;{title} must start with {startswith} and end with {endsWith}.&#39;,
-    validate = function (value, pars) {
+    message: &#39;{title} must start with {startswith} and end with {endsWith}.&#39;,
+    validate: function (value, pars) {
         return value.startsWith(pars.startsWith) &amp;&amp; value.endsWith(pars.endsWith);
     }
 };
@@ -200,12 +200,12 @@ var result = approve.value(&#39;Hello crazy world&#39;, rule);
 <p><em>*Remember to add at least the <code>{title}</code> placeholder in order for ApproveJs to correctly format the error message.</em></p>
 <p>Continuing from the previous example, let’s update it’s validate function.</p>
 <pre><code class="lang-javascript">var myTest = {
-    expects = [
+    expects: [
         &#39;startsWith&#39;,
         &#39;endsWith&#39;
     ],
-    message = &#39;{title} must start with {startswith} and end with {endsWith}.&#39;,
-    validate = function (value, pars) {
+    message: &#39;{title} must start with {startswith} and end with {endsWith}.&#39;,
+    validate: function (value, pars) {
         var result = {
             valid: true,
             level: &#39;Puny Human!&#39;,
