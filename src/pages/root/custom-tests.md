@@ -136,7 +136,7 @@ var myTest = {
             result.valid = true;
             result.level = 'Boss!';
        } else {
-            return value.startsWith(pars.startsWith) && value.endsWith(pars.endsWith);
+            result.valid = value.startsWith(pars.startsWith) && value.endsWith(pars.endsWith);
        }
        return result;
     }
