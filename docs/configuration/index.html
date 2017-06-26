@@ -147,29 +147,19 @@ var result = approve.value(&#39;&#39;, rules);
 <p>Now, should the <code>required</code> rule fail*, ApproveJS will stop all testing and return only the error messages for the <code>required</code> rule.</p>
 <p><em>*Property order cannot be guaranteed, hence tests might not run in the order in which they appear in the rules object.</em></p>
 <h3 id="ignore-null-values">Ignore <code>null</code> Values</h3>
-<p>By default, ApproveJs tests will fail if the given value is <code>null</code>. For example:</p>
+<p>By default, ApproveJs tests will fail if the given value is <code>null</code>, empty or falsy. For example:</p>
 <pre><code class="lang-javascript">var rules = {
-   required: true,
-   email: true
+   required: true
 };
 
-var result = approve.value(null, rules);
+var result = approve.value(&#39;&#39;, rules);
 </code></pre>
-<p>The above test will fail because the value is <code>null</code>.</p>
-<p>In certain cases, where fields should be tested only if a value is given, such as an address field that might be <code>null</code>, we can ignore testing the value. For example:</p>
+<p>The above test will fail because the value is empty.</p>
+<p>In certain cases, where fields should be tested only if a value is given, such as an address field that is optional, we can ignore testing the value. For example:</p>
 <p><strong>Below test will pass</strong></p>
 <pre><code class="lang-javascript">var rules = {
    ignoreNull: true,
-   required: true,
-   email: true
-};
-
-var result = approve.value(null, rules);
-</code></pre>
-<p><strong>Below test will fail</strong></p>
-<pre><code class="lang-javascript">var rules = {
-   required: true,
-   email: true
+   required: true
 };
 
 var result = approve.value(null, rules);

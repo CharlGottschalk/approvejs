@@ -43,39 +43,26 @@ _\*Property order cannot be guaranteed, hence tests might not run in the order i
 
 ### Ignore `null` Values
 
-By default, ApproveJs tests will fail if the given value is `null`. For example:
+By default, ApproveJs tests will fail if the given value is `null`, empty or falsy. For example:
 
 ```javascript
 var rules = {
-   required: true,
-   email: true
+   required: true
 };
 
-var result = approve.value(null, rules);
+var result = approve.value('', rules);
 ```
 
-The above test will fail because the value is `null`.
+The above test will fail because the value is empty.
 
-In certain cases, where fields should be tested only if a value is given, such as an address field that might be `null`, we can ignore testing the value. For example:
+In certain cases, where fields should be tested only if a value is given, such as an address field that is optional, we can ignore testing the value. For example:
 
 **Below test will pass**
 
 ```javascript
 var rules = {
    ignoreNull: true,
-   required: true,
-   email: true
-};
-
-var result = approve.value(null, rules);
-```
-
-**Below test will fail**
-
-```javascript
-var rules = {
-   required: true,
-   email: true
+   required: true
 };
 
 var result = approve.value(null, rules);
