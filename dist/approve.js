@@ -597,7 +597,7 @@ var approve = {
 	_test: function(params, result) {
 		// Check if nulls should be ignored
 		if (params.hasOwnProperty('ignoreNull')) {
-			if (params.value === null && params.ignoreNull) {
+			if (!params.value && params.ignoreNull) {
 				return;
 			}
 		}
