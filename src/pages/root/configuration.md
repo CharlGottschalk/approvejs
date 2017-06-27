@@ -37,7 +37,7 @@ var rules = {
 var result = approve.value('', rules);
 ```
 
-Now, should the `required` rule fail\*, ApproveJS will stop all testing and return only the error messages for the `required` rule.
+Now, should the `required` rule fail\*, ApproveJs will stop all testing and return only the error messages for the `required` rule.
 
 _\*Property order cannot be guaranteed, hence tests might not run in the order in which they appear in the rules object._
 
