@@ -292,8 +292,5 @@ export default {
 	},
 	setLocale: function(newLocale) {
 		i18n.setLocale(newLocale);
-	},
-	getStr: function(path) {
-		return i18n.retriever(path);
 	}
 };

@@ -14,7 +14,6 @@ let result = {
 
 var retriever = function (path) {
     let str = ob.get(result[locale.locale], path);
-    if (!str) console.warn('looks like no i18n str found!');
     return str;
 }
 let locale = null;
