@@ -41,7 +41,7 @@ export default {
     /**
      * The default error message.
      */
-    message: '{title} did not pass the strength test.',
+    message: () => r('STR.MESSAGE'),
     /**
      * Expects the 'min' and 'bonus' parameters.
      */
@@ -50,11 +50,11 @@ export default {
      * Default error messages
      */
     errors: {
-        isMinimum: '{title} must be at least {min} characters',
-        hasLower: '{title} must have at least 1 lower case character',
-        hasUpper: '{title} must have at least 1 upper case character',
-        hasNumber: '{title} must have at least 1 number',
-        hasSpecial: '{title} must have at least 1 special character'
+        isMinimum: () => r('STR.IS_MINIMUM'),
+        hasLower: () => r('STR.HAS_LOWER'),
+        hasUpper: () => r('STR.HAS_UPPER'),
+        hasNumber: () => r('STR.HAS_NUMBER'),
+        hasSpecial: () => r('STR.HAS_SPECIAL') 
     },
     /**
      * Returns an object containing the score of a value.

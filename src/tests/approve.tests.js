@@ -1,5 +1,7 @@
 import cc from './approve.creditcard';
 import strength from './approve.strength';
+import i18n from '../i18n/helper';
+var r = i18n.retriever;
 
 export default {
     /**
@@ -9,7 +11,7 @@ export default {
         validate: function(value) {
             return !!value;
         },
-        message: '{title} is required',
+        message: () => r('TESTS.REQUIRED'),
         expects: false
     },
     /**
@@ -20,7 +22,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid email address',
+        message: () => r('TESTS.EMAIL'),
         expects: false
     },
     /**
@@ -31,7 +33,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid web address',
+        message: () => r('TESTS.URL'),
         expects: false
     },
     /**
@@ -42,7 +44,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} may only contain [A-Za-z] and [0-9]',
+        message: () => r('TESTS.ALPHANUMERIC'),
         expects: false
     },
     /**
@@ -53,7 +55,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} may only contain [0-9]',
+        message: () => r('TESTS.NUMERIC'),
         expects: false
     },
     /**
@@ -64,7 +66,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} may only contain [A-Za-z]',
+        message: () => r('TESTS.ALPHA'),
         expects: false
     },
     /**
@@ -75,7 +77,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid decimal',
+        message: () => r('TESTS.DECIMAL'),
         expects: false
     },
     /**
@@ -86,7 +88,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid currency value',
+        message: () => r('TESTS.CURRENCY'),
         expects: false
     },
     /**
@@ -102,7 +104,7 @@ export default {
         validate: function(value) {
             return this.regex.ipv4.test(value) || this.regex.ipv6.test(value) || this.regex.ipv4Cidr.test(value) || this.regex.ipv6Cidr.test(value);
         },
-        message: '{title} must be a valid IP address',
+        message: () => r('TESTS.IP'),
         expects: false
     },
     /**
@@ -112,7 +114,7 @@ export default {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length >= pars.min;
         },
-        message: '{title} must be a minimum of {min} characters',
+        message: () => r('TESTS.MIN'),
         expects: ['min']
     },
     /**
@@ -122,7 +124,7 @@ export default {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length <= pars.max;
         },
-        message: '{title} must be a maximum of {max} characters',
+        message: () => r('TESTS.MAX'),
         expects: ['max']
     },
     /**
@@ -138,7 +140,7 @@ export default {
             }
             return false;
         },
-        message: '{title} must be a minimum of {min} and a maximum of {max} characters',
+        message: () => r('TESTS.RANGE'),
         expects: ['min', 'max']
     },
     /**
@@ -148,7 +150,7 @@ export default {
         validate: function(value, pars) {
             return '' + value === '' + pars.value;
         },
-        message: '{title} must be equal to {field}',
+        message: () => r('TESTS.EQUAL'),
         expects: ['value', 'field']
     },
     /**
@@ -161,7 +163,7 @@ export default {
             }
             throw 'approve.value(): [format] - regex is not a valid regular expression.';
         },
-        message: '{title} did not pass the [{regex}] test',
+        message: () => r('TESTS.FORMAT'),
         expects: ['regex']
     },
     /**
@@ -172,7 +174,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} is not a valid time',
+        message: () => r('TESTS.TIME'),
         expects: false
     },
     /**
@@ -186,7 +188,7 @@ export default {
         validate: function(value, pars) {
             return this.formats[pars.format].test(value);
         },
-        message: '{title} is not a valid date',
+        message: () => r('TESTS.DATE'),
         expects: ['format']
     },
     /**
@@ -197,7 +199,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} is not valid',
+        message: () => r('TESTS.TRUTHY'),
         expects: false
     },
     /**
@@ -208,7 +210,7 @@ export default {
         validate: function(value) {
             return !this.regex.test(value);
         },
-        message: '{title} is not valid',
+        message: () => r('TESTS.FALSY'),
         expects: false
     },
     cc: cc,

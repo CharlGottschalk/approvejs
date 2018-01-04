@@ -1,8 +1,10 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.approve = factory());
-}(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('object-path')) :
+	typeof define === 'function' && define.amd ? define(['object-path'], factory) :
+	(global.approve = factory(global.ob));
+}(this, (function (ob) { 'use strict';
+
+ob = 'default' in ob ? ob['default'] : ob;
 
 /**
  * The result object containing the outcome of the credit card test.
@@ -19,7 +21,7 @@ var cc = {
     /**
      * The default error message.
      */
-    message: '{title} is not a valid credit card number',
+    message: () => '{title} is not a valid credit card number',
     schemes: [
         {
             regex: /^(5610|560221|560222|560223|560224|560225)/,
@@ -166,7 +168,7 @@ var strength = {
     /**
      * The default error message.
      */
-    message: '{title} did not pass the strength test.',
+    message: () => '{title} did not pass the strength test.',
     /**
      * Expects the 'min' and 'bonus' parameters.
      */
@@ -268,6 +270,62 @@ var strength = {
     }
 };
 
+var en = {
+    'TESTS':{
+        'REQUIRED': '{title} is required',
+        'EMAIL': '{title} must be a valid email address',
+        'URL': '{title} must be a valid web address'
+    }
+};
+
+var ru = {
+    'TESTS':{
+        'REQUIRED': '{title} поле, обязательно',
+        'EMAIL': '{title} должно быть действующим адресом электронной почты',
+        'URL': '{title} должно быть действительным адресом веб сайта'
+    }
+};
+
+/**
+ * add more locales here
+ */
+/**
+ * and there
+ */
+let result = {
+    en, ru
+};
+
+var retriever = function (path) {
+    let str = ob.get(result[locale.locale], path);
+    if (!str) console.warn('looks like no i18n str found!');
+    return str;
+};
+let locale = null;
+class LocaleSingleton {  
+    constructor() {
+        if(!locale){
+            locale = this;
+        }
+        this.locale = 'en';
+        return locale;
+    }
+}
+
+var setLocale = function (newLocale) {
+    locale.locale = newLocale;
+};
+
+var getLocale = function() {
+    return locale.locale;
+};
+
+locale = new LocaleSingleton();
+
+var i18n = { retriever, getLocale, setLocale };
+
+var r = i18n.retriever;
+
 var tests = {
     /**
      * Checks if a value is present.
@@ -276,7 +334,7 @@ var tests = {
         validate: function(value) {
             return !!value;
         },
-        message: '{title} is required',
+        message: () => r('TESTS.REQUIRED'),
         expects: false
     },
     /**
@@ -287,7 +345,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid email address',
+        message: () => r('TESTS.EMAIL'),
         expects: false
     },
     /**
@@ -298,7 +356,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid web address',
+        message: () => r('TESTS.URL'),
         expects: false
     },
     /**
@@ -309,7 +367,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} may only contain [A-Za-z] and [0-9]',
+        message: () => '{title} may only contain [A-Za-z] and [0-9]',
         expects: false
     },
     /**
@@ -320,7 +378,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} may only contain [0-9]',
+        message: () => '{title} may only contain [0-9]',
         expects: false
     },
     /**
@@ -331,7 +389,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} may only contain [A-Za-z]',
+        message: () => '{title} may only contain [A-Za-z]',
         expects: false
     },
     /**
@@ -342,7 +400,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid decimal',
+        message: () => '{title} must be a valid decimal',
         expects: false
     },
     /**
@@ -353,7 +411,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} must be a valid currency value',
+        message: () => '{title} must be a valid currency value',
         expects: false
     },
     /**
@@ -369,7 +427,7 @@ var tests = {
         validate: function(value) {
             return this.regex.ipv4.test(value) || this.regex.ipv6.test(value) || this.regex.ipv4Cidr.test(value) || this.regex.ipv6Cidr.test(value);
         },
-        message: '{title} must be a valid IP address',
+        message: () => '{title} must be a valid IP address',
         expects: false
     },
     /**
@@ -379,7 +437,7 @@ var tests = {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length >= pars.min;
         },
-        message: '{title} must be a minimum of {min} characters',
+        message: () => '{title} must be a minimum of {min} characters',
         expects: ['min']
     },
     /**
@@ -389,7 +447,7 @@ var tests = {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length <= pars.max;
         },
-        message: '{title} must be a maximum of {max} characters',
+        message: () => '{title} must be a maximum of {max} characters',
         expects: ['max']
     },
     /**
@@ -405,7 +463,7 @@ var tests = {
             }
             return false;
         },
-        message: '{title} must be a minimum of {min} and a maximum of {max} characters',
+        message: () => '{title} must be a minimum of {min} and a maximum of {max} characters',
         expects: ['min', 'max']
     },
     /**
@@ -415,7 +473,7 @@ var tests = {
         validate: function(value, pars) {
             return '' + value === '' + pars.value;
         },
-        message: '{title} must be equal to {field}',
+        message: () => '{title} must be equal to {field}',
         expects: ['value', 'field']
     },
     /**
@@ -428,7 +486,7 @@ var tests = {
             }
             throw 'approve.value(): [format] - regex is not a valid regular expression.';
         },
-        message: '{title} did not pass the [{regex}] test',
+        message: () => '{title} did not pass the [{regex}] test',
         expects: ['regex']
     },
     /**
@@ -439,7 +497,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} is not a valid time',
+        message: () => '{title} is not a valid time',
         expects: false
     },
     /**
@@ -453,7 +511,7 @@ var tests = {
         validate: function(value, pars) {
             return this.formats[pars.format].test(value);
         },
-        message: '{title} is not a valid date',
+        message: () => '{title} is not a valid date',
         expects: ['format']
     },
     /**
@@ -464,7 +522,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: '{title} is not valid',
+        message: () => '{title} is not valid',
         expects: false
     },
     /**
@@ -475,7 +533,7 @@ var tests = {
         validate: function(value) {
             return !this.regex.test(value);
         },
-        message: '{title} is not valid',
+        message: () => '{title} is not valid',
         expects: false
     },
     cc: cc,
@@ -734,7 +792,7 @@ var approve = {
 	    else {
 	        // The rule does not have a custom message.
 	        // Get the default message from the tests.
-	        message = params.test.message;
+	        message = params.test.message();
 	        return this._format(message, format);
 	    }
 	},
@@ -767,6 +825,15 @@ var approve = {
 	    } catch (e) {
 	        throw 'approve.addTest(): ' + e.message;
 	    }
+	},
+	getLocale: function() {
+		return i18n.getLocale();
+	},
+	setLocale: function(newLocale) {
+		i18n.setLocale(newLocale);
+	},
+	getStr: function(path) {
+		return i18n.retriever(path);
 	}
 };
 

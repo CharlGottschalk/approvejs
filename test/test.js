@@ -304,7 +304,7 @@ describe('ApproveJs', function() {
 	        var fromProp = approve.value('not an email', {email: true, title: 'Email'}),
 	        	noTitle = approve.value('not an email', {email: true}),
 	        	isFromProp = fromProp.errors[0] === 'Email must be a valid email address',
-	        	isNoTitle = noTitle.errors[0] === 'must be a valid email address';
+				isNoTitle = noTitle.errors[0] === 'must be a valid email address';
 	        expect(isFromProp).to.equal(true);
 	        expect(isNoTitle).to.equal(true);
 	    });
@@ -359,6 +359,29 @@ describe('ApproveJs', function() {
 	        expect(is).to.equal(true);
 	    });
 	});
+	// =========================================
+    // i18n
+    // =========================================
+
+    describe('i18n', function() {
+    	it('should get the current locale', function() {
+	    	expect(approve.getLocale()).to.equal('en');
+		});
+		it('should change locale', function() {
+			approve.setLocale('ru');
+	    	expect(approve.getLocale()).to.equal('ru');
+		});
+		it('should change locale and show localized errors', function() {
+			approve.setLocale('ru');
+	    	var fromProp = approve.value('not an email22', {email: true, title: 'Email'}),
+				noTitle = approve.value('not an email221', {email: true}),
+				required = approve.value('', {required:true})
+	        expect(fromProp.errors[0]).to.equal('Email должно быть действующим адресом электронной почты');
+			expect(noTitle.errors[0]).to.equal('должно быть действующим адресом электронной почты');
+			expect(required.errors[0]).to.equal('поле, обязательно');
+	    });
+	});
+	
 	// =========================================
     // Add additional / new feature testing here
     // =========================================

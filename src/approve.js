@@ -1,4 +1,5 @@
 import tests from './tests/approve.tests';
+import i18n from './i18n/helper';
 
 var Result = function() {
     this.approved = true;
@@ -252,7 +253,7 @@ export default {
 	    else {
 	        // The rule does not have a custom message.
 	        // Get the default message from the tests.
-	        message = params.test.message;
+	        message = params.test.message();
 	        return this._format(message, format);
 	    }
 	},
@@ -285,5 +286,14 @@ export default {
 	    } catch (e) {
 	        throw 'approve.addTest(): ' + e.message;
 	    }
+	},
+	getLocale: function() {
+		return i18n.getLocale();
+	},
+	setLocale: function(newLocale) {
+		i18n.setLocale(newLocale);
+	},
+	getStr: function(path) {
+		return i18n.retriever(path);
 	}
 };
