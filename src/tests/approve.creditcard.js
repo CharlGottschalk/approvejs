@@ -1,3 +1,5 @@
+import i18n from '../i18n/helper';
+var r = i18n.retriever;
 /**
  * The result object containing the outcome of the credit card test.
  */
@@ -13,7 +15,7 @@ export default {
     /**
      * The default error message.
      */
-    message: () => r('CC.MESSAGE'),
+    message: function() { return r('CC.MESSAGE')},
     schemes: [
         {
             regex: /^(5610|560221|560222|560223|560224|560225)/,

@@ -8,33 +8,33 @@ import ru from './ru';
 /**
  * and there
  */
-let result = {
-    en, ru
+var result = {
+    en: en,
+    ru: ru
 };
 
 var retriever = function (path) {
-    let str = ob.get(result[locale.locale], path);
+    var str = ob.get(result[locale], path);
     return str;
 }
-let locale = null;
-class LocaleSingleton {  
-    constructor() {
-        if(!locale){
-            locale = this;
-        }
-        this.locale = 'en';
-        return locale;
-    }
-}
+var locale = 'en';
 
 var setLocale = function (newLocale) {
-    locale.locale = newLocale;
+    locale = newLocale;
 }
 
 var getLocale = function() {
-    return locale.locale;
+    return locale;
 }
 
-locale = new LocaleSingleton();
+function isFunction(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+   }
 
-export default { retriever, getLocale, setLocale }
+export default { 
+    retriever: retriever,
+    getLocale: getLocale,
+    setLocale: setLocale,
+    isFunction: isFunction 
+}

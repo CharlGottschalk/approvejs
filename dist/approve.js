@@ -1,11 +1,117 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('object-path')) :
-	typeof define === 'function' && define.amd ? define(['object-path'], factory) :
-	(global.approve = factory(global.ob));
+   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('object-path')) :
+   typeof define === 'function' && define.amd ? define(['object-path'], factory) :
+   (global.approve = factory(global.ob));
 }(this, (function (ob) { 'use strict';
 
 ob = 'default' in ob ? ob['default'] : ob;
 
+var en = {
+    'TESTS':{
+        'REQUIRED': '{title} is required',
+        'EMAIL': '{title} must be a valid email address',
+        'URL': '{title} must be a valid web address',
+        'ALPHANUMERIC': '{title} may only contain [A-Za-z] and [0-9]',
+        'NUMERIC': '{title} may only contain [0-9]',
+        'ALPHA': '{title} may only contain [A-Za-z]',
+        'DECIMAL': '{title} must be a valid decimal',
+        'CURRENCY': '{title} must be a valid currency value', 
+        'IP': '{title} must be a valid IP address',
+        'MIN': '{title} must be a minimum of {min} characters',
+        'MAX': '{title} must be a maximum of {max} characters',
+        'RANGE': '{title} must be a minimum of {min} and a maximum of {max} characters',
+        'EQUAL': '{title} must be equal to {field}',
+        'FORMAT': '{title} did not pass the [{regex}] test',
+        'TIME': '{title} is not a valid time',
+        'DATE': '{title} is not a valid date',
+        'TRUTHY': '{title} is not valid',
+        'FALSY': '{title} is not valid'
+    },
+    'CC':{
+        'MESSAGE':'{title} is not a valid credit card number'
+    },
+    'STR':{
+        'MESSAGE': '{title} did not pass the strength test.',
+        'IS_MINIMUM': '{title} must be at least {min} characters',
+        'HAS_LOWER': '{title} must have at least 1 lower case character',
+        'HAS_UPPER': '{title} must have at least 1 upper case character',
+        'HAS_NUMBER': '{title} must have at least 1 number',
+        'HAS_SPECIAL': '{title} must have at least 1 special character',
+    }
+};
+
+var ru = {
+    'TESTS':{
+        'REQUIRED': '{title} поле, обязательно',
+        'EMAIL': '{title} должно быть действующим адресом электронной почты',
+        'URL': '{title} должно быть действительным адресом веб сайта',
+        'ALPHANUMERIC': '{title} может содержать [A-Za-z] и [0-9]',
+        'NUMERIC': '{title} может содержать [0-9]',
+        'ALPHA': '{title} может содержать [A-Za-z]',
+        'DECIMAL': '{title} должно быть десятичным',
+        'CURRENCY': '{title} должно быть валютой', 
+        'IP': '{title} должно быть корректным IP адресом',
+        'MIN': '{title} должно быть минимум {min} знаков',
+        'MAX': '{title} должно быть максимум {max} знаков',
+        'RANGE': '{title} должно быть минимум {min} и максимум {max} знаков',
+        'EQUAL': '{title} должно быть равно полю {field}',
+        'FORMAT': '{title} не соответствут формату [{regex}]',
+        'TIME': '{title} не корректное время',
+        'DATE': '{title} не корректная дата',
+        'TRUTHY': '{title} не корректно',
+        'FALSY': '{title} не корректно'
+    },
+    'CC':{
+        'MESSAGE':'{title} не корректный номер кредитной карты'
+    },
+    'STR':{
+        'MESSAGE': '{title} не пройден тест на сложность!',
+        'IS_MINIMUM': '{title} должно быть минимум {min} знаков',
+        'HAS_LOWER': '{title} должно быть минимум 1 знак нижнего регистра',
+        'HAS_UPPER': '{title} должно быть минимум 1 знак верхнего регистра',
+        'HAS_NUMBER': '{title} должно быть минимум 1 цифра',
+        'HAS_SPECIAL': '{title} должно быть минимум 1 спец. символ',
+    }
+};
+
+/**
+ * add more locales here
+ */
+/**
+ * and there
+ */
+var result = {
+    en: en,
+    ru: ru
+};
+
+var retriever = function (path) {
+    var str = ob.get(result[locale], path);
+    return str;
+};
+var locale = 'en';
+
+var setLocale = function (newLocale) {
+    locale = newLocale;
+};
+
+var getLocale = function() {
+    return locale;
+};
+
+function isFunction(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+   }
+
+var i18n = { 
+    retriever: retriever,
+    getLocale: getLocale,
+    setLocale: setLocale,
+    isFunction: isFunction 
+};
+
+var r$1 = i18n.retriever;
 /**
  * The result object containing the outcome of the credit card test.
  */
@@ -21,7 +127,7 @@ var cc = {
     /**
      * The default error message.
      */
-    message: () => '{title} is not a valid credit card number',
+    message: function() { return r$1('CC.MESSAGE')},
     schemes: [
         {
             regex: /^(5610|560221|560222|560223|560224|560225)/,
@@ -125,6 +231,7 @@ var cc = {
     }
 };
 
+var r$2 = i18n.retriever;
 /**
  * The result object containing the outcome of the strength test.
  */
@@ -168,7 +275,7 @@ var strength = {
     /**
      * The default error message.
      */
-    message: () => '{title} did not pass the strength test.',
+    message: function() { return r$2('STR.MESSAGE')},
     /**
      * Expects the 'min' and 'bonus' parameters.
      */
@@ -177,11 +284,11 @@ var strength = {
      * Default error messages
      */
     errors: {
-        isMinimum: '{title} must be at least {min} characters',
-        hasLower: '{title} must have at least 1 lower case character',
-        hasUpper: '{title} must have at least 1 upper case character',
-        hasNumber: '{title} must have at least 1 number',
-        hasSpecial: '{title} must have at least 1 special character'
+        isMinimum: function() { return r$2('STR.IS_MINIMUM')},
+        hasLower: function() { return r$2('STR.HAS_LOWER')},
+        hasUpper: function() { return r$2('STR.HAS_UPPER')},
+        hasNumber: function() { return r$2('STR.HAS_NUMBER')},
+        hasSpecial: function() { return r$2('STR.HAS_SPECIAL')} 
     },
     /**
      * Returns an object containing the score of a value.
@@ -234,19 +341,34 @@ var strength = {
         var result = this._getScore(text);
         result.strength = this.strengths[result.points];
         if (!result.isMinimum) {
-            result.errors.push(this.errors.isMinimum);
+            if (i18n.isFunction(this.errors.isMinimum))
+                result.errors.push(this.errors.isMinimum());
+            else 
+                result.errors.push(this.errors.isMinimum);
         }
         if (!result.hasLower) {
-            result.errors.push(this.errors.hasLower);
+            if (i18n.isFunction(this.errors.hasLower))
+                result.errors.push(this.errors.hasLower());
+            else 
+                result.errors.push(this.errors.hasLower);
         }
         if (!result.hasUpper) {
-            result.errors.push(this.errors.hasUpper);
-        }
+            if (i18n.isFunction(this.errors.hasUpper))
+                result.errors.push(this.errors.hasUpper());
+            else 
+                result.errors.push(this.errors.hasUpper);
+        }   
         if (!result.hasSpecial) {
-            result.errors.push(this.errors.hasSpecial);
+            if (i18n.isFunction(this.errors.hasSpecial))
+                result.errors.push(this.errors.hasSpecial());
+            else 
+                result.errors.push(this.errors.hasSpecial);
         }
         if (!result.hasNumber) {
-            result.errors.push(this.errors.hasNumber);
+            if (i18n.isFunction(this.errors.hasNumber))
+                result.errors.push(this.errors.hasNumber());
+            else
+                result.errors.push(this.errors.hasNumber);
         }
         if (result.points > 4) {
           result.valid = true;
@@ -270,60 +392,6 @@ var strength = {
     }
 };
 
-var en = {
-    'TESTS':{
-        'REQUIRED': '{title} is required',
-        'EMAIL': '{title} must be a valid email address',
-        'URL': '{title} must be a valid web address'
-    }
-};
-
-var ru = {
-    'TESTS':{
-        'REQUIRED': '{title} поле, обязательно',
-        'EMAIL': '{title} должно быть действующим адресом электронной почты',
-        'URL': '{title} должно быть действительным адресом веб сайта'
-    }
-};
-
-/**
- * add more locales here
- */
-/**
- * and there
- */
-let result = {
-    en, ru
-};
-
-var retriever = function (path) {
-    let str = ob.get(result[locale.locale], path);
-    if (!str) console.warn('looks like no i18n str found!');
-    return str;
-};
-let locale = null;
-class LocaleSingleton {  
-    constructor() {
-        if(!locale){
-            locale = this;
-        }
-        this.locale = 'en';
-        return locale;
-    }
-}
-
-var setLocale = function (newLocale) {
-    locale.locale = newLocale;
-};
-
-var getLocale = function() {
-    return locale.locale;
-};
-
-locale = new LocaleSingleton();
-
-var i18n = { retriever, getLocale, setLocale };
-
 var r = i18n.retriever;
 
 var tests = {
@@ -334,7 +402,7 @@ var tests = {
         validate: function(value) {
             return !!value;
         },
-        message: () => r('TESTS.REQUIRED'),
+        message: function() { return r('TESTS.REQUIRED')},
         expects: false
     },
     /**
@@ -345,7 +413,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.EMAIL'),
+        message: function() { return r('TESTS.EMAIL')},
         expects: false
     },
     /**
@@ -356,7 +424,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.URL'),
+        message: function() { return r('TESTS.URL')},
         expects: false
     },
     /**
@@ -367,7 +435,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} may only contain [A-Za-z] and [0-9]',
+        message: function() { return r('TESTS.ALPHANUMERIC')},
         expects: false
     },
     /**
@@ -378,7 +446,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} may only contain [0-9]',
+        message: function() { return r('TESTS.NUMERIC')},
         expects: false
     },
     /**
@@ -389,7 +457,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} may only contain [A-Za-z]',
+        message: function() { return r('TESTS.ALPHA')},
         expects: false
     },
     /**
@@ -400,7 +468,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} must be a valid decimal',
+        message: function() { return r('TESTS.DECIMAL')},
         expects: false
     },
     /**
@@ -411,7 +479,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} must be a valid currency value',
+        message: function() { return r('TESTS.CURRENCY')},
         expects: false
     },
     /**
@@ -427,7 +495,7 @@ var tests = {
         validate: function(value) {
             return this.regex.ipv4.test(value) || this.regex.ipv6.test(value) || this.regex.ipv4Cidr.test(value) || this.regex.ipv6Cidr.test(value);
         },
-        message: () => '{title} must be a valid IP address',
+        message: function() { return r('TESTS.IP')},
         expects: false
     },
     /**
@@ -437,7 +505,7 @@ var tests = {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length >= pars.min;
         },
-        message: () => '{title} must be a minimum of {min} characters',
+        message: function() { return r('TESTS.MIN')},
         expects: ['min']
     },
     /**
@@ -447,7 +515,7 @@ var tests = {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length <= pars.max;
         },
-        message: () => '{title} must be a maximum of {max} characters',
+        message: function() { return r('TESTS.MAX')},
         expects: ['max']
     },
     /**
@@ -463,7 +531,7 @@ var tests = {
             }
             return false;
         },
-        message: () => '{title} must be a minimum of {min} and a maximum of {max} characters',
+        message: function() { return r('TESTS.RANGE')},
         expects: ['min', 'max']
     },
     /**
@@ -473,7 +541,7 @@ var tests = {
         validate: function(value, pars) {
             return '' + value === '' + pars.value;
         },
-        message: () => '{title} must be equal to {field}',
+        message: function() { return r('TESTS.EQUAL')},
         expects: ['value', 'field']
     },
     /**
@@ -486,7 +554,7 @@ var tests = {
             }
             throw 'approve.value(): [format] - regex is not a valid regular expression.';
         },
-        message: () => '{title} did not pass the [{regex}] test',
+        message: function() { return r('TESTS.FORMAT')},
         expects: ['regex']
     },
     /**
@@ -497,7 +565,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} is not a valid time',
+        message: function() { return r('TESTS.TIME')},
         expects: false
     },
     /**
@@ -511,7 +579,7 @@ var tests = {
         validate: function(value, pars) {
             return this.formats[pars.format].test(value);
         },
-        message: () => '{title} is not a valid date',
+        message: function() { return r('TESTS.DATE')},
         expects: ['format']
     },
     /**
@@ -522,7 +590,7 @@ var tests = {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => '{title} is not valid',
+        message: function() { return r('TESTS.TRUTHY')},
         expects: false
     },
     /**
@@ -533,7 +601,7 @@ var tests = {
         validate: function(value) {
             return !this.regex.test(value);
         },
-        message: () => '{title} is not valid',
+        message: function() { return r('TESTS.FALSY')},
         expects: false
     },
     cc: cc,
@@ -579,7 +647,7 @@ var approve = {
 	 * A helper function for formatting strings.
 	 */
 	_format: function(text, col) {
-	    col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
+		col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
 	    return text.replace(/\{\{|\}\}|\{(\w+)\}/g, function (m, n) {
 	        if (m === "{{") { return "{"; }
 	        if (m === "}}") { return "}"; }
@@ -831,9 +899,6 @@ var approve = {
 	},
 	setLocale: function(newLocale) {
 		i18n.setLocale(newLocale);
-	},
-	getStr: function(path) {
-		return i18n.retriever(path);
 	}
 };
 

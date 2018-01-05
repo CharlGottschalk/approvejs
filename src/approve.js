@@ -40,7 +40,7 @@ export default {
 	 * A helper function for formatting strings.
 	 */
 	_format: function(text, col) {
-	    col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
+		col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
 	    return text.replace(/\{\{|\}\}|\{(\w+)\}/g, function (m, n) {
 	        if (m === "{{") { return "{"; }
 	        if (m === "}}") { return "}"; }

@@ -1,3 +1,5 @@
+import i18n from '../i18n/helper';
+var r = i18n.retriever;
 /**
  * The result object containing the outcome of the strength test.
  */
@@ -41,7 +43,7 @@ export default {
     /**
      * The default error message.
      */
-    message: () => r('STR.MESSAGE'),
+    message: function() { return r('STR.MESSAGE')},
     /**
      * Expects the 'min' and 'bonus' parameters.
      */
@@ -50,11 +52,11 @@ export default {
      * Default error messages
      */
     errors: {
-        isMinimum: () => r('STR.IS_MINIMUM'),
-        hasLower: () => r('STR.HAS_LOWER'),
-        hasUpper: () => r('STR.HAS_UPPER'),
-        hasNumber: () => r('STR.HAS_NUMBER'),
-        hasSpecial: () => r('STR.HAS_SPECIAL') 
+        isMinimum: function() { return r('STR.IS_MINIMUM')},
+        hasLower: function() { return r('STR.HAS_LOWER')},
+        hasUpper: function() { return r('STR.HAS_UPPER')},
+        hasNumber: function() { return r('STR.HAS_NUMBER')},
+        hasSpecial: function() { return r('STR.HAS_SPECIAL')} 
     },
     /**
      * Returns an object containing the score of a value.
@@ -107,19 +109,34 @@ export default {
         var result = this._getScore(text);
         result.strength = this.strengths[result.points];
         if (!result.isMinimum) {
-            result.errors.push(this.errors.isMinimum);
+            if (i18n.isFunction(this.errors.isMinimum))
+                result.errors.push(this.errors.isMinimum());
+            else 
+                result.errors.push(this.errors.isMinimum);
         }
         if (!result.hasLower) {
-            result.errors.push(this.errors.hasLower);
+            if (i18n.isFunction(this.errors.hasLower))
+                result.errors.push(this.errors.hasLower());
+            else 
+                result.errors.push(this.errors.hasLower);
         }
         if (!result.hasUpper) {
-            result.errors.push(this.errors.hasUpper);
-        }
+            if (i18n.isFunction(this.errors.hasUpper))
+                result.errors.push(this.errors.hasUpper());
+            else 
+                result.errors.push(this.errors.hasUpper);
+        }   
         if (!result.hasSpecial) {
-            result.errors.push(this.errors.hasSpecial);
+            if (i18n.isFunction(this.errors.hasSpecial))
+                result.errors.push(this.errors.hasSpecial());
+            else 
+                result.errors.push(this.errors.hasSpecial);
         }
         if (!result.hasNumber) {
-            result.errors.push(this.errors.hasNumber);
+            if (i18n.isFunction(this.errors.hasNumber))
+                result.errors.push(this.errors.hasNumber());
+            else
+                result.errors.push(this.errors.hasNumber);
         }
         if (result.points > 4) {
           result.valid = true;
@@ -142,3 +159,4 @@ export default {
         return this._getStrength(value);
     }
 };
+

@@ -11,7 +11,7 @@ export default {
         validate: function(value) {
             return !!value;
         },
-        message: () => r('TESTS.REQUIRED'),
+        message: function() { return r('TESTS.REQUIRED')},
         expects: false
     },
     /**
@@ -22,7 +22,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.EMAIL'),
+        message: function() { return r('TESTS.EMAIL')},
         expects: false
     },
     /**
@@ -33,7 +33,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.URL'),
+        message: function() { return r('TESTS.URL')},
         expects: false
     },
     /**
@@ -44,7 +44,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.ALPHANUMERIC'),
+        message: function() { return r('TESTS.ALPHANUMERIC')},
         expects: false
     },
     /**
@@ -55,7 +55,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.NUMERIC'),
+        message: function() { return r('TESTS.NUMERIC')},
         expects: false
     },
     /**
@@ -66,7 +66,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.ALPHA'),
+        message: function() { return r('TESTS.ALPHA')},
         expects: false
     },
     /**
@@ -77,7 +77,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.DECIMAL'),
+        message: function() { return r('TESTS.DECIMAL')},
         expects: false
     },
     /**
@@ -88,7 +88,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.CURRENCY'),
+        message: function() { return r('TESTS.CURRENCY')},
         expects: false
     },
     /**
@@ -104,7 +104,7 @@ export default {
         validate: function(value) {
             return this.regex.ipv4.test(value) || this.regex.ipv6.test(value) || this.regex.ipv4Cidr.test(value) || this.regex.ipv6Cidr.test(value);
         },
-        message: () => r('TESTS.IP'),
+        message: function() { return r('TESTS.IP')},
         expects: false
     },
     /**
@@ -114,7 +114,7 @@ export default {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length >= pars.min;
         },
-        message: () => r('TESTS.MIN'),
+        message: function() { return r('TESTS.MIN')},
         expects: ['min']
     },
     /**
@@ -124,7 +124,7 @@ export default {
         validate: function(value, pars) {
             return typeof value === 'string' && value.length <= pars.max;
         },
-        message: () => r('TESTS.MAX'),
+        message: function() { return r('TESTS.MAX')},
         expects: ['max']
     },
     /**
@@ -140,7 +140,7 @@ export default {
             }
             return false;
         },
-        message: () => r('TESTS.RANGE'),
+        message: function() { return r('TESTS.RANGE')},
         expects: ['min', 'max']
     },
     /**
@@ -150,7 +150,7 @@ export default {
         validate: function(value, pars) {
             return '' + value === '' + pars.value;
         },
-        message: () => r('TESTS.EQUAL'),
+        message: function() { return r('TESTS.EQUAL')},
         expects: ['value', 'field']
     },
     /**
@@ -163,7 +163,7 @@ export default {
             }
             throw 'approve.value(): [format] - regex is not a valid regular expression.';
         },
-        message: () => r('TESTS.FORMAT'),
+        message: function() { return r('TESTS.FORMAT')},
         expects: ['regex']
     },
     /**
@@ -174,7 +174,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.TIME'),
+        message: function() { return r('TESTS.TIME')},
         expects: false
     },
     /**
@@ -188,7 +188,7 @@ export default {
         validate: function(value, pars) {
             return this.formats[pars.format].test(value);
         },
-        message: () => r('TESTS.DATE'),
+        message: function() { return r('TESTS.DATE')},
         expects: ['format']
     },
     /**
@@ -199,7 +199,7 @@ export default {
         validate: function(value) {
             return this.regex.test(value);
         },
-        message: () => r('TESTS.TRUTHY'),
+        message: function() { return r('TESTS.TRUTHY')},
         expects: false
     },
     /**
@@ -210,7 +210,7 @@ export default {
         validate: function(value) {
             return !this.regex.test(value);
         },
-        message: () => r('TESTS.FALSY'),
+        message: function() { return r('TESTS.FALSY')},
         expects: false
     },
     cc: cc,
