@@ -3,7 +3,7 @@
   "author": "Charl Gottschalk",
   "sourcePath": "src",
   "buildPath": "docs",
-  "base": "https://charlgottschalk.github.com/approvejs/docs",
+  "base": "https://charlgottschalk.github.io/approvejs/docs",
   "googleCode": "",
   "template": {
     "path": "src/templates",

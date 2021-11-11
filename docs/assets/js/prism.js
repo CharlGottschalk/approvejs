@@ -3891,7 +3891,7 @@ Prism.languages.nix = {
 
 Prism.languages.nix.string.inside.interpolation.inside.rest = Prism.util.clone(Prism.languages.nix);
 /**
- * Original by Jan T. Sott (http://github.com/idleberg)
+ * Original by Jan T. Sott (http://github.io/idleberg)
  *
  * Includes all commands and plug-ins shipped with NSIS 3.0a2
  */
